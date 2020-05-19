@@ -40,9 +40,9 @@ public class Atom {
 	protected ValenceBandCharge getValenceCharge(String position) {
 		return valenceCharges.get(position);
 	}
-	protected ValenceBandCharge getExternalCharge(String position) {
-		return this.getAdjacentAtom(position).getValenceCharge(Orientation.getOpposite(position));
-	}
+//	protected ValenceBandCharge getExternalCharge(String position) {
+//		return this.getAdjacentAtom(position).getValenceCharge(Orientation.getOpposite(position));
+//	}
 	protected Atom getAdjacentAtom(String position) {
 		if(position.contentEquals("up")) {
 			if(this.indexX>0) {
@@ -64,11 +64,11 @@ public class Atom {
 		
 	}
 
-	protected ArrayList<ValenceBandCharge> getOtherValenceElectron(String position){
-		ArrayList<ValenceBandCharge> otherCharges = (ArrayList<ValenceBandCharge>) valenceCharges.values();
-		otherCharges.remove(this.getValenceCharge(position));
-		return  otherCharges;
-	}
+//	protected ArrayList<ValenceBandCharge> getOtherValenceElectron(String position){
+//		ArrayList<ValenceBandCharge> otherCharges = (ArrayList<ValenceBandCharge>) valenceCharges.values();
+//		otherCharges.remove(this.getValenceCharge(position));
+//		return  otherCharges;
+//	}
 	public String checkForHole() {
 		Iterator<Entry<String, ValenceBandCharge>> it = this.valenceCharges.entrySet().iterator();
 		while (it.hasNext()) {
