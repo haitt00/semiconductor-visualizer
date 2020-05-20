@@ -99,6 +99,16 @@ public class Atom {
 		return str;
 	}
 	
+	//behavior 1 invoker
+	public void passOnConductingE() {
+		System.out.println("Old pos:"+this.indexX+", "+this.indexY);
+		System.out.println("New pos:"+this.getAdjacentAtom("right").indexX+", "+this.getAdjacentAtom("right").indexY);
+		this.getAdjacentAtom("right").conductingE = this.conductingE;
+		this.conductingE = null;
+		//TO-DO: call the animation
+	}
+	
+	//behavior 2 & 3 invoker
 	public void exchangeHoleWithElectron() {
 		String Holeposition = this.checkForHole();
 		ValenceBandCharge holeHolder = this.getValenceCharge(Holeposition);
@@ -125,12 +135,15 @@ public class Atom {
 			}
 			this.valenceCharges.replace(Holeposition, ExchangingAtom.getValenceCharge(newHolePosition)); 
 			ExchangingAtom.valenceCharges.replace(newHolePosition, holeHolder);
+			//TO-DO: call the animation
 	}
 	
-	public void passOnConductingE() {
-			System.out.println("Old pos:"+this.indexX+", "+this.indexY);
-			System.out.println("New pos:"+this.getAdjacentAtom("right").indexX+", "+this.getAdjacentAtom("right").indexY);
-			this.getAdjacentAtom("right").conductingE = this.conductingE;
-			this.conductingE = null;
-		}
+	//behavior 4 invoker
+	public void diffuse() {
+		
+	}
+	//behavior 5 invoker
+	public void recombination() {
+		
+	}
 	}
