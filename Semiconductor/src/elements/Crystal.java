@@ -7,16 +7,19 @@ import settings.Settings;
 
 public class Crystal {
 
-	public static Atom atoms[][] = new Atom[Settings.crystalHeight][Settings.crystalWidth];
+	private Atom atoms[][] = new Atom[Settings.crystalHeight][Settings.crystalWidth];
 	
 	public Crystal() {
 		
+	}
+	public Atom getAtomAt(int x, int y) {
+		return atoms[x][y];
 	}
 	public void initCrystal(String type) {
 		if(type.contentEquals("SI")) {
 			for (int i = 0; i < Settings.crystalHeight; i++) {
 				for (int j = 0; j < Settings.crystalWidth; j++) {
-					atoms[i][j] = new SiliconAtom(i, j);
+					atoms[i][j] = new SiliconAtom(i, j, this);
 				}
 			}
 		}
@@ -24,10 +27,10 @@ public class Crystal {
 			for (int i = 0; i < Settings.crystalHeight; i++) {
 				for (int j = 0; j < Settings.crystalWidth; j++) {
 					if(i==2&j==2) {
-						atoms[i][j] = new AluminumAtom(i, j);
+						atoms[i][j] = new AluminumAtom(i, j, this);
 					}
 					else{
-						atoms[i][j] = new SiliconAtom(i, j);
+						atoms[i][j] = new SiliconAtom(i, j, this);
 					}
 				}
 			}
@@ -36,10 +39,10 @@ public class Crystal {
 			for (int i = 0; i < Settings.crystalHeight; i++) {
 				for (int j = 0; j < Settings.crystalWidth; j++) {
 					if(i==2&j==2) {
-						atoms[i][j] = new PhosphorusAtom(i, j);
+						atoms[i][j] = new PhosphorusAtom(i, j, this);
 					}
 					else{
-						atoms[i][j] = new SiliconAtom(i, j);
+						atoms[i][j] = new SiliconAtom(i, j, this);
 					}
 				}
 			}

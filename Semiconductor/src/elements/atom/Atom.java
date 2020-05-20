@@ -1,40 +1,47 @@
 package elements.atom;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
-
 import elements.Crystal;
 import elements.charge.ConductionBandElectron;
 import elements.charge.ValenceBandCharge;
 import elements.charge.ValenceBandHole;
 import settings.Settings;
-import utilities.Orientation;
 
 public class Atom {
 
 	private int indexX;
 	private int indexY;
+	private Crystal container;
 	protected HashMap<String, ValenceBandCharge> valenceCharges = new HashMap<String, ValenceBandCharge>();
-	protected ConductionBandElectron conductingE = null;
+	protected ConductionBandElectron conductingE;
 	public Atom() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
-	public Atom(int indexX, int indexY) {
+	public Atom(int indexX, int indexY, Crystal container) {
 		super();
 		this.indexX = indexX;
 		this.indexY = indexY;
+		this.container = container;
 	}
-	
+
 	public int getIndexX() {
 		return indexX;
 	}
 
 	public int getIndexY() {
 		return indexY;
+	}
+
+	protected Crystal getContainer() {
+		return container;
+	}
+
+	protected void setContainer(Crystal container) {
+		this.container = container;
 	}
 
 	protected ValenceBandCharge getValenceCharge(String position) {
@@ -46,21 +53,21 @@ public class Atom {
 	protected Atom getAdjacentAtom(String position) {
 		if(position.contentEquals("up")) {
 			if(this.indexX>0) {
-				return Crystal.atoms[this.indexX-1][this.indexY];
+				return this.getContainer().getAtomAt(this.indexX-1, this.indexY);
 			}
 			else return null;
 		}
 		if(position.contentEquals("down")) {
 			if(this.indexX<Settings.crystalHeight-1) {
-				return Crystal.atoms[this.indexX+1][this.indexY];
+				return this.getContainer().getAtomAt(this.indexX+1, this.indexY);
 			}
 			else return null;
 		}
 		if(position.contentEquals("right")) {
-			return Crystal.atoms[this.indexX][(this.indexY+1)%Settings.crystalWidth];
+			return this.getContainer().getAtomAt(this.indexX, (this.indexY+1)%Settings.crystalWidth);
 		}
 		
-		return Crystal.atoms[this.indexX][(this.indexY-1)%Settings.crystalWidth];
+		return this.getContainer().getAtomAt(this.indexX, (this.indexY-1)%Settings.crystalWidth);
 		
 	}
 
