@@ -100,10 +100,9 @@ public abstract class Particle extends Transition{
 		SequentialTransition sqTrans = new SequentialTransition();
 		ParallelTransition prlTrans = new ParallelTransition();
 		
-		prlTrans.getChildren().addAll(conductE.disappear(), hole.disappear());
-		sqTrans.getChildren().addAll(conductE.spinAndResize(), prlTrans, valenceE.appear(hole));
+		prlTrans.getChildren().addAll(conductE.spinAndResize(), conductE.disappear(), hole.disappear(), valenceE.appear(hole));
 		
-		sqTrans.play();
+		prlTrans.play();
 		
 	}
 	

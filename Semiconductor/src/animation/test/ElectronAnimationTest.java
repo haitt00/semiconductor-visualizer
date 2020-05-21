@@ -1,17 +1,13 @@
 package animation.test;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
 import animation.ConductElectron;
-import animation.Particle;
 import animation.ValenceElectron;
 import animation.ValenceHole;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 
 public class ElectronAnimationTest extends Application{
 
@@ -24,30 +20,43 @@ public class ElectronAnimationTest extends Application{
 		
 		// set initial position for electron and hole
 		
-		valenceElectron.getParticle().setX(0);
+/*		valenceElectron.getParticle().setX(0);
 		valenceElectron.getParticle().setY(0);
 		hole.getParticle().setX(300);
 		hole.getParticle().setY(600);
+		conductElectron.getParticle().setX(300);
+		conductElectron.getParticle().setY(0);
+		*/
+		
+		// test animation 2 + 3 - done
+		
+//		Particle.changeElectronAndHole(valenceElectron, hole);
+		
+		// test animation 1 - done
+		
+//		conductElectron.translationalMove();
+		
+		// test animation 4
+		// cannot display the explosion image because it didn't added to the pane "root" below
+		// although the transition is still played
+		// how to solve this?
+		
+		valenceElectron.explode(hole, conductElectron);
+		
+		// test animation 5 - done
+		
+/*		valenceElectron.getParticle().setX(0);
+		valenceElectron.getParticle().setY(0);
+		hole.getParticle().setX(0);
+		hole.getParticle().setY(0);
 		conductElectron.getParticle().setX(0);
 		conductElectron.getParticle().setY(0);
-		
-		// test each animation
-		
-	//	valenceElectron.jumpToHole(hole);
-//		hole.jumpToElectron(electron);
-		
-		// test combination of 2 animation: jumpToHole and jumpToElectron
-		
-		Particle.changeElectronAndHole(valenceElectron, hole);
-		
-		
-		// test translational moving with vibration
-		
-		conductElectron.translationalMove();
+		Particle.createValenceBandE(hole, conductElectron, valenceElectron);
+		*/
 		
 		Pane root = new Pane();
 		root.getChildren().addAll(valenceElectron.getParticle(), hole.getParticle(), conductElectron.getParticle());
-		
+//		root.getChildren().addAll(valenceElectron.getParticle(), imgExplosion, hole.getParticle(), conductElectron.getParticle());
 		Scene scene = new Scene(root, 1000, 1000);
 		
 		stage.setScene(scene);

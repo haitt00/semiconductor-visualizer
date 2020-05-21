@@ -69,34 +69,21 @@ public class ValenceElectron extends Particle {
 	// so that this function can do its job
 	
 	public void explode(ValenceHole hole, ConductElectron conductE) {
-	//	String strHole = "./src/images/particle-hole.png";
-	//	String strConductE = "./src/images/particle-conduct-e.png";
 		String strExplosion  = "./src/images/atom-recombination.png";
 		
-	/*	ImageView imgHole = new ImageView(new Image(strHole));
-		ImageView imgConductE = new ImageView(new Image(strConductE));
+		FileInputStream inputExplosion = null;
+		try {
+			inputExplosion = new FileInputStream(strExplosion);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
-		imgHole.setX(this.getParticle().getX());
-		imgHole.setY(this.getParticle().getY());
-		
-		imgConductE.setX(this.getParticle().getX());
-		imgConductE.setY(this.getParticle().getY());
-		
-		FadeTransition holeAppear = new FadeTransition(Duration.millis(500));
-		holeAppear.setNode(imgHole);
-		holeAppear.setFromValue(0);
-		holeAppear.setToValue(1);
-		
-		FadeTransition conductEAppear = new FadeTransition(Duration.millis(500));
-		conductEAppear.setNode(imgConductE);
-		conductEAppear.setFromValue(0);
-		conductEAppear.setToValue(1);
-		*/
-		ImageView imgExplosion = new ImageView(new Image(strExplosion));
+		Image explosion = new Image(inputExplosion);
+		ImageView imgExplosion = new ImageView(explosion);
 		imgExplosion.setX(this.getParticle().getX());
 		imgExplosion.setY(this.getParticle().getY());
 		
-		FadeTransition explosionIn = new FadeTransition(Duration.millis(500));
+		FadeTransition explosionIn = new FadeTransition(Duration.millis(1000));
 		explosionIn.setNode(imgExplosion);
 		explosionIn.setFromValue(0);
 		explosionIn.setToValue(1);
@@ -106,20 +93,17 @@ public class ValenceElectron extends Particle {
 		explosionOut.setFromValue(1);
 		explosionOut.setToValue(0);
 		
-		FadeTransition valEdisappear = new FadeTransition(Duration.millis(200));
-		valEdisappear.setNode(this.getParticle());
-		valEdisappear.setFromValue(1);
-		valEdisappear.setToValue(0);		
+		hole.getParticle().setOpacity(0);
+		conductE.getParticle().setOpacity(0);	
 		
 		ParallelTransition prlTrans1 = new ParallelTransition();
-		prlTrans1.getChildren().addAll(valEdisappear, explosionIn);
+		prlTrans1.getChildren().addAll(explosionIn, this.disappear());
 		
 		ParallelTransition prlTrans2 = new ParallelTransition();
-		prlTrans2.getChildren().addAll(explosionOut, hole.appear(this), conductE.appear(this));
+		prlTrans2.getChildren().addAll(hole.appear(this), conductE.appear(this));
 		
 		SequentialTransition sqTrans = new SequentialTransition();
-		sqTrans.getChildren().addAll(prlTrans1, prlTrans2);
-		
+		sqTrans.getChildren().addAll(prlTrans1, explosionOut, prlTrans2);
 		sqTrans.play();
 		
 	}

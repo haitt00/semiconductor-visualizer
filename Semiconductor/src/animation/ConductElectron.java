@@ -3,7 +3,6 @@ package animation;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
@@ -31,15 +30,15 @@ public class ConductElectron extends Particle {
 	}
 	
 	public Transition spinAndResize() {
-		RotateTransition rotate = new RotateTransition(Duration.millis(300));
+		RotateTransition rotate = new RotateTransition(Duration.millis(3000));
 		rotate.setNode(this.getParticle());
 		rotate.setAxis(Rotate.Z_AXIS);
 		rotate.setByAngle(360);
 		
-		ScaleTransition scale = new ScaleTransition(Duration.millis(300));
+		ScaleTransition scale = new ScaleTransition(Duration.millis(3000));
 		scale.setNode(this.getParticle());
-		scale.setByX(0.2);
-		scale.setByY(0.2);
+		scale.setByX(-0.2);
+		scale.setByY(-0.2);
 		
 		ParallelTransition prlTrans = new ParallelTransition();
 		prlTrans.getChildren().addAll(rotate, scale);
@@ -47,13 +46,4 @@ public class ConductElectron extends Particle {
 		return prlTrans;
 	}
 	
-	public void combineWithHole(ValenceHole hole) {
-		FadeTransition holeDisappear = new FadeTransition();
-		holeDisappear.setNode(hole.getParticle());
-		holeDisappear.setFromValue(1.0);
-		holeDisappear.setToValue(0);
-		
-		String strValenceE = "./src/images/particle-valence-e.png";
-		this.setParticle(new ImageView(new Image(strValenceE)));
-	}
 }
