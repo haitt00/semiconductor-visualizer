@@ -67,9 +67,11 @@ public class Atom {
 		if(position.contentEquals("right")) {
 			return this.getContainer().getAtomAt(this.indexX, (this.indexY+1)%Settings.crystalWidth);
 		}
-		
-		return this.getContainer().getAtomAt(this.indexX, (this.indexY-1)%Settings.crystalWidth);
-		
+		if(this.getIndexY()<1) {
+			this.indexY += Settings.crystalWidth;
+		}
+		return this.getContainer().getAtomAt(this.indexX, (this.indexY-1));
+	
 	}
 
 //	protected ArrayList<ValenceBandCharge> getOtherValenceElectron(String position){
