@@ -7,6 +7,7 @@ import java.util.Random;
 import elements.Crystal;
 import elements.charge.ConductionBandElectron;
 import elements.charge.ValenceBandCharge;
+import elements.charge.ValenceBandElectron;
 import elements.charge.ValenceBandHole;
 import settings.Settings;
 
@@ -110,18 +111,18 @@ public class Atom {
 	
 	//behavior 2 & 3 invoker
 	public void exchangeHoleWithElectron() {
-		String Holeposition = this.checkForHole();
-		ValenceBandCharge holeHolder = this.getValenceCharge(Holeposition);
+		String holePosition = this.checkForHole();
+		ValenceBandCharge holeHolder = this.getValenceCharge(holePosition);
 		String newHolePosition;
 		Atom ExchangingAtom;
 		
-			if(Holeposition=="left") {
+			if(holePosition=="left") {
 				newHolePosition = "right";
 				ExchangingAtom = this.getAdjacentAtom("left");
 			}
 			else {
 				ExchangingAtom = this;
-				if(Holeposition=="right") {
+				if(holePosition=="right") {
 					if(new Random().nextInt(2)==0) {
 						newHolePosition = "up";
 					}
@@ -133,17 +134,29 @@ public class Atom {
 					newHolePosition = "left";
 				}
 			}
-			this.valenceCharges.replace(Holeposition, ExchangingAtom.getValenceCharge(newHolePosition)); 
+			this.valenceCharges.replace(holePosition, ExchangingAtom.getValenceCharge(newHolePosition)); 
 			ExchangingAtom.valenceCharges.replace(newHolePosition, holeHolder);
 			//TO-DO: call the animation
 	}
 	
 	//behavior 4 invoker
 	public void diffuse() {
+		String diffusePosition;
+		int n = new Random().nextInt(4);
 		
+		diffusePosition = "left";
+		if(n == 0) diffusePosition = "up";
+		if(n == 1) diffusePosition = "down";
+		if(n == 2) diffusePosition = "right";
+		this.valenceCharges.replace(diffusePosition, new ValenceBandHole(this));
+		this.conductingE = new ConductionBandElectron(this);
+		//TO-DO: call the animation
 	}
 	//behavior 5 invoker
 	public void recombination() {
-		
+		String holePosition = this.checkForHole();
+		this.conductingE = null;
+		this.valenceCharges.replace(holePosition, new ValenceBandElectron(this));
+		//TO-DO: call the animation
 	}
 	}
