@@ -5,3 +5,6 @@
 - Animation for valence electron when replacing hole's position
 
 Note: Temporary class is used for testing methods.
+
+20/05/2020:
+Separate the functions into different class of particles

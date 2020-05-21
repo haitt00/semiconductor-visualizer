@@ -2,16 +2,9 @@ package animation;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.net.URL;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.SequentialTransition;
-import javafx.animation.Transition;
-import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.Duration;
 
 public class ValenceHole extends Particle {
 
@@ -30,6 +23,8 @@ public class ValenceHole extends Particle {
 		this.particle = imgViewHole;
 	}
 	
+
+	/* old code 
 	public Transition jumpToElectron(ValenceElectron electron) {
 		
 		double iniPositionX = electron.getParticle().getX();
@@ -57,6 +52,6 @@ public class ValenceHole extends Particle {
 		
 		return sqTransition;
 		
-	}
+	} */
 
 }
