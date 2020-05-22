@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.java">
+   <columnConstraints>
+      <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="550.0" />
+      <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" />
+      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="75.0" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="450.0" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" />
+   </rowConstraints>
+   <children>
+      <MenuBar GridPane.columnSpan="3">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+         <children>
+            <Button layoutX="680.0" layoutY="23.0" mnemonicParsing="false" text="Start Simulation!">
+               <font>
+                  <Font name="MyriadPro-Regular" size="14.0" />
+               </font>
+            </Button>
+            <Group layoutX="17.0" layoutY="26.0">
+               <children>
+                  <Label layoutX="15.0" layoutY="1.0" text="Voltage">
+                     <font>
+                        <Font name="MyriadPro-Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Slider layoutX="71.0" layoutY="4.0" />
+                  <TextField layoutX="218.0" layoutY="-2.0" prefHeight="25.0" prefWidth="79.0" />
+               </children>
+            </Group>
+            <Group layoutX="345.0" layoutY="26.0">
+               <children>
+                  <Label layoutX="-11.0" layoutY="1.0" text="Temperature">
+                     <font>
+                        <Font name="MyriadPro-Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Slider layoutX="71.0" layoutY="4.0" />
+                  <TextField layoutX="218.0" layoutY="-2.0" prefHeight="25.0" prefWidth="79.0" />
+               </children>
+            </Group>
+         </children>
+      </AnchorPane>
+      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+         <children>
+            <ImageView fx:id="atom1" fitHeight="167.0" fitWidth="177.0" layoutX="75.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <LineChart layoutX="34.0" layoutY="46.0" prefHeight="186.0" prefWidth="233.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+         </children>
+      </Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+   </children>
+</GridPane>
