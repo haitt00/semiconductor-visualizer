@@ -1,13 +1,11 @@
 package elements.charge;
-import utilities.Vector;
+import elements.atom.Atom;
 public abstract class Charge {
 
-	public Charge() {
-		
-	}
-	private Vector coordinate;
-	protected Vector getCoordinate() {
-		return coordinate;
+	private Atom containerAtom;
+	
+	public Charge(Atom atom) {
+		this.containerAtom = atom;
 	}
 	
 }
