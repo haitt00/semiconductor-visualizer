@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+
+
+<GridPane prefHeight="500.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <columnConstraints>
+      <ColumnConstraints prefWidth="500.0" />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints prefHeight="50.0" />
+      <RowConstraints prefHeight="450.0" />
+   </rowConstraints>
+   <children>
+      <Label text="Instruction" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <font>
+            <Font name="Tw Cen MT Condensed" size="45.0" />
+         </font>
+      </Label>
+      <TextField editable="false" prefHeight="450.0" prefWidth="500.0" text="This is a fucking long instruction" GridPane.rowIndex="1" />
+   </children>
+</GridPane>
