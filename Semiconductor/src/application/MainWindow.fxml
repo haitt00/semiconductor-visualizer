@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<GridPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.java">
+<GridPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainControl">
    <columnConstraints>
       <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="550.0" />
       <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" />
@@ -24,26 +24,27 @@
    <children>
       <MenuBar GridPane.columnSpan="3">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="Mode">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+                  <RadioMenuItem fx:id="radiomnitemPType" mnemonicParsing="false" text="P-type" />
+                  <RadioMenuItem fx:id="radiomnitemNType" mnemonicParsing="false" text="N-type" />
+                  <RadioMenuItem fx:id="radiomnitemIType" mnemonicParsing="false" text="I-type" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="mnitemExit" mnemonicParsing="false" text="Exit" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem fx:id="mnitemHowToUse" mnemonicParsing="false" text="How to use" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem fx:id="mnitemAbout" mnemonicParsing="false" text="About" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <children>
-            <Button layoutX="680.0" layoutY="23.0" mnemonicParsing="false" text="Start Simulation!">
+            <Button fx:id="btnStartSimulation" layoutX="680.0" layoutY="23.0" mnemonicParsing="false" text="Start Simulation!">
                <font>
                   <Font name="MyriadPro-Regular" size="14.0" />
                </font>
@@ -55,8 +56,8 @@
                         <Font name="MyriadPro-Regular" size="14.0" />
                      </font>
                   </Label>
-                  <Slider layoutX="71.0" layoutY="4.0" />
-                  <TextField layoutX="218.0" layoutY="-2.0" prefHeight="25.0" prefWidth="79.0" />
+                  <Slider fx:id="sliderVoltage" blockIncrement="0.1" layoutX="71.0" layoutY="4.0" majorTickUnit="5.0" max="5.0" min="-5.0" minorTickCount="4" showTickLabels="true" showTickMarks="true" />
+                  <TextField fx:id="txtfVoltage" layoutX="218.0" layoutY="-2.0" prefHeight="25.0" prefWidth="79.0" text="0" />
                </children>
             </Group>
             <Group layoutX="345.0" layoutY="26.0">
@@ -66,17 +67,16 @@
                         <Font name="MyriadPro-Regular" size="14.0" />
                      </font>
                   </Label>
-                  <Slider layoutX="71.0" layoutY="4.0" />
-                  <TextField layoutX="218.0" layoutY="-2.0" prefHeight="25.0" prefWidth="79.0" />
+                  <Slider fx:id="sliderTemperature" blockIncrement="0.1" layoutX="71.0" layoutY="4.0" majorTickUnit="10.0" max="50.0" minorTickCount="4" showTickLabels="true" showTickMarks="true" value="25.0" />
+                  <TextField fx:id="txtfTemperature" layoutX="218.0" layoutY="-2.0" prefHeight="25.0" prefWidth="79.0" text="25" />
                </children>
             </Group>
          </children>
       </AnchorPane>
-      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+      <Pane fx:id="panePSemi" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.rowIndex="2">
          <children>
-            <ImageView fx:id="atom1" fitHeight="167.0" fitWidth="177.0" layoutX="75.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </Pane>
+            <Label text="P semiconductor" />
+         </children></Pane>
       <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
             <LineChart layoutX="34.0" layoutY="46.0" prefHeight="186.0" prefWidth="233.0">
@@ -90,5 +90,15 @@
          </children>
       </Pane>
       <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <Pane fx:id="paneNSemi" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.rowIndex="2">
+         <children>
+            <Label text="N semiconductor" />
+         </children>
+      </Pane>
+      <Pane fx:id="paneISemi" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.rowIndex="2">
+         <children>
+            <Label layoutX="247.0" layoutY="63.0" text="I semiconductor" />
+         </children>
+      </Pane>
    </children>
 </GridPane>

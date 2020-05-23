@@ -147,6 +147,7 @@ public class MainControl implements Initializable {
 			showNPane();
 		} else if (choice.contains("I")) {
 			showIPane();
+			radiomnitemIType.setSelected(true);
 		}
 	}
 }
