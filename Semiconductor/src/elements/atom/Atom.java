@@ -1,4 +1,6 @@
 package elements.atom;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -15,8 +17,14 @@ import elements.charge.ConductionBandElectron;
 import elements.charge.ValenceBandCharge;
 import elements.charge.ValenceBandElectron;
 import elements.charge.ValenceBandHole;
+import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import settings.Settings;
 
 public class Atom {
@@ -141,6 +149,8 @@ public class Atom {
 		ConductionBandElectron e = this.conductingE;
 		newContainer.conductingE = e;
 		this.conductingE = null;
+		
+		//animation
 		if(this.indexX<Settings.crystalWidth-1) {
 		double x = newContainer.getView().getX()-this.getView().getX();
 		double y = 0;
@@ -172,12 +182,13 @@ public class Atom {
 				
 				ValenceBandCharge eHolder = ExchangingAtom.getValenceCharge(newHolePosition);
 				this.valenceCharges.replace(holePosition, eHolder);
-				System.out.println("new e:"+holePosition);
-				System.out.println("this:"+this.checkForHole());
+//				System.out.println("new e:"+holePosition);
+//				System.out.println("this:"+this.checkForHole());
 				ExchangingAtom.valenceCharges.replace(newHolePosition, holeHolder);
-				System.out.println("new hole:"+newHolePosition);
-				System.out.println("exchange atom:"+this.checkForHole());
-				
+//				System.out.println("new hole:"+newHolePosition);
+//				System.out.println("exchange atom:"+this.checkForHole());
+			 
+				//animation
 				if(this.getIndexX()>0) {
 					double x = holeHolder.getView().getX() - eHolder.getView().getX();
 					double y = holeHolder.getView().getY() - eHolder.getView().getY();
@@ -222,6 +233,8 @@ public class Atom {
 			ValenceBandCharge eHolder = ExchangingAtom.getValenceCharge(newHolePosition);
 			this.valenceCharges.replace(holePosition, eHolder); 
 			ExchangingAtom.valenceCharges.replace(newHolePosition, holeHolder);
+			
+			//animation
 			double x = holeHolder.getView().getX();
 			double y = holeHolder.getView().getY();
 			double i = eHolder.getView().getX();
@@ -231,22 +244,62 @@ public class Atom {
 	}
 	
 	//behavior 4 invoker
-	public void diffuse() {
+	public void diffuse(Pane root) {
 		String diffusePosition;
 		int n = new Random().nextInt(4);
-		diffusePosition = "left";
-		if(n == 0) diffusePosition = "up";
-		if(n == 1) diffusePosition = "down";
-		if(n == 2) diffusePosition = "right";
-		this.valenceCharges.replace(diffusePosition, new ValenceBandHole(this, diffusePosition));
-		this.conductingE = new ConductionBandElectron(this);
-		//TO-DO: call the animation
+		
+		switch (n) {
+		case 1:
+			diffusePosition = "up";
+			break;
+		case 2:
+			diffusePosition = "down";
+			break;
+		case 3:
+			diffusePosition = "right";
+			break;
+		default:
+			diffusePosition = "left";
+			break;
+		}
+		ValenceBandElectron valenceE = (ValenceBandElectron) this.valenceCharges.get(diffusePosition);
+		ElementImage explosion = ElementImage.getExplosionImage();
+		root.getChildren().add(explosion);
+		ConductionBandElectron newConductingE = new ConductionBandElectron(this);
+		ValenceBandHole newHole = new ValenceBandHole(this, diffusePosition);
+		
+		double x = valenceE.getView().getX();
+		double y = valenceE.getView().getY();
+		double i = newConductingE.getView().getX();
+		double j = newConductingE.getView().getY();
+		
+		System.out.println("moveby: "+(i-x)+", "+(j-y));
+		ParallelTransition pt = new ParallelTransition(explosion.appear(x, y), valenceE.getView().moveTranslate((i-x),(j-y)));
+		pt.setOnFinished(evt->{
+			root.getChildren().removeAll(explosion, valenceE.getView());
+			root.getChildren().addAll(newConductingE.getView(), newHole.getView());
+			this.valenceCharges.replace(diffusePosition, newHole);
+			this.conductingE = newConductingE;
+		});
+		pt.play();
 	}
 	//behavior 5 invoker
-	public void recombination() {
+	public void recombination(Pane root) {
 		String holePosition = this.checkForHole();
-		this.conductingE = null;
-		this.valenceCharges.replace(holePosition, new ValenceBandElectron(this, holePosition));
-		//TO-DO: call the animation
+		ValenceBandHole hole = (ValenceBandHole) this.valenceCharges.get(holePosition);
+		ConductionBandElectron conductingE = this.conductingE;
+		ValenceBandElectron newValenceE = new ValenceBandElectron(this, this.checkForHole());
+		double x = conductingE.getView().getX();
+		double y = conductingE.getView().getY();
+		double i = hole.getView().getX();
+		double j = hole.getView().getY();
+		ParallelTransition pt = new ParallelTransition(conductingE.getView().moveTranslate(i-x, j-y), conductingE.getView().spinAndResize());
+		pt.setOnFinished(evt->{
+			this.conductingE = null;
+			this.valenceCharges.replace(holePosition, newValenceE);
+			root.getChildren().add(newValenceE.getView());
+			root.getChildren().removeAll(hole.getView(), conductingE.getView());
+		});
+		pt.play();
 	}
 	}

@@ -31,7 +31,7 @@ import javafx.scene.shape.Shape;
 import javafx.scene.transform.Rotate;
 
 public class ElementImage extends ImageView{
-	private final Duration length = Duration.millis(2000);
+	private final Duration length = Duration.millis(1000);
 	private Object container;
 	//constructors
 	public ElementImage(Image image) {
@@ -58,10 +58,7 @@ public class ElementImage extends ImageView{
 		return new ElementImage("atom-Aluminum.png", 0.25);
 	}
 	public static ElementImage getPhosphorusImage() {
-		return new ElementImage("atom-Photphorus.png", 0.25);
-	}
-	public static ElementImage getRecombinationImage() {
-		return new ElementImage("atom-recombination.png", 0.25);
+		return new ElementImage("atom-Phosphorus.png", 0.25);
 	}
 	public static ElementImage getValenceEImage() {
 		return new ElementImage("particle-valence-e.png", 0.2);
@@ -71,6 +68,9 @@ public class ElementImage extends ImageView{
 	}
 	public static ElementImage getConductingEImage() {
 		return new ElementImage("particle-conduct-e.png", 0.2);
+	}
+	public static ElementImage getExplosionImage() {
+		return new ElementImage("particle-explosion.png", 0.2);
 	}
 	
 	//methods
@@ -94,6 +94,14 @@ public class ElementImage extends ImageView{
 		FadeTransition fadeOut = new FadeTransition(this.length, this);
 		fadeOut.setFromValue(1);
 		fadeOut.setToValue(0);
+		fadeOut.setOnFinished(evt->{
+			System.out.println("disappear: "+fadeOut.getStatus());
+			this.setTranslateX(0);
+			this.setTranslateY(0);
+			System.out.println("get property:"+this.getX()+", "+this.getY());
+			System.out.println("get translate property:"+this.getTranslateX()+", "+this.getTranslateY());
+			System.out.println("get layout property:"+this.getLayoutX()+", "+this.getLayoutY());
+		});
 		return fadeOut;
 	}
 	public Transition moveTranslate(double x, double y) {
@@ -172,16 +180,16 @@ public class ElementImage extends ImageView{
 		});
 		return move;
 	}
-	public Transition spiral() {
-		RotateTransition rotate = new RotateTransition(Duration.millis(3000));
+	public Transition spinAndResize() {
+		RotateTransition rotate = new RotateTransition(this.length);
 		rotate.setNode(this);
 		rotate.setAxis(Rotate.Z_AXIS);
 		rotate.setByAngle(360);
 		
-		ScaleTransition scale = new ScaleTransition(Duration.millis(3000));
+		ScaleTransition scale = new ScaleTransition(this.length);
 		scale.setNode(this);
-		scale.setByX(-0.2);
-		scale.setByY(-0.2);
+		scale.setByX(0.2);
+		scale.setByY(0.2);
 		
 		ParallelTransition prlTrans = new ParallelTransition();
 		prlTrans.getChildren().addAll(rotate, scale);

@@ -17,7 +17,7 @@ public class TestNewClass extends Application{
 		ElementImage Si = ElementImage.getSilicImage();
 		ElementImage Al = ElementImage.getAluminumImage();
 		ElementImage P = ElementImage.getPhosphorusImage();
-		ElementImage comb = ElementImage.getRecombinationImage();
+		ElementImage comb = ElementImage.getExplosionImage();
 		
 		Pane root = new Pane();
 		root.getChildren().addAll(c);

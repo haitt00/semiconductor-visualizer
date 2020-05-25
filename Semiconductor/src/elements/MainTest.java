@@ -7,6 +7,7 @@ import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -14,63 +15,99 @@ import settings.Settings;
 
 public class MainTest extends Application{
 
-	private Button cotinueButton = new Button("Continue?");
+	private Button continueButton = new Button("Continue?");
+	{
+		continueButton.setLayoutX(0);
+		continueButton.setLayoutY(0);
+	}
+	private Button continueAgainButton = new Button("Continue again?");
+	{
+		continueAgainButton.setLayoutX(100);
+		continueAgainButton.setLayoutY(0);
+	}
 	int timestep = 0;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Pane root = new Pane();
-		root.getChildren().add(cotinueButton);
+		root.getChildren().addAll(continueButton,continueAgainButton);
 		
-//		//test type pure (all Si)
-//		Crystal crystalPure = new Crystal();
-//		crystalPure.initCrystal("SI");
-//		crystalPure.displayCrystal();
-//		crystalPure.displayHolePosition();
-//		//test behavior 4
-//		crystalPure.getAtomAt(2, 2).diffuse();
-//		crystalPure.displayCrystal();
-//		crystalPure.displayHolePosition();
+		//test type pure (all Si)
+		Crystal crystalPure = new Crystal();
+		crystalPure.initCrystal("SI");
+		crystalPure.displayCrystal();
+		crystalPure.displayHolePosition();
+		for (int x = 0; x < Settings.crystalWidth; x++) {
+			for (int y = 0; y < Settings.crystalWidth; y++) {
+				root.getChildren().add(crystalPure.getAtomAt(x, y).getView());
+				root.getChildren().add(crystalPure.getAtomAt(x, y).getValenceCharge("up").getView());
+				root.getChildren().add(crystalPure.getAtomAt(x, y).getValenceCharge("down").getView());
+				root.getChildren().add(crystalPure.getAtomAt(x, y).getValenceCharge("right").getView());
+				root.getChildren().add(crystalPure.getAtomAt(x, y).getValenceCharge("left").getView());
+				if(crystalPure.getAtomAt(x, y).checkForConductingE()) {
+					root.getChildren().add(crystalPure.getAtomAt(x, y).getConductingE().getView());
+				}
+			}
+		}
+		//test behavior 4
+		//continue button approach
+		this.continueButton.setOnAction(evt->{
+			timestep++;
+			System.out.println("t = "+timestep);
+			crystalPure.getAtomAt(2, 2).diffuse(root);
+			crystalPure.displayCrystal();
+			crystalPure.displayHolePosition();
+//			root.getChildren().add(new Button("testout"));
+		});
+		this.continueAgainButton.setOnAction(evt->{
+			timestep++;
+			System.out.println("t = "+timestep);
+			crystalPure.getAtomAt(2, 2).recombination(root);
+			crystalPure.displayCrystal();
+			crystalPure.displayHolePosition();
+//			root.getChildren().add(new Button("testout"));
+		});
+		
 //		//test behavior 5
 //		crystalPure.getAtomAt(2, 2).recombination();
 //		crystalPure.displayCrystal();
 //		crystalPure.displayHolePosition();
 		
-		//test type P (1 Al, the rest Si) - behavior 2 & 3
-		System.out.println();
-		Crystal crystalAl = new Crystal();
-		System.out.println("t = 0:");
-		crystalAl.initCrystal("AL");
-		crystalAl.displayCrystal();
-		crystalAl.displayHolePosition();
-		for (int x = 0; x < Settings.crystalWidth; x++) {
-			for (int y = 0; y < Settings.crystalWidth; y++) {
-				root.getChildren().add(crystalAl.getAtomAt(x, y).getView());
-				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("up").getView());
-				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("down").getView());
-				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("right").getView());
-				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("left").getView());
-				if(crystalAl.getAtomAt(x, y).checkForConductingE()) {
-					root.getChildren().add(crystalAl.getAtomAt(x, y).getConductingE().getView());
-				}
-			}
-		}
-		//for-loop approach
-//		for (int i = 1; i <= 2; i++) {
-//			System.out.println("t = "+i+":");
+//		//test type P (1 Al, the rest Si) - behavior 2 & 3
+//		System.out.println();
+//		Crystal crystalAl = new Crystal();
+//		System.out.println("t = 0:");
+//		crystalAl.initCrystal("AL");
+//		crystalAl.displayCrystal();
+//		crystalAl.displayHolePosition();
+//		for (int x = 0; x < Settings.crystalWidth; x++) {
+//			for (int y = 0; y < Settings.crystalWidth; y++) {
+//				root.getChildren().add(crystalAl.getAtomAt(x, y).getView());
+//				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("up").getView());
+//				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("down").getView());
+//				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("right").getView());
+//				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("left").getView());
+//				if(crystalAl.getAtomAt(x, y).checkForConductingE()) {
+//					root.getChildren().add(crystalAl.getAtomAt(x, y).getConductingE().getView());
+//				}
+//			}
+//		}
+//		//for-loop approach
+////		for (int i = 1; i <= 2; i++) {
+////			System.out.println("t = "+i+":");
+////			crystalAl.progress();
+////			crystalAl.displayCrystal();
+////			crystalAl.displayHolePosition();
+////		}
+//		
+//		//continue button approach
+//		this.continueButton.setOnAction(evt->{
+//			timestep++;
+//			System.out.println("t = "+timestep);
 //			crystalAl.progress();
 //			crystalAl.displayCrystal();
 //			crystalAl.displayHolePosition();
-//		}
-		
-		//continue button approach
-		this.cotinueButton.setOnAction(evt->{
-			timestep++;
-			System.out.println("t = "+timestep);
-			crystalAl.progress();
-			crystalAl.displayCrystal();
-			crystalAl.displayHolePosition();
-		});
-		System.out.println();
+//		});
+//		System.out.println();
 //		//test type N (1 P, the rest Si) - behavior 1
 //		Crystal crystalP = new Crystal();
 //		System.out.println("t = 0:");
@@ -100,7 +137,7 @@ public class MainTest extends Application{
 //			crystalP.displayCrystal();
 //		}
 //		//continue button approach
-//		this.cotinueButton.setOnAction(evt->{
+//		this.continueButton.setOnAction(evt->{
 //			crystalP.progress();
 //			timestep++;
 //			System.out.println("t = "+timestep);
