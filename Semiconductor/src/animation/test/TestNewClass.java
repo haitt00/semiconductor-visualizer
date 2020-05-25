@@ -25,7 +25,7 @@ public class TestNewClass extends Application{
 //		c.appear(200, 200).play();
 //		o.disappear().play();
 //		c.moveTranslate(250, 200).play();
-		c.spiral().play();
+		c.spin().play();
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();

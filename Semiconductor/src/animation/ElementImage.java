@@ -180,7 +180,7 @@ public class ElementImage extends ImageView{
 		});
 		return move;
 	}
-	public Transition spinAndResize() {
+	public Transition spin() {
 		RotateTransition rotate = new RotateTransition(this.length);
 		rotate.setNode(this);
 		rotate.setAxis(Rotate.Z_AXIS);

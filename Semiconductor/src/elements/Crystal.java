@@ -5,6 +5,7 @@ import elements.atom.AluminumAtom;
 import elements.atom.Atom;
 import elements.atom.PhosphorusAtom;
 import elements.atom.SiliconAtom;
+import javafx.scene.layout.Pane;
 import settings.Settings;
 
 public class Crystal {
@@ -67,13 +68,17 @@ public class Crystal {
 			System.out.println();
 		}
 	}
-	public void progress() {
+	public void progress(Pane root) {
 		ArrayList<Atom> behavior23Atoms = new ArrayList<>();
 		ArrayList<Atom> behavior1Atoms = new ArrayList<>();
 		ArrayList<Atom> behavior4Atoms = new ArrayList<>();
 		ArrayList<Atom> behavior5Atoms = new ArrayList<>();
 		for (int i = 0; i < Settings.crystalHeight; i++) {
 			for (int j = 0; j < Settings.crystalWidth; j++) {
+				if(atoms[i][j].checkForConductingE()&&!(atoms[i][j].checkForHole().contentEquals("none"))) {
+					behavior5Atoms.add(atoms[i][j]);
+					continue;
+				}
 				if(atoms[i][j].checkForConductingE()) {
 					behavior1Atoms.add(atoms[i][j]);
 				}
@@ -88,6 +93,9 @@ public class Crystal {
 		}
 		for (int i = 0; i < behavior23Atoms.size(); i++) {
 			behavior23Atoms.get(i).exchangeHoleWithElectron();
+		}
+		for (int i = 0; i < behavior5Atoms.size(); i++) {
+			behavior5Atoms.get(i).recombination(root);
 		}
 //		for (int i = 0; i < Settings.crystalHeight; i++) {
 //			for (int j = 0; j < Settings.crystalWidth; j++) {

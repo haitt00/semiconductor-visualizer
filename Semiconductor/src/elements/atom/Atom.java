@@ -147,8 +147,11 @@ public class Atom {
 		
 		Atom newContainer = this.getAdjacentAtom("right");
 		ConductionBandElectron e = this.conductingE;
+		System.out.println("null e check0: "+e);
 		newContainer.conductingE = e;
+		System.out.println("null e check1: "+e);
 		this.conductingE = null;
+		System.out.println("null e check2: "+e);
 		
 		//animation
 		if(this.indexX<Settings.crystalWidth-1) {
@@ -156,6 +159,7 @@ public class Atom {
 		double y = 0;
 //		double x = newContainer.getConductingE().getView().getX();
 //		double y = newContainer.getConductingE().getView().getY();
+		System.out.println("null e check: "+e);
 		Transition t = e.getView().moveTranslate(x, y);
 		t.play();
 		}
@@ -293,7 +297,7 @@ public class Atom {
 		double y = conductingE.getView().getY();
 		double i = hole.getView().getX();
 		double j = hole.getView().getY();
-		ParallelTransition pt = new ParallelTransition(conductingE.getView().moveTranslate(i-x, j-y), conductingE.getView().spinAndResize());
+		ParallelTransition pt = new ParallelTransition(conductingE.getView().moveTranslate(i-x, j-y), conductingE.getView().spin());
 		pt.setOnFinished(evt->{
 			this.conductingE = null;
 			this.valenceCharges.replace(holePosition, newValenceE);
