@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Atom {
+public class AtomImage {
 	ImageView centralAtom;
-	ArrayList<Particle> particlesList = new ArrayList<Particle>();
+	ArrayList<ParticleImage> particlesList = new ArrayList<ParticleImage>();
 	public static String SILIC = "Silic";
 	public static String PHOTPHORUS = "Photphorus";
-	public static String INDI = "Indi"; // will change to Aluminum later
+	public static String ALUMINUM = "Aluminum"; // will change to Aluminum later
 	
 
 	public ImageView getCentralAtom() {
@@ -23,16 +23,16 @@ public class Atom {
 		this.centralAtom = centralAtom;
 	}
 
-	public ArrayList<Particle> getParticles() {
+	public ArrayList<ParticleImage> getParticles() {
 		return particlesList;
 	}
 
-	public void setParticles(ArrayList<Particle> particlesList) {
+	public void setParticles(ArrayList<ParticleImage> particlesList) {
 		this.particlesList = particlesList;
 	}
 
-	public Atom(String type) {
-		String strAtom = "images/atom-" + type + ".png";
+	public AtomImage(String type) {
+		String strAtom = "./src/images/atom-" + type + ".png";
 		FileInputStream inputAtom = null;
 		try {
 			inputAtom = new FileInputStream(strAtom);
@@ -43,26 +43,32 @@ public class Atom {
 		
 		Image imgAtom = new Image(inputAtom);
 		ImageView imgViewAtom = new ImageView(imgAtom);
+//		imgViewAtom.setScaleX(0.25);
+//		imgViewAtom.setScaleY(0.25);
+//		imgViewAtom.scaleXProperty();
+//		imgViewAtom.scaleYProperty();
+		imgViewAtom.setFitHeight(imgViewAtom.getImage().getHeight()*0.25);
+		imgViewAtom.setFitWidth(imgViewAtom.getImage().getWidth()*0.25);
 		this.centralAtom = imgViewAtom;
 		
 		if(type.equalsIgnoreCase("Silic")==true) {
 			for(int i = 0; i < 4; i++) {
-				particlesList.add(new ValenceElectron());
+				particlesList.add(new ValenceElectronImage());
 			}
 		}
 		
 		if(type.equalsIgnoreCase("Photphorus")==true) {
 			for(int i = 0; i < 3; i++) {
-				particlesList.add(new ValenceElectron());
+				particlesList.add(new ValenceElectronImage());
 			}
-			particlesList.add(new ValenceHole());
+			particlesList.add(new ValenceHoleImage());
 		}
 		
-		if(type.equalsIgnoreCase("Indi")==true) {
+		if(type.equalsIgnoreCase("Aluminum")==true) {
 			for(int i = 0; i < 4; i++) {
-				particlesList.add(new ValenceElectron());
+				particlesList.add(new ValenceElectronImage());
 			}
-			particlesList.add(new ConductElectron());
+			particlesList.add(new ConductElectronImage());
 		}
 		
 	}

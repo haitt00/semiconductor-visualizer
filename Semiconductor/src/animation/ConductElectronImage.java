@@ -12,9 +12,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
-public class ConductElectron extends Particle {
+public class ConductElectronImage extends ParticleImage {
 	
-	public ConductElectron() {
+	public ConductElectronImage() {
 		String strElectron = "./src/images/particle-conduct-e.png"; //need to find new images for conduct electron
 		FileInputStream inputElectron = null;
 		try {
@@ -26,6 +26,10 @@ public class ConductElectron extends Particle {
 		
 		Image imgElectron = new Image(inputElectron);
 		ImageView imgViewElectron = new ImageView(imgElectron);
+		
+		imgViewElectron.setFitHeight(imgViewElectron.getImage().getHeight()*0.2);
+		imgViewElectron.setFitWidth(imgViewElectron.getImage().getWidth()*0.2);
+
 		this.particle = imgViewElectron;
 	}
 	

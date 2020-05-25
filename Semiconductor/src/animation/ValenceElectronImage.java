@@ -15,9 +15,9 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
 
-public class ValenceElectron extends Particle {
+public class ValenceElectronImage extends ParticleImage {
 
-	public ValenceElectron() {
+	public ValenceElectronImage() {
 		String strElectron = "./src/images/particle-valence-e.png";
 		FileInputStream inputElectron = null;
 		try {
@@ -29,10 +29,13 @@ public class ValenceElectron extends Particle {
 		
 		Image imgElectron = new Image(inputElectron);
 		ImageView imgViewElectron = new ImageView(imgElectron);
+		imgViewElectron.setFitHeight(imgViewElectron.getImage().getHeight()*0.2);
+		imgViewElectron.setFitWidth(imgViewElectron.getImage().getWidth()*0.2);
+
 		this.particle = imgViewElectron;
 	}
 	
-	public Transition jumpToHole(ValenceHole hole) {
+	public Transition jumpToHole(ValenceHoleImage hole) {
 		Path movePath = new Path();
 		MoveTo destination = new MoveTo(this.getParticle().getX(), this.getParticle().getY());
 		CubicCurveTo path = new CubicCurveTo(this.getParticle().getX()+36, this.getParticle().getY()+36, (this.getParticle().getX()+hole.getParticle().getY())/2, 85, hole.getParticle().getX()+36, hole.getParticle().getY()+36);
@@ -68,7 +71,7 @@ public class ValenceElectron extends Particle {
 	// in main code: construct hole and conduct electron
 	// so that this function can do its job
 	
-	public void explode(ValenceHole hole, ConductElectron conductE) {
+	public void explode(ValenceHoleImage hole, ConductElectronImage conductE) {
 		String strExplosion  = "./src/images/atom-recombination.png";
 		
 		FileInputStream inputExplosion = null;

@@ -6,16 +6,16 @@ import javafx.scene.layout.Pane;
 
 public class Crystal {
 	
-	ArrayList<Atom> atomList = new ArrayList<Atom>();
+	ArrayList<AtomImage> atomList = new ArrayList<AtomImage>();
 	Pane crystal = new Pane();
 	public static String P_TYPE = "p";
 	public static String N_TYPE = "n";
 
-	public ArrayList<Atom> getAtomList() {
+	public ArrayList<AtomImage> getAtomList() {
 		return atomList;
 	}
 
-	public void setAtomList(ArrayList<Atom> atomList) {
+	public void setAtomList(ArrayList<AtomImage> atomList) {
 		this.atomList = atomList;
 	}
 
@@ -34,12 +34,12 @@ public class Crystal {
 		for(int row = 0; row < 5; row++) {
 			for(int col = 0; col < 5; col++) {
 				if((col%2==1&&row%2==0)||(col%2==0&row%2==1)) {
-					atomList.add(new Atom(Atom.SILIC));
+					atomList.add(new AtomImage(AtomImage.SILIC));
 				} else {
 					if(type.equalsIgnoreCase("p")) {
-						atomList.add(new Atom(Atom.PHOTPHORUS));
+						atomList.add(new AtomImage(AtomImage.PHOTPHORUS));
 					} else if(type.equalsIgnoreCase("n")) {
-						atomList.add(new Atom(Atom.INDI));
+						atomList.add(new AtomImage(AtomImage.ALUMINUM));
 					}
 
 				}
