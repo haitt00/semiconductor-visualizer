@@ -10,7 +10,7 @@ import settings.Settings;
 
 public class Crystal {
 
-	private Atom atoms[][] = new Atom[Settings.crystalHeight][Settings.crystalWidth];
+	private Atom atoms[][] = new Atom[Settings.crystalWidth][Settings.crystalHeight];
 	
 	public Crystal() {
 		
@@ -73,18 +73,18 @@ public class Crystal {
 		ArrayList<Atom> behavior1Atoms = new ArrayList<>();
 		ArrayList<Atom> behavior4Atoms = new ArrayList<>();
 		ArrayList<Atom> behavior5Atoms = new ArrayList<>();
-		for (int i = 0; i < Settings.crystalHeight; i++) {
-			for (int j = 0; j < Settings.crystalWidth; j++) {
-				if(atoms[i][j].checkForConductingE()&&!(atoms[i][j].checkForHole().contentEquals("none"))) {
-					behavior5Atoms.add(atoms[i][j]);
+		for (int y = 0; y < Settings.crystalHeight; y++) {
+			for (int x = 0; x < Settings.crystalWidth; x++) {
+				if(atoms[x][y].checkForConductingE()&&!(atoms[x][y].checkForHole().contentEquals("none"))) {
+					behavior5Atoms.add(atoms[x][y]);
 					continue;
 				}
-				if(atoms[i][j].checkForConductingE()) {
-					behavior1Atoms.add(atoms[i][j]);
+				if(atoms[x][y].checkForConductingE()) {
+					behavior1Atoms.add(atoms[x][y]);
 				}
-				if (!(atoms[i][j].checkForHole().contentEquals("none"))) {
-					behavior23Atoms.add(atoms[i][j]);
-					System.out.println("hole at:"+i+" "+j);
+				if (!(atoms[x][y].checkForHole().contentEquals("none"))) {
+					behavior23Atoms.add(atoms[x][y]);
+					System.out.println("hole at:"+x+" "+y);
 				}
 			}
 		}
