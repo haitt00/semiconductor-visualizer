@@ -29,10 +29,10 @@ public class Crystal {
 		if(type.contentEquals("AL")) {
 			for (int y = 0; y < Settings.crystalHeight; y++) {
 				for (int x = 0; x < Settings.crystalWidth; x++) {
-					if(x==0&y==2) {
+					if((x%2==0&&y%2==1)||(x%2==1&&y%2==0)) {
 						atoms[x][y] = new AluminumAtom(x, y, this);
 					}
-					else{
+					else {
 						atoms[x][y] = new SiliconAtom(x, y, this);
 					}
 				}
@@ -41,7 +41,7 @@ public class Crystal {
 		if(type.contentEquals("P")) {
 			for (int y = 0; y < Settings.crystalHeight; y++) {
 				for (int x = 0; x < Settings.crystalWidth; x++) {
-					if(x==3&y==2) {
+					if((x%2==0&&y%2==1)||(x%2==1&&y%2==0)) {
 						atoms[x][y] = new PhosphorusAtom(x, y, this);
 					}
 					else{
@@ -96,6 +96,9 @@ public class Crystal {
 		}
 		for (int i = 0; i < behavior5Atoms.size(); i++) {
 			behavior5Atoms.get(i).recombination(root);
+		}
+		for (int i = 0; i < behavior4Atoms.size(); i++) {
+			behavior4Atoms.get(i).diffuse(root);
 		}
 //		for (int i = 0; i < Settings.crystalHeight; i++) {
 //			for (int j = 0; j < Settings.crystalWidth; j++) {

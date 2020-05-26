@@ -7,6 +7,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -72,11 +74,11 @@ public class MainTest extends Application{
 		System.out.println();
 		Crystal crystalAl = new Crystal();
 		System.out.println("t = 0:");
-		crystalAl.initCrystal("AL");
+		crystalAl.initCrystal("SI");
 		crystalAl.displayCrystal();
 		crystalAl.displayHolePosition();
 		for (int x = 0; x < Settings.crystalWidth; x++) {
-			for (int y = 0; y < Settings.crystalWidth; y++) {
+			for (int y = 0; y < Settings.crystalHeight; y++) {
 				root.getChildren().add(crystalAl.getAtomAt(x, y).getView());
 				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("up").getView());
 				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("down").getView());
@@ -105,13 +107,27 @@ public class MainTest extends Application{
 //		});
 //		System.out.println();
 		//tineline approach
-		KeyFrame kf = new KeyFrame(null, null); 
+		
+		EventHandler onFinished = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				timestep++;
+				System.out.println("t = "+timestep);
+				crystalAl.progress(root);
+			}
+			
+		};
+		
+//		kf.setOnFinished(evt->{
+//			timestep++;
+//			System.out.println("t = "+timestep);
+//			crystalAl.progress(root);
+//		});
+		
+		KeyFrame kf = new KeyFrame(Duration.millis(2000), onFinished);
+		
 		Timeline timeline = new Timeline(kf);
-		kf.setOnFinished(evt->{
-			timestep++;
-			System.out.println("t = "+timestep);
-			crystalAl.progress(root);
-		});
+		
 		timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 		

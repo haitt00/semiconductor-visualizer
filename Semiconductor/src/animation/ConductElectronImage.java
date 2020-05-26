@@ -15,7 +15,7 @@ import javafx.util.Duration;
 public class ConductElectronImage extends ParticleImage {
 	
 	public ConductElectronImage() {
-		String strElectron = "./src/images/particle-conduct-e.png"; //need to find new images for conduct electron
+		String strElectron = "./src/images/particle-conduct-e.png";
 		FileInputStream inputElectron = null;
 		try {
 			inputElectron = new FileInputStream(strElectron);
