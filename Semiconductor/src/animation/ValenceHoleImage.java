@@ -6,9 +6,9 @@ import java.io.FileNotFoundException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ValenceHole extends Particle {
+public class ValenceHoleImage extends ParticleImage {
 
-	public ValenceHole() {
+	public ValenceHoleImage() {
 		String strHole = "./src/images/particle-hole.png";
 		FileInputStream inputHole = null;
 		try {
@@ -20,12 +20,14 @@ public class ValenceHole extends Particle {
 		
 		Image imgHole = new Image(inputHole);
 		ImageView imgViewHole = new ImageView(imgHole);
+		imgViewHole.setFitHeight(imgViewHole.getImage().getHeight()*0.2);
+		imgViewHole.setFitWidth(imgViewHole.getImage().getWidth()*0.2);
 		this.particle = imgViewHole;
 	}
 	
 
 	/* old code 
-	public Transition jumpToElectron(ValenceElectron electron) {
+	public Transition jumpToElectron(ValenceElectronImage electron) {
 		
 		double iniPositionX = electron.getParticle().getX();
 		double iniPositionY = electron.getParticle().getY();

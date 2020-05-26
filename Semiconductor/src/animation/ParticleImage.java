@@ -18,7 +18,7 @@ import javafx.util.Duration;
 @SuppressWarnings({"deprecation","unchecked", "rawtypes"})
 
 
-public abstract class Particle extends Transition{
+public abstract class ParticleImage{
 	
 	// temporary name for doing transition, will rename after intergration
 	// need advice
@@ -33,13 +33,13 @@ public abstract class Particle extends Transition{
 		this.particle = particle;
 	}
 
-	public Particle() {
+	public ParticleImage() {
 //		this.particle = new ImageView(img);
 	}
 	
 	// animation for a particle to appear in a specified position
 	
-	public Transition appear(Particle electron) {
+	public Transition appear(ParticleImage electron) {
 		double posX = electron.getParticle().getX();
 		double posY = electron.getParticle().getY();
 		
@@ -79,7 +79,7 @@ public abstract class Particle extends Transition{
 	// parameters: the valence electron and valence hole
 	// construct these in main code so that this fucntion can do its work
 	
-	public static void changeElectronAndHole(ValenceElectron electron, ValenceHole hole) {
+	public static void changeElectronAndHole(ValenceElectronImage electron, ValenceHoleImage hole) {
 		SequentialTransition sqTrans = new SequentialTransition();
 		sqTrans.getChildren().addAll(electron.jumpToHole(hole), hole.disappear(), hole.appear(electron));
 		
@@ -96,7 +96,7 @@ public abstract class Particle extends Transition{
 	// parameters: valence hole, conduct electron and valence electron
 	// construct these in main code so that this function can do its work
 	
-	public static void createValenceBandE(ValenceHole hole, ConductElectron conductE, ValenceElectron valenceE) {
+	public static void createValenceBandE(ValenceHoleImage hole, ConductElectronImage conductE, ValenceElectronImage valenceE) {
 		SequentialTransition sqTrans = new SequentialTransition();
 		ParallelTransition prlTrans = new ParallelTransition();
 		
@@ -132,12 +132,6 @@ public abstract class Particle extends Transition{
 		KeyFrame kf = new KeyFrame(Duration.millis(20), onFinished);        
         
         TimelineBuilder.create().keyFrames(kf).autoReverse(true).cycleCount(Timeline.INDEFINITE).build().play();
-	}
-
-	@Override
-	protected void interpolate(double frac) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
