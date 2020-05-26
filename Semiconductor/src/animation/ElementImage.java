@@ -2,37 +2,25 @@ package animation;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Random;
 
-import elements.atom.Atom;
-import elements.charge.Charge;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
-import javafx.animation.Timeline;
-import javafx.animation.TimelineBuilder;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.Duration;
-import settings.Settings;
-import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import javafx.scene.shape.Shape;
 import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
 
 public class ElementImage extends ImageView{
 	private final Duration length = Duration.millis(1000);
-	private Object container;
 	//constructors
 	public ElementImage(Image image) {
 		super(image);

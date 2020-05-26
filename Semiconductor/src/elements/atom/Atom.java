@@ -1,30 +1,19 @@
 package elements.atom;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import animation.AtomImage;
 import animation.ElementImage;
-import animation.ParticleImage;
-import animation.ValenceElectronImage;
-import animation.ValenceHoleImage;
 import elements.Crystal;
 import elements.charge.ConductionBandElectron;
 import elements.charge.ValenceBandCharge;
 import elements.charge.ValenceBandElectron;
 import elements.charge.ValenceBandHole;
 import javafx.animation.ParallelTransition;
-import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import settings.Settings;
 
 public class Atom {

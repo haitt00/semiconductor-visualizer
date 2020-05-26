@@ -1,8 +1,6 @@
 package elements.charge;
 
 import animation.ElementImage;
-import animation.ParticleImage;
-import animation.ValenceHoleImage;
 import elements.atom.Atom;
 import settings.Settings;
 
