@@ -67,6 +67,7 @@ public class MainTest extends Application{
 		
 		
 		
+
 //		//test type P (1 Al, the rest Si) - behavior 2 & 3
 //		System.out.println();
 //		Crystal crystalAl = new Crystal();
@@ -86,6 +87,7 @@ public class MainTest extends Application{
 //				}
 //			}
 //		}
+
 		//for-loop approach
 //		for (int i = 1; i <= 2; i++) {
 //			System.out.println("t = "+i+":");

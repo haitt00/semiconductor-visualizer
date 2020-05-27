@@ -49,11 +49,19 @@ public class WelcomeControl implements Initializable {
 			
 			mainControl.setStartMode(mnbtnChooseType.getText());
 			
+			if(mnbtnChooseType.getText().contains("P"))
+				mainControl.setCrystalView("P");
+			else if(mnbtnChooseType.getText().contains("N"))
+				mainControl.setCrystalView("N");
+			else if(mnbtnChooseType.getText().contains("I"))
+				mainControl.setCrystalView("I");
+			
 			
 			Stage stage = new Stage();
 			
 			stage.setTitle("MainWindow");
 			stage.setScene(new Scene(rootMainMenu)); 
+			stage.setResizable(false);
 			
 			stage.setOnCloseRequest(e->{
 				Alert confirmation = new Alert(AlertType.CONFIRMATION);

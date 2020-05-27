@@ -44,7 +44,7 @@
       </MenuBar>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <children>
-            <Button fx:id="btnStartSimulation" layoutX="680.0" layoutY="23.0" mnemonicParsing="false" text="Start Simulation!">
+            <Button fx:id="btnStartSimulation" layoutX="680.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Start!">
                <font>
                   <Font name="MyriadPro-Regular" size="14.0" />
                </font>
@@ -71,6 +71,11 @@
                   <TextField fx:id="txtfTemperature" layoutX="218.0" layoutY="-2.0" prefHeight="25.0" prefWidth="79.0" text="25" />
                </children>
             </Group>
+            <Button fx:id="btnStopSimulation" layoutX="748.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Stop">
+               <font>
+                  <Font name="MyriadPro-Regular" size="14.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <Pane fx:id="panePSemi" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.rowIndex="2">
