@@ -74,7 +74,7 @@ public class MainTest extends Application{
 		System.out.println();
 		Crystal crystalAl = new Crystal();
 		System.out.println("t = 0:");
-		crystalAl.initCrystal("SI");
+		crystalAl.initCrystal("AL");
 		crystalAl.displayCrystal();
 		crystalAl.displayHolePosition();
 		for (int x = 0; x < Settings.crystalWidth; x++) {

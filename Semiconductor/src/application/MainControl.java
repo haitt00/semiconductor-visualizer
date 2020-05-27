@@ -4,7 +4,12 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import elements.Crystal;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,6 +26,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import settings.Settings;
 
 public class MainControl implements Initializable {
 
@@ -31,7 +38,7 @@ public class MainControl implements Initializable {
 	TextField txtfVoltage, txtfTemperature;
 
 	@FXML
-	Button btnStart;
+	Button btnStartSimulation, btnStopSimulation;
 
 	@FXML
 	Pane panePSemi, paneNSemi, paneISemi;
@@ -41,6 +48,9 @@ public class MainControl implements Initializable {
 
 	@FXML
 	MenuItem mnitemExit, mnitemHowToUse, mnitemAbout;
+	
+	Crystal newCrystal;
+	Timeline timeline;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -50,6 +60,7 @@ public class MainControl implements Initializable {
 		radiomnitemNType.setToggleGroup(toogleGroup);
 		radiomnitemPType.setToggleGroup(toogleGroup);
 		radiomnitemIType.setToggleGroup(toogleGroup);
+		btnStopSimulation.setDisable(true);
 
 		sliderVoltage.setOnMouseDragged(e -> {
 			txtfVoltage.setText(Double.toString(Math.round(sliderVoltage.getValue())));
@@ -63,14 +74,17 @@ public class MainControl implements Initializable {
 		});
 
 		radiomnitemPType.setOnAction(e -> {
+			setCrystalView("P");
 			showPPane();
 		});
 
 		radiomnitemNType.setOnAction(e -> {
+			setCrystalView("N");
 			showNPane();
 		});
 
 		radiomnitemIType.setOnAction(e -> {
+			setCrystalView("I");
 			showIPane();
 		});
 
@@ -118,6 +132,34 @@ public class MainControl implements Initializable {
 			}
 			 
 		});
+		
+		btnStartSimulation.setOnMouseClicked(e->{
+			if(panePSemi.isVisible()==true) {
+				play(panePSemi);
+			} else if(paneNSemi.isVisible()==true) {
+				play(paneNSemi);
+			} else if(paneISemi.isVisible()==true) {
+				play(paneNSemi);
+			}
+			btnStartSimulation.setDisable(true);
+			btnStopSimulation.setDisable(false);
+		});
+		
+		btnStopSimulation.setOnMouseClicked(e->{
+			if(panePSemi.isVisible()==true) {
+				timeline.stop();
+			} else if(paneNSemi.isVisible()==true) {
+				timeline.stop();
+			//	setCrystalView("N");
+			} else if(paneISemi.isVisible()==true) {
+				timeline.stop();
+			//	setCrystalView("I");
+			}
+			btnStopSimulation.setDisable(true);
+			btnStartSimulation.setDisable(false);
+		});
+	
+			
 	}
 
 	private void showPPane() {
@@ -149,5 +191,73 @@ public class MainControl implements Initializable {
 			showIPane();
 			radiomnitemIType.setSelected(true);
 		}
+	}
+	
+	public void setCrystalView(String choice) {
+		newCrystal = new Crystal();
+		
+		if(choice.contains("P")) {
+			newCrystal.initCrystal("P");
+			for (int x = 0; x < Settings.crystalWidth; x++) {
+				for (int y = 0; y < Settings.crystalHeight; y++) {
+					panePSemi.getChildren().add(newCrystal.getAtomAt(x, y).getView());
+					panePSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("up").getView());
+					panePSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("down").getView());
+					panePSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("right").getView());
+					panePSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("left").getView());
+					if(newCrystal.getAtomAt(x, y).checkForConductingE()) {
+						panePSemi.getChildren().add(newCrystal.getAtomAt(x, y).getConductingE().getView());
+					}
+				}
+			}
+		}
+
+		else if (choice.contains("N")) {
+			newCrystal.initCrystal("AL");
+			for (int x = 0; x < Settings.crystalWidth; x++) {
+				for (int y = 0; y < Settings.crystalHeight; y++) {
+					paneNSemi.getChildren().add(newCrystal.getAtomAt(x, y).getView());
+					paneNSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("up").getView());
+					paneNSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("down").getView());
+					paneNSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("right").getView());
+					paneNSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("left").getView());
+					if(newCrystal.getAtomAt(x, y).checkForConductingE()) {
+						panePSemi.getChildren().add(newCrystal.getAtomAt(x, y).getConductingE().getView());
+					}
+				}
+			}
+		}
+		else if (choice.contains("I")) {
+			newCrystal.initCrystal("SI");
+			for (int x = 0; x < Settings.crystalWidth; x++) {
+				for (int y = 0; y < Settings.crystalHeight; y++) {
+					paneISemi.getChildren().add(newCrystal.getAtomAt(x, y).getView());
+					paneISemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("up").getView());
+					paneISemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("down").getView());
+					paneISemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("right").getView());
+					paneISemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("left").getView());
+					if(newCrystal.getAtomAt(x, y).checkForConductingE()) {
+						panePSemi.getChildren().add(newCrystal.getAtomAt(x, y).getConductingE().getView());
+					}
+				}
+			}
+		}
+	}
+
+	public void play(Pane pane) {
+		EventHandler onFinished = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				newCrystal.progress(pane);
+			}
+			
+		};
+
+		KeyFrame kf = new KeyFrame(Duration.millis(2000), onFinished);
+		
+		timeline = new Timeline(kf);
+		
+		timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
 	}
 }

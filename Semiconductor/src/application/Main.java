@@ -17,6 +17,7 @@ public class Main extends Application {
 		try {
 			String strWelcome = "/application/WelcomeWindow.fxml";
 			Parent root = FXMLLoader.load(getClass().getResource(strWelcome));
+			primaryStage.setResizable(false);
 			primaryStage.setTitle("WelcomeWindow");
 			primaryStage.setScene(new Scene(root));
 			primaryStage.show();
