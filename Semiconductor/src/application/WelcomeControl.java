@@ -28,7 +28,7 @@ public class WelcomeControl implements Initializable {
 	@FXML
 	Button btnStart;
 	
-	public void goMain() {
+	public void goMainControl() {
 		
 		if(mnbtnChooseType.getText().contains("<")) {
 			Alert alert = new Alert(AlertType.WARNING);
@@ -95,7 +95,7 @@ public class WelcomeControl implements Initializable {
 		});
 		
 		btnStart.setOnMouseClicked(e->{
-			goMain();
+			goMainControl();
 		});
 	}
 

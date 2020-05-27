@@ -1,12 +1,31 @@
 package elements.charge;
 
+import animation.ElementImage;
 import elements.atom.Atom;
+import settings.Settings;
 
 public class ValenceBandHole extends ValenceBandCharge{
 
-	public ValenceBandHole(Atom atom) {
+	
+	public ValenceBandHole(Atom atom, String position) {
 		super(atom);
-		// TODO Auto-generated constructor stub
+		this.view = ElementImage.getValenceHoleImage();
+		if(position.contentEquals("up")) {
+			view.setX(atom.getView().getX()+Settings.frameBias);
+			view.setY(atom.getView().getY()-Settings.padding);
+		}
+		if(position.contentEquals("down")) {
+			view.setX(atom.getView().getX()+Settings.frameBias);
+			view.setY(atom.getView().getY()+2*Settings.frameBias+Settings.padding);
+		}
+		if(position.contentEquals("right")) {
+			view.setX(atom.getView().getX()+2*Settings.frameBias+Settings.padding);
+			view.setY(atom.getView().getY()+Settings.frameBias);
+		}
+		if(position.contentEquals("left")) {
+			view.setX(atom.getView().getX()-Settings.padding);
+			view.setY(atom.getView().getY()+Settings.frameBias);
+		}
 	}
 	
 	public String toString() {
