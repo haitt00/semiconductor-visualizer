@@ -3,7 +3,6 @@ package animation.test;
 import animation.ElementImage;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 

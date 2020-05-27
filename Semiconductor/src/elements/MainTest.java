@@ -1,15 +1,12 @@
 package elements;
 
-import javafx.scene.control.Button;
-
-import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -39,7 +36,7 @@ public class MainTest extends Application{
 //		crystalPure.displayCrystal();
 //		crystalPure.displayHolePosition();
 //		for (int x = 0; x < Settings.crystalWidth; x++) {
-//			for (int y = 0; y < Settings.crystalWidth; y++) {
+//			for (int y = 0; y < Settings.crystalHeight; y++) {
 //				root.getChildren().add(crystalPure.getAtomAt(x, y).getView());
 //				root.getChildren().add(crystalPure.getAtomAt(x, y).getValenceCharge("up").getView());
 //				root.getChildren().add(crystalPure.getAtomAt(x, y).getValenceCharge("down").getView());
@@ -70,25 +67,27 @@ public class MainTest extends Application{
 		
 		
 		
-		//test type P (1 Al, the rest Si) - behavior 2 & 3
-		System.out.println();
-		Crystal crystalAl = new Crystal();
-		System.out.println("t = 0:");
-		crystalAl.initCrystal("AL");
-		crystalAl.displayCrystal();
-		crystalAl.displayHolePosition();
-		for (int x = 0; x < Settings.crystalWidth; x++) {
-			for (int y = 0; y < Settings.crystalHeight; y++) {
-				root.getChildren().add(crystalAl.getAtomAt(x, y).getView());
-				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("up").getView());
-				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("down").getView());
-				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("right").getView());
-				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("left").getView());
-				if(crystalAl.getAtomAt(x, y).checkForConductingE()) {
-					root.getChildren().add(crystalAl.getAtomAt(x, y).getConductingE().getView());
-				}
-			}
-		}
+
+//		//test type P (1 Al, the rest Si) - behavior 2 & 3
+//		System.out.println();
+//		Crystal crystalAl = new Crystal();
+//		System.out.println("t = 0:");
+//		crystalAl.initCrystal("AL");
+//		crystalAl.displayCrystal();
+//		crystalAl.displayHolePosition();
+//		for (int x = 0; x < Settings.crystalWidth; x++) {
+//			for (int y = 0; y < Settings.crystalHeight; y++) {
+//				root.getChildren().add(crystalAl.getAtomAt(x, y).getView());
+//				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("up").getView());
+//				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("down").getView());
+//				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("right").getView());
+//				root.getChildren().add(crystalAl.getAtomAt(x, y).getValenceCharge("left").getView());
+//				if(crystalAl.getAtomAt(x, y).checkForConductingE()) {
+//					root.getChildren().add(crystalAl.getAtomAt(x, y).getConductingE().getView());
+//				}
+//			}
+//		}
+
 		//for-loop approach
 //		for (int i = 1; i <= 2; i++) {
 //			System.out.println("t = "+i+":");
@@ -108,50 +107,27 @@ public class MainTest extends Application{
 //		System.out.println();
 		//tineline approach
 		
-		EventHandler onFinished = new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				timestep++;
-				System.out.println("t = "+timestep);
-				crystalAl.progress(root);
+
+		
+		
+		
+		//test type N (1 P, the rest Si) - behavior 1
+		Crystal crystalP = new Crystal();
+		System.out.println("t = 0:");
+		crystalP.initCrystal("P");
+		crystalP.displayCrystal();
+		for (int x = 0; x < Settings.crystalWidth; x++) {
+		for (int y = 0; y < Settings.crystalHeight; y++) {
+			root.getChildren().add(crystalP.getAtomAt(x, y).getView());
+			root.getChildren().add(crystalP.getAtomAt(x, y).getValenceCharge("up").getView());
+			root.getChildren().add(crystalP.getAtomAt(x, y).getValenceCharge("down").getView());
+			root.getChildren().add(crystalP.getAtomAt(x, y).getValenceCharge("right").getView());
+			root.getChildren().add(crystalP.getAtomAt(x, y).getValenceCharge("left").getView());
+			if(crystalP.getAtomAt(x, y).checkForConductingE()) {
+				root.getChildren().add(crystalP.getAtomAt(x, y).getConductingE().getView());
 			}
-			
-		};
-		
-//		kf.setOnFinished(evt->{
-//			timestep++;
-//			System.out.println("t = "+timestep);
-//			crystalAl.progress(root);
-//		});
-		
-		KeyFrame kf = new KeyFrame(Duration.millis(2000), onFinished);
-		
-		Timeline timeline = new Timeline(kf);
-		
-		timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-		
-		
-		
-//		//test type N (1 P, the rest Si) - behavior 1
-//		Crystal crystalP = new Crystal();
-//		System.out.println("t = 0:");
-//		crystalP.initCrystal("P");
-//		crystalP.displayCrystal();
-//		Charge e = crystalP.getAtomAt(3, 2).getConductingE();
-//		System.out.println("1st coordinate: "+e.getView().getX()+", "+e.getView().getY());
-//		for (int x = 0; x < Settings.crystalWidth; x++) {
-//		for (int y = 0; y < Settings.crystalWidth; y++) {
-//			root.getChildren().add(crystalP.getAtomAt(x, y).getView());
-//			root.getChildren().add(crystalP.getAtomAt(x, y).getValenceCharge("up").getView());
-//			root.getChildren().add(crystalP.getAtomAt(x, y).getValenceCharge("down").getView());
-//			root.getChildren().add(crystalP.getAtomAt(x, y).getValenceCharge("right").getView());
-//			root.getChildren().add(crystalP.getAtomAt(x, y).getValenceCharge("left").getView());
-//			if(crystalP.getAtomAt(x, y).checkForConductingE()) {
-//				root.getChildren().add(crystalP.getAtomAt(x, y).getConductingE().getView());
-//			}
-//		}
-//	}
+		}
+	}
 		
 //		//for-loop approach (not sequential, new coordinate not updated in time)
 //		for (int i = 1; i <= 2; i++) {
@@ -170,7 +146,23 @@ public class MainTest extends Application{
 //			crystalP.displayHolePosition();
 //		});
 
-
+		//timeline approach
+		EventHandler onFinished = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				timestep++;
+				System.out.println("t = "+timestep);
+				crystalP.progress(root);
+			}
+			
+		};
+		
+		KeyFrame kf = new KeyFrame(Duration.millis(2000), onFinished);
+		
+		Timeline timeline = new Timeline(kf);
+		
+		timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
 		Scene scene = new Scene(root, 1000, 1000);
 		primaryStage.setScene(scene);
 		primaryStage.show();

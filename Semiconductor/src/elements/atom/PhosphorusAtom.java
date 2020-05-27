@@ -1,6 +1,5 @@
 package elements.atom;
 
-import animation.AtomImage;
 import animation.ElementImage;
 import elements.Crystal;
 import elements.charge.ConductionBandElectron;

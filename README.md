@@ -1,17 +1,5 @@
-# README #
+# TO-DO #
 
-### TO-DO ###
-
-* Châu  
-	* Tổ chức Animation thành các hàm:
-		- Transition generateAppearTransition()
-		- Transition generateDisppearTransition()
-		- Transition generateTranslationalTransition()  
-	cho 3 class e, o, *
-* Hải
-	* Implement behavior 4 & 5 trong model
-* Later:
-	* Ghép animation và model
-	* parallel transition cho tất cả atoms trong crystal OR giảm số lượng doping
+	* nghĩ kịch bản behavior 4 & 5 cho pure type, maybe sau này cho type N - P
 	* Class Diagram
-	* User input interrupt
+	* User input interrupt: voltage strength, temperature, doping
