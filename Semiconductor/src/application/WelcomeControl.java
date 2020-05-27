@@ -13,12 +13,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 public class WelcomeControl implements Initializable {
 	
+    @FXML
+    private Label appNameLabel;
+
+    @FXML
+    private Label promptLabel;
+    
 	@FXML
 	MenuButton mnbtnChooseType;
 	
