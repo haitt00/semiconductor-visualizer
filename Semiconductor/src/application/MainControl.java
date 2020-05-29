@@ -1,5 +1,7 @@
 package application;
 
+import java.awt.Color;
+import java.awt.Paint;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -16,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
@@ -23,7 +26,11 @@ import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -55,6 +62,10 @@ public class MainControl implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		
+		Border border = new Border(new BorderStroke(null, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
+		
+//		panePSemi.setBorder(border);
 
 		ToggleGroup toogleGroup = new ToggleGroup();
 		radiomnitemNType.setToggleGroup(toogleGroup);
@@ -150,10 +161,8 @@ public class MainControl implements Initializable {
 				timeline.stop();
 			} else if(paneNSemi.isVisible()==true) {
 				timeline.stop();
-			//	setCrystalView("N");
 			} else if(paneISemi.isVisible()==true) {
 				timeline.stop();
-			//	setCrystalView("I");
 			}
 			btnStopSimulation.setDisable(true);
 			btnStartSimulation.setDisable(false);
@@ -195,7 +204,6 @@ public class MainControl implements Initializable {
 	
 	public void setCrystalView(String choice) {
 		newCrystal = new Crystal();
-		
 		if(choice.contains("P")) {
 			newCrystal.initCrystal("P");
 			for (int x = 0; x < Settings.crystalWidth; x++) {

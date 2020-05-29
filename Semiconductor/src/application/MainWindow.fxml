@@ -11,14 +11,12 @@
 
 <GridPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainControl">
    <columnConstraints>
-      <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="550.0" />
-      <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" />
-      <ColumnConstraints />
+      <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="850.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" />
-      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="75.0" />
-      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="450.0" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="600.0" />
       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" />
    </rowConstraints>
    <children>
@@ -42,7 +40,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+      <AnchorPane GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <children>
             <Button fx:id="btnStartSimulation" layoutX="680.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Start!">
                <font>
@@ -78,32 +76,9 @@
             </Button>
          </children>
       </AnchorPane>
-      <Pane fx:id="panePSemi" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.rowIndex="2">
-         <children>
-            <Label text="P semiconductor" />
-         </children></Pane>
-      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <children>
-            <LineChart layoutX="34.0" layoutY="46.0" prefHeight="186.0" prefWidth="233.0">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </LineChart>
-         </children>
-      </Pane>
+      <Pane fx:id="panePSemi" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
       <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-      <Pane fx:id="paneNSemi" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.rowIndex="2">
-         <children>
-            <Label text="N semiconductor" />
-         </children>
-      </Pane>
-      <Pane fx:id="paneISemi" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.rowIndex="2">
-         <children>
-            <Label layoutX="247.0" layoutY="63.0" text="I semiconductor" />
-         </children>
-      </Pane>
+      <Pane fx:id="paneNSemi" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <Pane fx:id="paneISemi" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
    </children>
 </GridPane>
