@@ -42,7 +42,7 @@ public class WelcomeControl implements Initializable {
 			Stage closeStage = (Stage)btnStart.getScene().getWindow();
 			closeStage.close();
 			
-			String strMain = "/application/MainWindow.fxml";
+			String strMain = "/application/MainWindow_1.fxml";
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(strMain));
 			Parent rootMainMenu = (Parent)loader.load();
 			MainControl mainControl = loader.getController();

@@ -2,6 +2,8 @@ package application;
 
 import java.awt.Color;
 import java.awt.Paint;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -26,6 +28,9 @@ import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -48,7 +53,10 @@ public class MainControl implements Initializable {
 	Button btnStartSimulation, btnStopSimulation;
 
 	@FXML
-	Pane panePSemi, paneNSemi, paneISemi;
+	Pane paneSemi, paneCrystalBackground, paneCrystalFrame;
+	
+	@FXML
+	AnchorPane anchorPaneBG;
 
 	@FXML
 	RadioMenuItem radiomnitemPType, radiomnitemNType, radiomnitemIType;
@@ -66,12 +74,16 @@ public class MainControl implements Initializable {
 		Border border = new Border(new BorderStroke(null, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
 		
 //		panePSemi.setBorder(border);
+		
+		play(paneSemi);
 
 		ToggleGroup toogleGroup = new ToggleGroup();
 		radiomnitemNType.setToggleGroup(toogleGroup);
 		radiomnitemPType.setToggleGroup(toogleGroup);
 		radiomnitemIType.setToggleGroup(toogleGroup);
 		btnStopSimulation.setDisable(true);
+		
+//		anchorPaneBG.setBorder(border);
 
 		sliderVoltage.setOnMouseDragged(e -> {
 			txtfVoltage.setText(Double.toString(Math.round(sliderVoltage.getValue())));
@@ -85,18 +97,21 @@ public class MainControl implements Initializable {
 		});
 
 		radiomnitemPType.setOnAction(e -> {
+			timeline.stop();
+			setButtonOnStop();
 			setCrystalView("P");
-			showPPane();
 		});
 
 		radiomnitemNType.setOnAction(e -> {
+			timeline.stop();
+			setButtonOnStop();
 			setCrystalView("N");
-			showNPane();
 		});
 
 		radiomnitemIType.setOnAction(e -> {
+			timeline.stop();
+			setButtonOnStop();
 			setCrystalView("I");
-			showIPane();
 		});
 
 		mnitemAbout.setOnAction(e -> {
@@ -145,76 +160,71 @@ public class MainControl implements Initializable {
 		});
 		
 		btnStartSimulation.setOnMouseClicked(e->{
-			if(panePSemi.isVisible()==true) {
-				play(panePSemi);
-			} else if(paneNSemi.isVisible()==true) {
-				play(paneNSemi);
-			} else if(paneISemi.isVisible()==true) {
-				play(paneNSemi);
-			}
-			btnStartSimulation.setDisable(true);
-			btnStopSimulation.setDisable(false);
+			timeline.play();
+			setButtonOnPlay();
 		});
 		
 		btnStopSimulation.setOnMouseClicked(e->{
-			if(panePSemi.isVisible()==true) {
-				timeline.stop();
-			} else if(paneNSemi.isVisible()==true) {
-				timeline.stop();
-			} else if(paneISemi.isVisible()==true) {
-				timeline.stop();
-			}
-			btnStopSimulation.setDisable(true);
-			btnStartSimulation.setDisable(false);
+			timeline.stop();
+			setButtonOnStop();
 		});
 	
 			
 	}
 
-	private void showPPane() {
-		panePSemi.setVisible(true);
-		paneNSemi.setVisible(false);
-		paneISemi.setVisible(false);
-	}
-
-	private void showNPane() {
-		paneNSemi.setVisible(true);
-		panePSemi.setVisible(false);
-		paneISemi.setVisible(false);
-	}
-
-	private void showIPane() {
-		paneISemi.setVisible(true);
-		panePSemi.setVisible(false);
-		paneNSemi.setVisible(false);
-	}
 
 	public void setStartMode(String choice) {
 		if (choice.contains("P")) {
 			radiomnitemPType.setSelected(true);
-			showPPane();
 		} else if (choice.contains("N")) {
 			radiomnitemNType.setSelected(true);
-			showNPane();
 		} else if (choice.contains("I")) {
-			showIPane();
 			radiomnitemIType.setSelected(true);
 		}
+		paneSemi.setVisible(true);
 	}
 	
 	public void setCrystalView(String choice) {
 		newCrystal = new Crystal();
+		
+		// set crystal frame and background
+		String strCFrame = "./src/images/crystal-frame.png";
+		String strCBackground = "./src/images/crystal-background.png";
+		
+		FileInputStream ipCFrame = null;
+		try {
+			ipCFrame = new FileInputStream(strCFrame);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		ImageView CFrame = new ImageView(new Image(ipCFrame));
+		
+		FileInputStream ipCBackground = null;
+		try {
+			ipCBackground = new FileInputStream(strCBackground);
+		} catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		ImageView CBackground = new ImageView(new Image(ipCBackground));
+		
+		paneCrystalFrame.getChildren().add(CFrame);
+		paneCrystalBackground.getChildren().add(CBackground);
+		
+		if(paneSemi.getChildren().isEmpty()==false) {
+			paneSemi.getChildren().clear();
+		}
+		
 		if(choice.contains("P")) {
 			newCrystal.initCrystal("P");
 			for (int x = 0; x < Settings.crystalWidth; x++) {
 				for (int y = 0; y < Settings.crystalHeight; y++) {
-					panePSemi.getChildren().add(newCrystal.getAtomAt(x, y).getView());
-					panePSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("up").getView());
-					panePSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("down").getView());
-					panePSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("right").getView());
-					panePSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("left").getView());
+					paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getView());
+					paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("up").getView());
+					paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("down").getView());
+					paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("right").getView());
+					paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("left").getView());
 					if(newCrystal.getAtomAt(x, y).checkForConductingE()) {
-						panePSemi.getChildren().add(newCrystal.getAtomAt(x, y).getConductingE().getView());
+						paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getConductingE().getView());
 					}
 				}
 			}
@@ -224,13 +234,13 @@ public class MainControl implements Initializable {
 			newCrystal.initCrystal("AL");
 			for (int x = 0; x < Settings.crystalWidth; x++) {
 				for (int y = 0; y < Settings.crystalHeight; y++) {
-					paneNSemi.getChildren().add(newCrystal.getAtomAt(x, y).getView());
-					paneNSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("up").getView());
-					paneNSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("down").getView());
-					paneNSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("right").getView());
-					paneNSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("left").getView());
+					paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getView());
+					paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("up").getView());
+					paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("down").getView());
+					paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("right").getView());
+					paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("left").getView());
 					if(newCrystal.getAtomAt(x, y).checkForConductingE()) {
-						panePSemi.getChildren().add(newCrystal.getAtomAt(x, y).getConductingE().getView());
+						paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getConductingE().getView());
 					}
 				}
 			}
@@ -239,20 +249,20 @@ public class MainControl implements Initializable {
 			newCrystal.initCrystal("SI");
 			for (int x = 0; x < Settings.crystalWidth; x++) {
 				for (int y = 0; y < Settings.crystalHeight; y++) {
-					paneISemi.getChildren().add(newCrystal.getAtomAt(x, y).getView());
-					paneISemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("up").getView());
-					paneISemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("down").getView());
-					paneISemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("right").getView());
-					paneISemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("left").getView());
+					paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getView());
+					paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("up").getView());
+					paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("down").getView());
+					paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("right").getView());
+					paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("left").getView());
 					if(newCrystal.getAtomAt(x, y).checkForConductingE()) {
-						panePSemi.getChildren().add(newCrystal.getAtomAt(x, y).getConductingE().getView());
+						paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getConductingE().getView());
 					}
 				}
 			}
 		}
 	}
 
-	public void play(Pane pane) {
+	private void play(Pane pane) {
 		EventHandler onFinished = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -266,6 +276,15 @@ public class MainControl implements Initializable {
 		timeline = new Timeline(kf);
 		
 		timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+	}
+	
+	private void setButtonOnPlay() {
+		btnStartSimulation.setDisable(true);
+		btnStopSimulation.setDisable(false);
+	}
+	
+	private void setButtonOnStop() {
+		btnStartSimulation.setDisable(false);
+		btnStopSimulation.setDisable(true);
 	}
 }

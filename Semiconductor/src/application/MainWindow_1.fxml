@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainControl">
+   <columnConstraints>
+      <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="850.0" />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="600.0" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" />
+   </rowConstraints>
+   <children>
+      <MenuBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="850.0" GridPane.columnSpan="3">
+        <menus>
+          <Menu mnemonicParsing="false" text="Mode">
+            <items>
+                  <RadioMenuItem fx:id="radiomnitemPType" mnemonicParsing="false" text="P-type" />
+                  <RadioMenuItem fx:id="radiomnitemNType" mnemonicParsing="false" text="N-type" />
+                  <RadioMenuItem fx:id="radiomnitemIType" mnemonicParsing="false" text="I-type" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="mnitemExit" mnemonicParsing="false" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+                  <MenuItem fx:id="mnitemHowToUse" mnemonicParsing="false" text="How to use" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem fx:id="mnitemAbout" mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+         <children>
+            <Button fx:id="btnStartSimulation" layoutX="680.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Start!">
+               <font>
+                  <Font name="MyriadPro-Regular" size="14.0" />
+               </font>
+            </Button>
+            <Group layoutX="17.0" layoutY="26.0">
+               <children>
+                  <Label layoutX="15.0" layoutY="1.0" text="Voltage">
+                     <font>
+                        <Font name="MyriadPro-Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="sliderVoltage" blockIncrement="0.1" layoutX="71.0" layoutY="4.0" majorTickUnit="5.0" max="5.0" min="-5.0" minorTickCount="4" showTickLabels="true" showTickMarks="true" />
+                  <TextField fx:id="txtfVoltage" layoutX="218.0" layoutY="-2.0" prefHeight="25.0" prefWidth="79.0" text="0" />
+               </children>
+            </Group>
+            <Group layoutX="345.0" layoutY="26.0">
+               <children>
+                  <Label layoutX="-11.0" layoutY="1.0" text="Temperature">
+                     <font>
+                        <Font name="MyriadPro-Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="sliderTemperature" blockIncrement="0.1" layoutX="71.0" layoutY="4.0" majorTickUnit="10.0" max="50.0" minorTickCount="4" showTickLabels="true" showTickMarks="true" value="25.0" />
+                  <TextField fx:id="txtfTemperature" layoutX="218.0" layoutY="-2.0" prefHeight="25.0" prefWidth="79.0" text="25" />
+               </children>
+            </Group>
+            <Button fx:id="btnStopSimulation" layoutX="748.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Stop">
+               <font>
+                  <Font name="MyriadPro-Regular" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <AnchorPane fx:id="anchorPaneBG" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <children>
+            <Pane fx:id="paneCrystalBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="105.0" AnchorPane.topAnchor="30.0" />
+            <Pane fx:id="paneSemi" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" visible="false" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="25.0" />
+            <Pane fx:id="paneCrystalFrame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="5.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</GridPane>

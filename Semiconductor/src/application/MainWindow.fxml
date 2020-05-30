@@ -1,46 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.*?>
 <?import javafx.scene.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.GridPane?>
 
-<GridPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainControl">
-   <columnConstraints>
-      <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="850.0" />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" />
-      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" />
-      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="600.0" />
-      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" />
-   </rowConstraints>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="application.MainControl">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="850.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="600.0" vgrow="SOMETIMES" />
+  </rowConstraints>
    <children>
-      <MenuBar GridPane.columnSpan="3">
-        <menus>
-          <Menu mnemonicParsing="false" text="Mode">
-            <items>
-                  <RadioMenuItem fx:id="radiomnitemPType" mnemonicParsing="false" text="P-type" />
-                  <RadioMenuItem fx:id="radiomnitemNType" mnemonicParsing="false" text="N-type" />
-                  <RadioMenuItem fx:id="radiomnitemIType" mnemonicParsing="false" text="I-type" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="mnitemExit" mnemonicParsing="false" text="Exit" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-                  <MenuItem fx:id="mnitemHowToUse" mnemonicParsing="false" text="How to use" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-              <MenuItem fx:id="mnitemAbout" mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <AnchorPane GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <AnchorPane fx:id="anchorPaneBG" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" GridPane.rowIndex="2">
+         <children>
+            <Pane fx:id="paneCrystalBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="105.0" AnchorPane.topAnchor="30.0" />
+            <Pane fx:id="paneSemi" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" visible="false" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="25.0" />
+            <Pane fx:id="paneCrystalFrame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="105.0" AnchorPane.topAnchor="30.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane GridPane.rowIndex="1">
          <children>
             <Button fx:id="btnStartSimulation" layoutX="680.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Start!">
                <font>
@@ -76,9 +59,25 @@
             </Button>
          </children>
       </AnchorPane>
-      <Pane fx:id="panePSemi" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-      <Pane fx:id="paneNSemi" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-      <Pane fx:id="paneISemi" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <MenuBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="850.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="Mode">
+               <items>
+                  <RadioMenuItem fx:id="radiomnitemPType" mnemonicParsing="false" text="P-type" />
+                  <RadioMenuItem fx:id="radiomnitemNType" mnemonicParsing="false" text="N-type" />
+                  <RadioMenuItem fx:id="radiomnitemIType" mnemonicParsing="false" text="I-type" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="mnitemExit" mnemonicParsing="false" text="Exit" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem fx:id="mnitemHowToUse" mnemonicParsing="false" text="How to use" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="mnitemAbout" mnemonicParsing="false" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
    </children>
 </GridPane>
