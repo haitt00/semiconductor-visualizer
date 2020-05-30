@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<<<<<<< HEAD
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
@@ -15,6 +16,37 @@
     <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="600.0" vgrow="SOMETIMES" />
   </rowConstraints>
+=======
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainControl">
+   <columnConstraints>
+      <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="850.0" />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="600.0" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" />
+   </rowConstraints>
+>>>>>>> 82ab2e26aafc7250aada6b484a7cf1f925b8e031
    <children>
       <AnchorPane fx:id="anchorPaneBG" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" GridPane.rowIndex="2">
          <children>
@@ -37,7 +69,7 @@
                         <Font name="MyriadPro-Regular" size="14.0" />
                      </font>
                   </Label>
-                  <Slider fx:id="sliderVoltage" blockIncrement="0.1" layoutX="71.0" layoutY="4.0" majorTickUnit="5.0" max="5.0" min="-5.0" minorTickCount="4" showTickLabels="true" showTickMarks="true" />
+                  <Slider fx:id="sliderVoltage" blockIncrement="0.1" layoutX="71.0" layoutY="4.0" majorTickUnit="5.0" max="5.0" min="1.0" minorTickCount="4" showTickLabels="true" showTickMarks="true" />
                   <TextField fx:id="txtfVoltage" layoutX="218.0" layoutY="-2.0" prefHeight="25.0" prefWidth="79.0" text="0" />
                </children>
             </Group>

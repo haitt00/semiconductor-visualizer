@@ -84,7 +84,7 @@ public class Crystal {
 				}
 				if (!(atoms[x][y].checkForHole().contentEquals("none"))) {
 					behavior23Atoms.add(atoms[x][y]);
-					System.out.println("hole at:"+x+" "+y);
+//					System.out.println("hole at:"+x+" "+y);
 				}
 			}
 		}

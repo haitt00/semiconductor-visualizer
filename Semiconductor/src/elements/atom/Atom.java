@@ -136,11 +136,11 @@ public class Atom {
 		
 		Atom newContainer = this.getAdjacentAtom("right");
 		ConductionBandElectron e = this.conductingE;
-		System.out.println("null e check0: "+e);
+//		System.out.println("null e check0: "+e);
 		newContainer.conductingE = e;
-		System.out.println("null e check1: "+e);
+//		System.out.println("null e check1: "+e);
 		this.conductingE = null;
-		System.out.println("null e check2: "+e);
+//		System.out.println("null e check2: "+e);
 		
 		//animation
 		if(this.indexX<Settings.crystalWidth-1) {
@@ -148,7 +148,7 @@ public class Atom {
 		double y = 0;
 //		double x = newContainer.getConductingE().getView().getX();
 //		double y = newContainer.getConductingE().getView().getY();
-		System.out.println("null e check: "+e);
+//		System.out.println("null e check: "+e);
 		Transition t = e.getView().moveTranslate(x, y);
 		t.play();
 		}
@@ -164,7 +164,7 @@ public class Atom {
 	public void exchangeHoleWithElectron() {
 		String holePosition = this.checkForHole();
 		ValenceBandCharge holeHolder = this.getValenceCharge(holePosition);
-		System.out.println("reference: "+holeHolder.getView().getX()+", "+holeHolder.getView().getY());
+//		System.out.println("reference: "+holeHolder.getView().getX()+", "+holeHolder.getView().getY());
 		String newHolePosition;
 		Atom ExchangingAtom;
 		boolean sweepFlag = false;
@@ -266,7 +266,7 @@ public class Atom {
 		double i = newConductingE.getView().getX();
 		double j = newConductingE.getView().getY();
 		
-		System.out.println("moveby: "+(i-x)+", "+(j-y));
+//		System.out.println("moveby: "+(i-x)+", "+(j-y));
 		ParallelTransition pt = new ParallelTransition(explosion.appear(x, y), valenceE.getView().moveTranslate((i-x),(j-y)));
 		pt.setOnFinished(evt->{
 			root.getChildren().removeAll(explosion, valenceE.getView());

@@ -18,9 +18,9 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
+import settings.Settings;
 
 public class ElementImage extends ImageView{
-	private final Duration length = Duration.millis(1000);
 	//constructors
 	public ElementImage(Image image) {
 		super(image);
@@ -65,47 +65,48 @@ public class ElementImage extends ImageView{
 	public Transition appear(double x, double y) {
 		this.setX(x);
 		this.setY(y);
-		FadeTransition fadeIn = new FadeTransition(this.length, this);
+		FadeTransition fadeIn = new FadeTransition(Duration.millis(Settings.transitionLength), this);
 		fadeIn.setFromValue(0);
 		fadeIn.setToValue(1);
 		fadeIn.setOnFinished(evt->{
-			System.out.println("appear: "+fadeIn.getStatus());
+//			System.out.println("appear: "+fadeIn.getStatus());
 			this.setTranslateX(0);
 			this.setTranslateY(0);
-			System.out.println("get property:"+this.getX()+", "+this.getY());
-			System.out.println("get translate property:"+this.getTranslateX()+", "+this.getTranslateY());
-			System.out.println("get layout property:"+this.getLayoutX()+", "+this.getLayoutY());
+//			System.out.println("get property:"+this.getX()+", "+this.getY());
+//			System.out.println("get translate property:"+this.getTranslateX()+", "+this.getTranslateY());
+//			System.out.println("get layout property:"+this.getLayoutX()+", "+this.getLayoutY());
 		});
 		return fadeIn;
 	}
 	public Transition disappear() {
-		FadeTransition fadeOut = new FadeTransition(this.length, this);
+		FadeTransition fadeOut = new FadeTransition(Duration.millis(Settings.transitionLength), this);
 		fadeOut.setFromValue(1);
 		fadeOut.setToValue(0);
 		fadeOut.setOnFinished(evt->{
-			System.out.println("disappear: "+fadeOut.getStatus());
+//			System.out.println("disappear: "+fadeOut.getStatus());
 			this.setTranslateX(0);
 			this.setTranslateY(0);
-			System.out.println("get property:"+this.getX()+", "+this.getY());
-			System.out.println("get translate property:"+this.getTranslateX()+", "+this.getTranslateY());
-			System.out.println("get layout property:"+this.getLayoutX()+", "+this.getLayoutY());
+//			System.out.println("get property:"+this.getX()+", "+this.getY());
+//			System.out.println("get translate property:"+this.getTranslateX()+", "+this.getTranslateY());
+//			System.out.println("get layout property:"+this.getLayoutX()+", "+this.getLayoutY());
 		});
 		return fadeOut;
 	}
 	public Transition moveTranslate(double x, double y) {
-		TranslateTransition move = new TranslateTransition(this.length, this);
+		TranslateTransition move = new TranslateTransition(Duration.millis(Settings.transitionLength), this);
+		System.out.println("transition length:"+Duration.millis(Settings.transitionLength));
 		move.setByX(x);
 		move.setByY(y);
 		move.setInterpolator(Interpolator.LINEAR);
 		move.setOnFinished(evt->{
-			System.out.println("straight: "+move.getStatus());
+//			System.out.println("straight: "+move.getStatus());
 			this.setTranslateX(0);
 			this.setTranslateY(0);
 			this.setX(this.getX()+move.getByX());
 			this.setY(this.getY()+move.getByY());
-			System.out.println("get property:"+this.getX()+", "+this.getY());
-			System.out.println("get translate property:"+this.getTranslateX()+", "+this.getTranslateY());
-			System.out.println("get layout property:"+this.getLayoutX()+", "+this.getLayoutY());
+//			System.out.println("get property:"+this.getX()+", "+this.getY());
+//			System.out.println("get translate property:"+this.getTranslateX()+", "+this.getTranslateY());
+//			System.out.println("get layout property:"+this.getLayoutX()+", "+this.getLayoutY());
 		});
 		return move;
 	} 
@@ -133,19 +134,19 @@ public class ElementImage extends ImageView{
 		Path path = new Path();
 		MoveTo mt = new MoveTo(this.getX(), this.getY());
 		ArcTo at = new ArcTo(90, 90, 0, x, y, false, sweepFlag);
-		System.out.println("from "+this.getX()+", "+this.getY()+" to "+x+", "+y);
+//		System.out.println("from "+this.getX()+", "+this.getY()+" to "+x+", "+y);
 		path.getElements().add(mt);
 		path.getElements().add(at);
-		PathTransition move = new PathTransition(this.length, path, this);
+		PathTransition move = new PathTransition(Duration.millis(Settings.transitionLength), path, this);
 		move.setOnFinished(evt->{
-			System.out.println("arc: "+move.getStatus());
+//			System.out.println("arc: "+move.getStatus());
 			this.setTranslateX(0);
 			this.setTranslateY(0);
 			this.setX(x);
 			this.setY(y);
-			System.out.println("get property:"+this.getX()+", "+this.getY());
-			System.out.println("get translate property:"+this.getTranslateX()+", "+this.getTranslateY());
-			System.out.println("get layout property:"+this.getLayoutX()+", "+this.getLayoutY());
+//			System.out.println("get property:"+this.getX()+", "+this.getY());
+//			System.out.println("get translate property:"+this.getTranslateX()+", "+this.getTranslateY());
+//			System.out.println("get layout property:"+this.getLayoutX()+", "+this.getLayoutY());
 		});
 		return move;
 	}
@@ -155,26 +156,26 @@ public class ElementImage extends ImageView{
 		ArcTo at = new ArcTo(300, 300, 0, x, y, true, true);
 		path.getElements().add(mt);
 		path.getElements().add(at);
-		PathTransition move = new PathTransition(this.length, path, this);
+		PathTransition move = new PathTransition(Duration.millis(Settings.transitionLength), path, this);
 		move.setOnFinished(evt->{
-			System.out.println("out&back: "+move.getStatus());
+//			System.out.println("out&back: "+move.getStatus());
 			this.setTranslateX(0);
 			this.setTranslateY(0);
 			this.setX(x);
 			this.setY(y);
-			System.out.println("get property:"+this.getX()+", "+this.getY());
-			System.out.println("get translate property:"+this.getTranslateX()+", "+this.getTranslateY());
-			System.out.println("get layout property:"+this.getLayoutX()+", "+this.getLayoutY());
+//			System.out.println("get property:"+this.getX()+", "+this.getY());
+//			System.out.println("get translate property:"+this.getTranslateX()+", "+this.getTranslateY());
+//			System.out.println("get layout property:"+this.getLayoutX()+", "+this.getLayoutY());
 		});
 		return move;
 	}
 	public Transition spin() {
-		RotateTransition rotate = new RotateTransition(this.length);
+		RotateTransition rotate = new RotateTransition(Duration.millis(Settings.transitionLength));
 		rotate.setNode(this);
 		rotate.setAxis(Rotate.Z_AXIS);
 		rotate.setByAngle(360);
 		
-		ScaleTransition scale = new ScaleTransition(this.length);
+		ScaleTransition scale = new ScaleTransition(Duration.millis(Settings.transitionLength));
 		scale.setNode(this);
 		scale.setByX(0.2);
 		scale.setByY(0.2);

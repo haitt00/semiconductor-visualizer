@@ -9,9 +9,17 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import elements.Crystal;
+import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -71,10 +79,6 @@ public class MainControl implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		
-		Border border = new Border(new BorderStroke(null, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
-		
-//		panePSemi.setBorder(border);
-		
 		play(paneSemi);
 
 		String strNote = "./src/images/Notes.png";
@@ -95,13 +99,45 @@ public class MainControl implements Initializable {
 		btnStopSimulation.setDisable(true);
 		
 //		anchorPaneBG.setBorder(border);
+		
+//		sliderVoltage.valueProperty().addListener(new ChangeListener<Number>(){
+//
+//			@Override
+//			public void changed(ObservableValue<? extends Number> src, Number oldValue, Number newValue) {
+//				// TODO Auto-generated method stub
+//				txtfVoltage.textProperty().setValue(String.valueOf((float)sliderVoltage.getValue()));
+//			}
+//			
+//		});
 
 		sliderVoltage.setOnMouseDragged(e -> {
-			txtfVoltage.setText(Double.toString(Math.round(sliderVoltage.getValue())));
-			
+			Double externalVoltage = sliderVoltage.getValue();
+			txtfVoltage.setText(String.format("%.2f", externalVoltage));
 			//fucntion to pass value to backend code of crystal
+			Settings.transitionLength = (int) (1000/externalVoltage);
+			try {
+				if(this.timeline.getStatus().equals(Status.RUNNING)) {
+					if(this.radiomnitemNType.isSelected()) {
+						timeline.stop();
+						timeline.getKeyFrames().clear();
+						this.play(this.paneSemi);
+					}
+					if(this.radiomnitemPType.isSelected()) {
+						
+						timeline.stop();
+						timeline.getKeyFrames().clear();
+						this.play(this.paneSemi);
+					}
+					timeline.stop();
+					timeline.getKeyFrames().clear();
+					this.play(this.paneSemi);
+				}	
+			}
+			catch(NullPointerException exception) {
+				
+			}
 		});
-
+//		sliderTemperature.setValue(5);
 		sliderTemperature.setOnMouseDragged(e -> {
 			txtfTemperature.setText(Double.toString(Math.round(sliderTemperature.getValue())));
 			//fucntion to pass value to backend code of crystal
@@ -282,7 +318,8 @@ public class MainControl implements Initializable {
 			
 		};
 
-		KeyFrame kf = new KeyFrame(Duration.millis(2000), onFinished);
+		KeyFrame kf = new KeyFrame(Duration.millis(Settings.transitionLength*1.5), onFinished);
+		System.out.println("kf length:"+kf.getTime());
 		
 		timeline = new Timeline(kf);
 		

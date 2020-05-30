@@ -11,4 +11,5 @@ public class Settings {
 	public static int PanelWidth = 600;
 	public static int frameBias = 26;
 	public static int padding = 16;
+	public static int transitionLength = 1000;
 }
