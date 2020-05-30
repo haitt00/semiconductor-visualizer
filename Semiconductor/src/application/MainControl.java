@@ -53,7 +53,7 @@ public class MainControl implements Initializable {
 	Button btnStartSimulation, btnStopSimulation;
 
 	@FXML
-	Pane paneSemi, paneCrystalBackground, paneCrystalFrame;
+	Pane paneSemi, paneCrystalBackground, paneCrystalFrame, paneNotes;
 	
 	@FXML
 	AnchorPane anchorPaneBG;
@@ -77,6 +77,17 @@ public class MainControl implements Initializable {
 		
 		play(paneSemi);
 
+		String strNote = "./src/images/Notes.png";
+		FileInputStream ipNote = null;
+		try {
+			ipNote = new FileInputStream(strNote);
+		} catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		ImageView notes = new ImageView(new Image(ipNote));
+		paneNotes.getChildren().add(notes);
+				
 		ToggleGroup toogleGroup = new ToggleGroup();
 		radiomnitemNType.setToggleGroup(toogleGroup);
 		radiomnitemPType.setToggleGroup(toogleGroup);
