@@ -12,4 +12,5 @@ public class Settings {
 	public static int frameBias = 26;
 	public static int padding = 16;
 	public static int transitionLength = 1000;
+	public static double chaoticRate = 25;
 }

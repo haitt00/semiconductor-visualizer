@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-
-<GridPane prefHeight="500.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<GridPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
       <ColumnConstraints prefWidth="500.0" />
       <ColumnConstraints />
@@ -22,6 +22,10 @@
             <Font name="Tw Cen MT Condensed" size="45.0" />
          </font>
       </Label>
-      <TextField editable="false" prefHeight="450.0" prefWidth="500.0" text="This is a fucking long instruction" GridPane.rowIndex="1" />
+      <TextArea editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="500.0" text="This application is used for visualizing fundamental working principle of different types of semiconductors with the effect of external voltage and temperature. &#10;&#10;• To choose type of semiconductor to visualize, choose &quot;Mode&quot; on the menu bar and click on the type you want to see&#10;• To change external voltage and temperature applied on the semiconductor, drag the correspond slider or type the desired value in the text box &#10;• To start the simulation, click the &quot;Start&quot; button&#10;• To stop the simulation, click the &quot;Stop&quot; button. The visualization will stop and restart&#10;&#10;You can check what kind of particles are represented by the notes on the right side of the crystal panel. " wrapText="true" GridPane.rowIndex="1">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextArea>
    </children>
 </GridPane>

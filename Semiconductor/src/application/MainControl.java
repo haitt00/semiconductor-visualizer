@@ -1,25 +1,15 @@
 package application;
 
-import java.awt.Color;
-import java.awt.Paint;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import elements.Crystal;
 import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -39,15 +29,14 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
+import javafx.util.converter.NumberStringConverter;
 import settings.Settings;
+
+@SuppressWarnings({"rawtypes","unchecked"})
 
 public class MainControl implements Initializable {
 
@@ -76,11 +65,11 @@ public class MainControl implements Initializable {
 	Timeline timeline;
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
+	public void initialize(URL location, ResourceBundle resources) {		
+		// initialize timeline
 		play(paneSemi);
-
+		
+		// set notes pane
 		String strNote = "./src/images/Notes.png";
 		FileInputStream ipNote = null;
 		try {
@@ -98,49 +87,50 @@ public class MainControl implements Initializable {
 		radiomnitemIType.setToggleGroup(toogleGroup);
 		btnStopSimulation.setDisable(true);
 		
-//		anchorPaneBG.setBorder(border);
-		
-//		sliderVoltage.valueProperty().addListener(new ChangeListener<Number>(){
-//
-//			@Override
-//			public void changed(ObservableValue<? extends Number> src, Number oldValue, Number newValue) {
-//				// TODO Auto-generated method stub
-//				txtfVoltage.textProperty().setValue(String.valueOf((float)sliderVoltage.getValue()));
-//			}
-//			
-//		});
+		// binding value of slider and textfield
+		StringConverter<Number> strVoltageConverter = new NumberStringConverter();
+		txtfVoltage.textProperty().bindBidirectional(sliderVoltage.valueProperty(), strVoltageConverter);
 
+		StringConverter<Number> strTemperatureConverter = new NumberStringConverter();
+		txtfTemperature.textProperty().bindBidirectional(sliderTemperature.valueProperty(), strTemperatureConverter);
+
+		// initialize function of elements
+		
 		sliderVoltage.setOnMouseDragged(e -> {
 			Double externalVoltage = sliderVoltage.getValue();
-			txtfVoltage.setText(String.format("%.2f", externalVoltage));
 			//fucntion to pass value to backend code of crystal
 			Settings.transitionLength = (int) (1000/externalVoltage);
 			try {
 				if(this.timeline.getStatus().equals(Status.RUNNING)) {
-					if(this.radiomnitemNType.isSelected()) {
-						timeline.stop();
-						timeline.getKeyFrames().clear();
-						this.play(this.paneSemi);
-					}
-					if(this.radiomnitemPType.isSelected()) {
-						
-						timeline.stop();
-						timeline.getKeyFrames().clear();
-						this.play(this.paneSemi);
-					}
 					timeline.stop();
 					timeline.getKeyFrames().clear();
-					this.play(this.paneSemi);
-				}	
+					play(paneSemi);
+					timeline.play();
+				}
 			}
 			catch(NullPointerException exception) {
 				
 			}
 		});
+		
+		
 //		sliderTemperature.setValue(5);
 		sliderTemperature.setOnMouseDragged(e -> {
-			txtfTemperature.setText(Double.toString(Math.round(sliderTemperature.getValue())));
 			//fucntion to pass value to backend code of crystal
+			Double temperature = sliderTemperature.getValue();
+			Settings.chaoticRate = temperature;
+			try {
+				if(this.timeline.getStatus().equals(Status.RUNNING)) {
+					timeline.stop();
+					timeline.getKeyFrames().clear();
+					play(paneSemi);
+					timeline.play();
+				}
+			}
+			catch(NullPointerException exception) {
+				
+			}
+			
 		});
 
 		radiomnitemPType.setOnAction(e -> {
@@ -166,7 +156,7 @@ public class MainControl implements Initializable {
 			try {
 				String strWelcome = "/application/AboutWindow.fxml";
 				Parent root = FXMLLoader.load(getClass().getResource(strWelcome));
-				stage.setTitle("WelcomeWindow");
+				stage.setTitle("About");
 				stage.setScene(new Scene(root));
 				stage.show();
 			} catch (Exception er) {
@@ -179,7 +169,7 @@ public class MainControl implements Initializable {
 			try {
 				String strWelcome = "/application/HowToUseWindow.fxml";
 				Parent root = FXMLLoader.load(getClass().getResource(strWelcome));
-				stage.setTitle("WelcomeWindow");
+				stage.setTitle("How to use");
 				stage.setScene(new Scene(root));
 				stage.show();
 			} catch (Exception er) {
