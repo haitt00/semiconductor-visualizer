@@ -188,7 +188,7 @@ public class ElementImage extends ImageView{
 	public Transition moveOutFrameAndBack(double x, double y) {
 		Path path = new Path();
 		MoveTo mt = new MoveTo(this.getX(), this.getY());
-		ArcTo at = new ArcTo(300, 300, 0, x, y, true, true);
+		ArcTo at = new ArcTo(1000, 1000, 0, x, y, true, true);
 		path.getElements().add(mt);
 		path.getElements().add(at);
 		PathTransition move = new PathTransition(Duration.millis(Settings.transitionLength), path, this);

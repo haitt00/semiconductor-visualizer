@@ -100,19 +100,14 @@ public class MainControl implements Initializable {
 			Double externalVoltage = sliderVoltage.getValue();
 			//fucntion to pass value to backend code of crystal
 			Settings.transitionLength = (int) (1000/externalVoltage);
-			try {
-				if(this.timeline.getStatus().equals(Status.RUNNING)) {
-					timeline.stop();
-					timeline.getKeyFrames().clear();
-					play(paneSemi);
-					timeline.play();
-				}
-				else {
-					play(paneSemi);
-				}
+			if(this.timeline.getStatus().equals(Status.RUNNING)) {
+				timeline.stop();
+				timeline.getKeyFrames().clear();
+				play(paneSemi);
+				timeline.play();
 			}
-			catch(NullPointerException exception) {
-				
+			else {
+				play(paneSemi);
 			}
 		});
 		
