@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
@@ -9,20 +10,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<GridPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainControl">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainControl">
    <columnConstraints>
-      <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="550.0" />
-      <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" />
-      <ColumnConstraints />
+      <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="850.0" />
+      <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
+      <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
+      <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" />
-      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="75.0" />
-      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="450.0" />
-      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="575.0" />
    </rowConstraints>
    <children>
-      <MenuBar GridPane.columnSpan="3">
+      <MenuBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1100.0">
         <menus>
           <Menu mnemonicParsing="false" text="Mode">
             <items>
@@ -42,7 +43,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="850.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <children>
             <Button fx:id="btnStartSimulation" layoutX="680.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Start!">
                <font>
@@ -56,7 +57,7 @@
                         <Font name="MyriadPro-Regular" size="14.0" />
                      </font>
                   </Label>
-                  <Slider fx:id="sliderVoltage" blockIncrement="0.1" layoutX="71.0" layoutY="4.0" majorTickUnit="5.0" max="5.0" min="-5.0" minorTickCount="4" showTickLabels="true" showTickMarks="true" />
+                  <Slider fx:id="sliderVoltage" blockIncrement="0.1" layoutX="71.0" layoutY="4.0" majorTickUnit="4.0" max="5.0" min="1.0" showTickLabels="true" showTickMarks="true" value="1.0" />
                   <TextField fx:id="txtfVoltage" layoutX="218.0" layoutY="-2.0" prefHeight="25.0" prefWidth="79.0" text="0" />
                </children>
             </Group>
@@ -78,32 +79,17 @@
             </Button>
          </children>
       </AnchorPane>
-      <Pane fx:id="panePSemi" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.rowIndex="2">
+      <AnchorPane fx:id="anchorPaneBG" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="850.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <children>
-            <Label text="P semiconductor" />
-         </children></Pane>
-      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <children>
-            <LineChart layoutX="34.0" layoutY="46.0" prefHeight="186.0" prefWidth="233.0">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </LineChart>
+            <Pane fx:id="paneCrystalBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="105.0" AnchorPane.topAnchor="30.0" />
+            <Pane fx:id="paneSemi" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" visible="false" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="25.0" />
+            <Pane fx:id="paneCrystalFrame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="5.0" />
          </children>
-      </Pane>
-      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-      <Pane fx:id="paneNSemi" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.rowIndex="2">
-         <children>
-            <Label text="N semiconductor" />
-         </children>
-      </Pane>
-      <Pane fx:id="paneISemi" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.rowIndex="2">
-         <children>
-            <Label layoutX="247.0" layoutY="63.0" text="I semiconductor" />
-         </children>
+      </AnchorPane>
+      <Pane fx:id="paneNotes" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets left="20.0" top="10.0" />
+         </GridPane.margin>
       </Pane>
    </children>
 </GridPane>
