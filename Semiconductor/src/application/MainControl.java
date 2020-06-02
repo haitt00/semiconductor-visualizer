@@ -311,7 +311,7 @@ public class MainControl implements Initializable {
 			
 		};
 
-		KeyFrame kf = new KeyFrame(Duration.millis(Settings.transitionLength*1.2), onFinished);
+		KeyFrame kf = new KeyFrame(Duration.millis(Settings.transitionLength+40), onFinished);
 		System.out.println("kf length:"+kf.getTime());
 		
 		timeline = new Timeline(kf);
