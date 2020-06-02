@@ -107,6 +107,9 @@ public class MainControl implements Initializable {
 					play(paneSemi);
 					timeline.play();
 				}
+				else {
+					play(paneSemi);
+				}
 			}
 			catch(NullPointerException exception) {
 				
