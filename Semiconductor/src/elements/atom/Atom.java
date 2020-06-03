@@ -12,6 +12,7 @@ import elements.charge.ValenceBandCharge;
 import elements.charge.ValenceBandElectron;
 import elements.charge.ValenceBandHole;
 import javafx.animation.ParallelTransition;
+import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
 import javafx.scene.layout.Pane;
 import settings.Settings;
@@ -149,14 +150,22 @@ public class Atom {
 //		double x = newContainer.getConductingE().getView().getX();
 //		double y = newContainer.getConductingE().getView().getY();
 //		System.out.println("null e check: "+e);
-		Transition t = e.getView().moveTranslate(x, y);
-		t.play();
+//		Transition t = e.getView().moveTranslate(x, y);
+		SequentialTransition sqt = new SequentialTransition();
+		sqt.getChildren().addAll(e.getView().moveTranslate(x, y), e.getView().moveChaotic());
+		sqt.play();
+	//	t.play();
 		}
 		else {//move out of frame
 			double x = newContainer.getView().getX()+2*Settings.frameBias+Settings.padding/2;
 			double y = newContainer.getView().getY()-Settings.padding/2;
-			Transition t = e.getView().moveOutFrameAndBack(x, y);
-			t.play();
+	//		Transition t = e.getView().moveOutFrameAndBack(x, y);
+			SequentialTransition sqt = new SequentialTransition();
+			sqt.getChildren().addAll(e.getView().moveOutFrameAndBack(x, y), e.getView().moveChaotic());
+			sqt.play();
+//			e.getView().moveOutFrameAndBack(x, y).play();
+//			e.getView().moveChaotic().play();
+	//		t.play();
 		}
 	}
 	

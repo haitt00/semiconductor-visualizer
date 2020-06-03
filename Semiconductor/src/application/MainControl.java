@@ -119,6 +119,8 @@ public class MainControl implements Initializable {
 			//fucntion to pass value to backend code of crystal
 			Double temperature = sliderTemperature.getValue();
 			Settings.chaoticRate = temperature;
+			//test
+		//	System.out.println("chaotic rate: " + Settings.chaoticRate);
 			try {
 				if(this.timeline.getStatus().equals(Status.RUNNING)) {
 					timeline.stop();

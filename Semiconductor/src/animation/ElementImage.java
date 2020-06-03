@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Random;
 
+import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -20,6 +21,7 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.ArcTo;
+import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.transform.Rotate;
@@ -117,28 +119,43 @@ public class ElementImage extends ImageView{
 		return move;
 	} 
 	public Transition moveChaotic() {
-		ElementImage im = this;
+	//	ElementImage im = this;
 		
-		TranslateTransition front = new TranslateTransition();
-		TranslateTransition back = new TranslateTransition();
-		Random randf = new Random();
-		Random reverse = new Random();
+		TranslateTransition move = new TranslateTransition();
+		move.setByX(Math.random()*Settings.chaoticRate*0.3);
+		move.setByY(Math.random()*Settings.chaoticRate*0.3);
+		move.setDuration(Duration.millis(100));
+		move.setCycleCount(10);
+		move.setAutoReverse(true);
+		move.setNode(this);
+//		move.setOnFinished(e->{
+//			this.setTranslateX(0);
+//			this.setTranslateY(0);
+//			this.setX(0);
+//			this.setY(0);
+//		});
+		return move;
 		
-		front.setNode(im);
-		back.setNode(im);
-		
-		front.setByX(randf.nextFloat()*5);
-		front.setByY(randf.nextFloat()*5);
-		front.setCycleCount((int)(25*10/Settings.chaoticRate));
-		
-		back.setByX(randf.nextFloat()*-5);
-		back.setByY(randf.nextFloat()*-5);
-		back.setCycleCount((int)(25*10/Settings.chaoticRate));
-		
-		if(reverse.nextInt(1) == 0)
-			return front;
-		else
-			return back;
+//		TranslateTransition front = new TranslateTransition();
+//		TranslateTransition back = new TranslateTransition();
+//		Random randf = new Random();
+//		Random reverse = new Random();
+//		
+//		front.setNode(im);
+//		back.setNode(im);
+//		
+//		front.setByX(randf.nextFloat()*5);
+//		front.setByY(randf.nextFloat()*5);
+//		front.setCycleCount((int)(25*10/Settings.chaoticRate));
+//		
+//		back.setByX(randf.nextFloat()*-5);
+//		back.setByY(randf.nextFloat()*-5);
+//		back.setCycleCount((int)(25*10/Settings.chaoticRate));
+//		
+//		if(reverse.nextInt(1) == 0)
+//			return front;
+//		else
+//			return back;
 		
 //		EventHandler onFinished = new EventHandler<ActionEvent>() {
 //    		boolean reverse = true;

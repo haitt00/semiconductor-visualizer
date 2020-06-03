@@ -24,7 +24,7 @@ public class TestNewClass extends Application{
 //		c.appear(200, 200).play();
 //		o.disappear().play();
 		c.moveChaotic().play();
-		c.moveTranslate(250, 200).play();
+//		c.moveTranslate(250, 200).play();
 //		c.spin().play();
 		
 		primaryStage.setScene(scene);
