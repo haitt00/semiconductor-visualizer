@@ -10,6 +10,10 @@ import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -62,7 +66,7 @@ public class MainControl implements Initializable {
 	MenuItem mnitemExit, mnitemHowToUse, mnitemAbout;
 	
 	Crystal newCrystal;
-	Timeline timeline;
+	static Timeline timeline;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {		
@@ -70,7 +74,7 @@ public class MainControl implements Initializable {
 		
 //		Settings.voltage.set(1);
 //		Settings.temperature.set(25);
-//		Settings.transitionLength = Settings.voltage.divide(1000).get();
+//		Settings.transitionLength.get() = Settings.voltage.divide(1000).get();
 		
 		// initialize timeline
 		play(paneSemi);
@@ -103,18 +107,53 @@ public class MainControl implements Initializable {
 		txtfTemperature.textProperty().bindBidirectional(sliderTemperature.valueProperty(), strTemperatureConverter);
 		Settings.temperature.bindBidirectional(sliderTemperature.valueProperty());
 		// test
-
-
 		
 		// initialize function of elements
 		
-		sliderVoltage.setOnMouseDragged(e -> {
-			// test
-			Settings.transitionLength = (int) (1000/(Settings.voltage.get()));
+
+		
+		Settings.voltage.addListener(new ChangeListener<Number>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
+				// TODO Auto-generated method stub
+			double externalVoltage = sliderVoltage.getValue();
+			int timeDuration = (int)(1000/externalVoltage);
+			IntegerProperty timeDurationProperty = new SimpleIntegerProperty(timeDuration);
+			Settings.transitionLength.bindBidirectional(timeDurationProperty);
+				System.out.println(Settings.voltage.get());
+				//		Double externalVoltage = sliderVoltage.getValue();
+						//fucntion to pass value to backend code of crystal
+				//		Settings.transitionLength.get() = (int) (1000/externalVoltage);
+						try {
+							if(MainControl.timeline.getStatus().equals(Status.RUNNING)) {
+								timeline.stop();
+								timeline.getKeyFrames().clear();
+								play(paneSemi);
+								timeline.play();
+							}
+						}
+						catch(NullPointerException exception) {
+							
+						}
+				
+			}
+			
+		}); 
+		
+/*		sliderVoltage.setOnMouseDragged(e -> {
+			// test		
+			// tao mot integer property o GUI de bind voi integer property o backcode
+			// co can thiet ko?
+			double externalVoltage = sliderVoltage.getValue();
+			int timeDuration = (int)(1000/externalVoltage);
+			IntegerProperty timeDurationProperty = new SimpleIntegerProperty(timeDuration);
+			Settings.transitionLength.bindBidirectional(timeDurationProperty);	
+			
 			System.out.println(Settings.voltage.get());
 	//		Double externalVoltage = sliderVoltage.getValue();
 			//fucntion to pass value to backend code of crystal
-	//		Settings.transitionLength = (int) (1000/externalVoltage);
+	//		Settings.transitionLength.get() = (int) (1000/externalVoltage);
 			try {
 				if(this.timeline.getStatus().equals(Status.RUNNING)) {
 					timeline.stop();
@@ -126,28 +165,33 @@ public class MainControl implements Initializable {
 			catch(NullPointerException exception) {
 				
 			}
-		});
+		}); */
 		
 		
 //		sliderTemperature.setValue(5);
-		sliderTemperature.setOnMouseDragged(e -> {
-			// test
-			System.out.println(Settings.temperature.get());
-			System.out.println(Settings.transitionLength);
-			//fucntion to pass value to backend code of crystal
-	//		Double temperature = sliderTemperature.getValue();
-			Settings.chaoticRate = Settings.temperature.get();
-			//test
-		//	System.out.println("chaotic rate: " + Settings.chaoticRate);
-			try {
-				if(this.timeline.getStatus().equals(Status.RUNNING)) {
-					timeline.stop();
-					timeline.getKeyFrames().clear();
-					play(paneSemi);
-					timeline.play();
+		Settings.temperature.addListener(new ChangeListener<Number>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				// test
+				System.out.println(Settings.temperature.get());
+				System.out.println(Settings.transitionLength.get());
+				//fucntion to pass value to backend code of crystal
+		//		Double temperature = sliderTemperature.getValue();
+				Settings.chaoticRate = Settings.temperature.get();
+				//test
+			//	System.out.println("chaotic rate: " + Settings.chaoticRate);
+				try {
+					if(MainControl.timeline.getStatus().equals(Status.RUNNING)) {
+						timeline.stop();
+						timeline.getKeyFrames().clear();
+						play(paneSemi);
+						timeline.play();
+					}
 				}
-			}
-			catch(NullPointerException exception) {
+				catch(NullPointerException exception) {
+					
+				}
 				
 			}
 			
@@ -328,7 +372,7 @@ public class MainControl implements Initializable {
 			
 		};
 
-		KeyFrame kf = new KeyFrame(Duration.millis(Settings.transitionLength*1.5), onFinished);
+		KeyFrame kf = new KeyFrame(Duration.millis(Settings.transitionLength.get()*1.5), onFinished);
 		System.out.println("kf length:"+kf.getTime());
 		
 		timeline = new Timeline(kf);
