@@ -311,7 +311,8 @@ public class MainControl implements Initializable {
 		
 		timeline = new Timeline(kf);
 		
-		timeline.setCycleCount(Timeline.INDEFINITE);
+//		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.setCycleCount(1);
 	}
 	
 	private void setButtonOnPlay() {
