@@ -46,16 +46,19 @@ public class WelcomeControl implements Initializable {
 		}
 		
 		try {
+			//close the old window
 			Stage closeStage = (Stage)btnStart.getScene().getWindow();
 			closeStage.close();
 			
-			String strMain = "/application/MainWindow.fxml";
+			String strMain = "/application/MainWindow_1.fxml";
+
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(strMain));
 			Parent rootMainMenu = (Parent)loader.load();
 			MainControl mainControl = loader.getController();
-			
+			//pass the start mode into the controller
+			// to call set start mode
 			mainControl.setStartMode(mnbtnChooseType.getText());
-			
+			//and to call set crystal view
 			if(mnbtnChooseType.getText().contains("P"))
 				mainControl.setCrystalView("P");
 			else if(mnbtnChooseType.getText().contains("N"))
@@ -63,10 +66,10 @@ public class WelcomeControl implements Initializable {
 			else if(mnbtnChooseType.getText().contains("I"))
 				mainControl.setCrystalView("I");
 			
-			
+			//create new stage with the new pane as root
 			Stage stage = new Stage();
 			
-			stage.setTitle("MainWindow");
+			stage.setTitle("Semiconductor Visualizer 1.0");
 			stage.setScene(new Scene(rootMainMenu)); 
 			stage.setResizable(false);
 			
