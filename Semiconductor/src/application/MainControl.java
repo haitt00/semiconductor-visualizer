@@ -66,6 +66,12 @@ public class MainControl implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {		
+		// initialize parameters
+		
+//		Settings.voltage.set(1);
+//		Settings.temperature.set(25);
+//		Settings.transitionLength = Settings.voltage.divide(1000).get();
+		
 		// initialize timeline
 		play(paneSemi);
 		
@@ -90,16 +96,25 @@ public class MainControl implements Initializable {
 		// binding value of slider and textfield
 		StringConverter<Number> strVoltageConverter = new NumberStringConverter();
 		txtfVoltage.textProperty().bindBidirectional(sliderVoltage.valueProperty(), strVoltageConverter);
-
+		Settings.voltage.bindBidirectional(sliderVoltage.valueProperty());
+		// test
+		
 		StringConverter<Number> strTemperatureConverter = new NumberStringConverter();
 		txtfTemperature.textProperty().bindBidirectional(sliderTemperature.valueProperty(), strTemperatureConverter);
+		Settings.temperature.bindBidirectional(sliderTemperature.valueProperty());
+		// test
 
+
+		
 		// initialize function of elements
 		
 		sliderVoltage.setOnMouseDragged(e -> {
-			Double externalVoltage = sliderVoltage.getValue();
+			// test
+			Settings.transitionLength = (int) (1000/(Settings.voltage.get()));
+			System.out.println(Settings.voltage.get());
+	//		Double externalVoltage = sliderVoltage.getValue();
 			//fucntion to pass value to backend code of crystal
-			Settings.transitionLength = (int) (1000/externalVoltage);
+	//		Settings.transitionLength = (int) (1000/externalVoltage);
 			try {
 				if(this.timeline.getStatus().equals(Status.RUNNING)) {
 					timeline.stop();
@@ -116,9 +131,12 @@ public class MainControl implements Initializable {
 		
 //		sliderTemperature.setValue(5);
 		sliderTemperature.setOnMouseDragged(e -> {
+			// test
+			System.out.println(Settings.temperature.get());
+			System.out.println(Settings.transitionLength);
 			//fucntion to pass value to backend code of crystal
-			Double temperature = sliderTemperature.getValue();
-			Settings.chaoticRate = temperature;
+	//		Double temperature = sliderTemperature.getValue();
+			Settings.chaoticRate = Settings.temperature.get();
 			//test
 		//	System.out.println("chaotic rate: " + Settings.chaoticRate);
 			try {

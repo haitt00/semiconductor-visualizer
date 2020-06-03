@@ -125,7 +125,7 @@ public class ElementImage extends ImageView{
 		move.setByX(Math.random()*Settings.chaoticRate*0.3);
 		move.setByY(Math.random()*Settings.chaoticRate*0.3);
 		move.setDuration(Duration.millis(100));
-		move.setCycleCount(10);
+		move.setCycleCount(15);
 		move.setAutoReverse(true);
 		move.setNode(this);
 //		move.setOnFinished(e->{
