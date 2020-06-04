@@ -102,7 +102,7 @@ public class ElementImage extends ImageView{
 	}
 	public Transition moveTranslate(double x, double y) {
 		TranslateTransition move = new TranslateTransition(Duration.millis(Settings.transitionLength.get()), this);
-		System.out.println("transition length:"+Duration.millis(Settings.transitionLength.get()));
+//		System.out.println("transition length:"+Duration.millis(Settings.transitionLength.get()));
 		move.setByX(x);
 		move.setByY(y);
 		move.setInterpolator(Interpolator.LINEAR);
