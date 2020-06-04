@@ -114,17 +114,15 @@ public class MainControl implements Initializable {
 			System.out.println(Settings.voltage.get());
 	//		Double externalVoltage = sliderVoltage.getValue();
 			//fucntion to pass value to backend code of crystal
-	//		Settings.transitionLength = (int) (1000/externalVoltage);
-			try {
-				if(this.timeline.getStatus().equals(Status.RUNNING)) {
-					timeline.stop();
-					timeline.getKeyFrames().clear();
-					play(paneSemi);
-					timeline.play();
-				}
+			if(this.timeline.getStatus().equals(Status.RUNNING)) {
+				timeline.stop();
+				timeline.getKeyFrames().clear();
+				play(paneSemi);
+				timeline.play();
+
 			}
-			catch(NullPointerException exception) {
-				
+			else {
+				play(paneSemi);
 			}
 		});
 		
@@ -139,16 +137,14 @@ public class MainControl implements Initializable {
 			Settings.chaoticRate = Settings.temperature.get();
 			//test
 		//	System.out.println("chaotic rate: " + Settings.chaoticRate);
-			try {
-				if(this.timeline.getStatus().equals(Status.RUNNING)) {
-					timeline.stop();
-					timeline.getKeyFrames().clear();
-					play(paneSemi);
-					timeline.play();
-				}
+			if(this.timeline.getStatus().equals(Status.RUNNING)) {
+				timeline.stop();
+				timeline.getKeyFrames().clear();
+				play(paneSemi);
+				timeline.play();
 			}
-			catch(NullPointerException exception) {
-				
+			else {
+				play(paneSemi);
 			}
 			
 		});
@@ -328,12 +324,13 @@ public class MainControl implements Initializable {
 			
 		};
 
-		KeyFrame kf = new KeyFrame(Duration.millis(Settings.transitionLength*1.5), onFinished);
+		KeyFrame kf = new KeyFrame(Duration.millis(Settings.transitionLength+40), onFinished);
 		System.out.println("kf length:"+kf.getTime());
 		
 		timeline = new Timeline(kf);
 		
-		timeline.setCycleCount(Timeline.INDEFINITE);
+//		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.setCycleCount(1);
 	}
 	
 	private void setButtonOnPlay() {

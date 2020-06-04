@@ -75,16 +75,38 @@ public class Crystal {
 		ArrayList<Atom> behavior5Atoms = new ArrayList<>();
 		for (int y = 0; y < Settings.crystalHeight; y++) {
 			for (int x = 0; x < Settings.crystalWidth; x++) {
+				Double probability = Math.random();
 				if(atoms[x][y].checkForConductingE()&&!(atoms[x][y].checkForHole().contentEquals("none"))) {
-					behavior5Atoms.add(atoms[x][y]);
-					continue;
+					if(probability<Settings.seperateProb) {
+						behavior1Atoms.add(atoms[x][y]);
+						behavior23Atoms.add(atoms[x][y]);
+					}
+					else {
+						behavior5Atoms.add(atoms[x][y]);
+					}
 				}
-				if(atoms[x][y].checkForConductingE()) {
+				if(atoms[x][y].checkForConductingE()&&(atoms[x][y].checkForHole().contentEquals("none"))) {
 					behavior1Atoms.add(atoms[x][y]);
 				}
-				if (!(atoms[x][y].checkForHole().contentEquals("none"))) {
+				if ((!(atoms[x][y].checkForConductingE()))&&!(atoms[x][y].checkForHole().contentEquals("none"))) {
 					behavior23Atoms.add(atoms[x][y]);
 //					System.out.println("hole at:"+x+" "+y);
+				}
+				if((!(atoms[x][y].checkForConductingE()))&&(atoms[x][y].checkForHole().contentEquals("none"))) {
+					boolean diffuseInRow = false;
+					if(!behavior4Atoms.isEmpty()) {
+//						System.out.println("no diffuse in row");
+//						System.out.println(y);
+//						System.out.println("currently at: "+x+", "+y);
+//						System.out.println("last 4behavior element at: "+behavior4Atoms.get(behavior4Atoms.size()-1).getIndexX()+", "+behavior4Atoms.get(behavior4Atoms.size()-1).getIndexY());
+//						System.out.println("result: "+(behavior4Atoms.get(behavior4Atoms.size()-1).getIndexY()==y));
+						diffuseInRow= (behavior4Atoms.get(behavior4Atoms.size()-1).getIndexY()==y);
+					}
+					
+					if(probability<Settings.diffuseProb&&(!(diffuseInRow))) {
+						System.out.println("added: "+x+", "+y);
+						behavior4Atoms.add(atoms[x][y]);
+					}
 				}
 			}
 		}

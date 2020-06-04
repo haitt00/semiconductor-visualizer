@@ -19,4 +19,7 @@ public class Settings {
 	// doi tu int sang double
 	public static int transitionLength = (int)(1000/(voltage.get()));
 	public static double chaoticRate = 25;
+	public static double seperateProb = 25;
+	public static double diffuseProb = 25;
+	
 }
