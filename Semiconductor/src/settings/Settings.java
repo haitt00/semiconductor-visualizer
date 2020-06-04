@@ -1,5 +1,10 @@
 package settings;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 public class Settings {
 
 	public Settings() {
@@ -11,6 +16,14 @@ public class Settings {
 	public static int PanelWidth = 600;
 	public static int frameBias = 26;
 	public static int padding = 16;
-	public static int transitionLength = 1000;
+	public static DoubleProperty voltage = new SimpleDoubleProperty(1);
+	public static DoubleProperty temperature = new SimpleDoubleProperty(25);
+	// doi tu int sang double
+	public static IntegerProperty transitionLength = new SimpleIntegerProperty((int)(1000/voltage.get()));
 	public static double chaoticRate = 25;
+	public static double seperateProb = 25;
+	public static double diffuseProb = 25;
+	
 }
+
+

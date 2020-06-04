@@ -73,7 +73,7 @@ public class ElementImage extends ImageView{
 	public Transition appear(double x, double y) {
 		this.setX(x);
 		this.setY(y);
-		FadeTransition fadeIn = new FadeTransition(Duration.millis(Settings.transitionLength), this);
+		FadeTransition fadeIn = new FadeTransition(Duration.millis(Settings.transitionLength.get()), this);
 		fadeIn.setFromValue(0);
 		fadeIn.setToValue(1);
 		fadeIn.setOnFinished(evt->{
@@ -87,7 +87,7 @@ public class ElementImage extends ImageView{
 		return fadeIn;
 	}
 	public Transition disappear() {
-		FadeTransition fadeOut = new FadeTransition(Duration.millis(Settings.transitionLength), this);
+		FadeTransition fadeOut = new FadeTransition(Duration.millis(Settings.transitionLength.get()), this);
 		fadeOut.setFromValue(1);
 		fadeOut.setToValue(0);
 		fadeOut.setOnFinished(evt->{
@@ -101,8 +101,8 @@ public class ElementImage extends ImageView{
 		return fadeOut;
 	}
 	public Transition moveTranslate(double x, double y) {
-		TranslateTransition move = new TranslateTransition(Duration.millis(Settings.transitionLength), this);
-		System.out.println("transition length:"+Duration.millis(Settings.transitionLength));
+		TranslateTransition move = new TranslateTransition(Duration.millis(Settings.transitionLength.get()), this);
+		System.out.println("transition length:"+Duration.millis(Settings.transitionLength.get()));
 		move.setByX(x);
 		move.setByY(y);
 		move.setInterpolator(Interpolator.LINEAR);
@@ -125,7 +125,7 @@ public class ElementImage extends ImageView{
 		move.setByX(Math.random()*Settings.chaoticRate*0.3);
 		move.setByY(Math.random()*Settings.chaoticRate*0.3);
 		move.setDuration(Duration.millis(100));
-		move.setCycleCount(10);
+		move.setCycleCount(12);
 		move.setAutoReverse(true);
 		move.setNode(this);
 //		move.setOnFinished(e->{
@@ -189,7 +189,7 @@ public class ElementImage extends ImageView{
 //		System.out.println("from "+this.getX()+", "+this.getY()+" to "+x+", "+y);
 		path.getElements().add(mt);
 		path.getElements().add(at);
-		PathTransition move = new PathTransition(Duration.millis(Settings.transitionLength), path, this);
+		PathTransition move = new PathTransition(Duration.millis(Settings.transitionLength.get()), path, this);
 		move.setOnFinished(evt->{
 //			System.out.println("arc: "+move.getStatus());
 			this.setTranslateX(0);
@@ -205,10 +205,10 @@ public class ElementImage extends ImageView{
 	public Transition moveOutFrameAndBack(double x, double y) {
 		Path path = new Path();
 		MoveTo mt = new MoveTo(this.getX(), this.getY());
-		ArcTo at = new ArcTo(300, 300, 0, x, y, true, true);
+		ArcTo at = new ArcTo(1000, 1000, 0, x, y, true, true);
 		path.getElements().add(mt);
 		path.getElements().add(at);
-		PathTransition move = new PathTransition(Duration.millis(Settings.transitionLength), path, this);
+		PathTransition move = new PathTransition(Duration.millis(Settings.transitionLength.get()), path, this);
 		move.setOnFinished(evt->{
 //			System.out.println("out&back: "+move.getStatus());
 			this.setTranslateX(0);
@@ -222,12 +222,12 @@ public class ElementImage extends ImageView{
 		return move;
 	}
 	public Transition spin() {
-		RotateTransition rotate = new RotateTransition(Duration.millis(Settings.transitionLength));
+		RotateTransition rotate = new RotateTransition(Duration.millis(Settings.transitionLength.get()));
 		rotate.setNode(this);
 		rotate.setAxis(Rotate.Z_AXIS);
 		rotate.setByAngle(360);
 		
-		ScaleTransition scale = new ScaleTransition(Duration.millis(Settings.transitionLength));
+		ScaleTransition scale = new ScaleTransition(Duration.millis(Settings.transitionLength.get()));
 		scale.setNode(this);
 		scale.setByX(0.2);
 		scale.setByY(0.2);
