@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class Settings {
 
 	public Settings() {
-		// TODO Auto-generated constructor stub
 	}
 	public static int crystalHeight = 5;
 	public static int crystalWidth = 6;
@@ -16,13 +15,19 @@ public class Settings {
 	public static int PanelWidth = 600;
 	public static int frameBias = 26;
 	public static int padding = 16;
-	public static DoubleProperty voltage = new SimpleDoubleProperty(1);
-	public static DoubleProperty temperature = new SimpleDoubleProperty(25);
-	// doi tu int sang double
-	public static IntegerProperty transitionLength = new SimpleIntegerProperty((int)(1000/voltage.get()));
+	
+	public static double maxvoltage = 5;
+	public static DoubleProperty voltage = new SimpleDoubleProperty();
+	public static IntegerProperty transitionLength = new SimpleIntegerProperty();
+	public static SimpleDoubleProperty seperateProb = new SimpleDoubleProperty();
+
+	public static double maxTemperature = 50;
+	public static DoubleProperty temperature = new SimpleDoubleProperty();
 	public static double chaoticRate = 25;
-	public static double seperateProb = 25;
-	public static double diffuseProb = 25;
+	public static SimpleDoubleProperty diffuseProb = new SimpleDoubleProperty();
+	
+	
+	
 	
 }
 

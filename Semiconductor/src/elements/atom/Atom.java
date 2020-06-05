@@ -36,20 +36,6 @@ public class Atom {
 		this.container = container;
 	}
 	
-//	public getCooridinate(String chargeType) {
-//		if(chargeType.contentEquals("up")) {
-//			
-//		}
-//		if(chargeType.contentEquals("down")) {
-//			
-//		}
-//		if(chargeType.contentEquals("right")) {
-//			
-//		}
-//		if(chargeType.contentEquals("left")) {
-//			
-//		}
-//	}
 	public ElementImage getView() {
 		return view;
 	}
@@ -66,9 +52,9 @@ public class Atom {
 		return container;
 	}
 
-	protected void setContainer(Crystal container) {
-		this.container = container;
-	}
+//	protected void setContainer(Crystal container) {
+//		this.container = container;
+//	}
 
 	public ValenceBandCharge getValenceCharge(String position) {
 		return valenceCharges.get(position);
@@ -78,9 +64,6 @@ public class Atom {
 		return conductingE;
 	}
 
-	//	protected ValenceBandCharge getExternalCharge(String position) {
-//		return this.getAdjacentAtom(position).getValenceCharge(Orientation.getOpposite(position));
-//	}
 	protected Atom getAdjacentAtom(String position) {
 		if(position.contentEquals("up")) {
 			if(this.indexY>0) {
@@ -101,14 +84,8 @@ public class Atom {
 			return this.getContainer().getAtomAt((this.indexX+Settings.crystalWidth-1), this.indexY);
 		}
 		return this.getContainer().getAtomAt((this.indexX-1), this.indexY);
-	
 	}
 
-//	protected ArrayList<ValenceBandCharge> getOtherValenceElectron(String position){
-//		ArrayList<ValenceBandCharge> otherCharges = (ArrayList<ValenceBandCharge>) valenceCharges.values();
-//		otherCharges.remove(this.getValenceCharge(position));
-//		return  otherCharges;
-//	}
 	public String checkForHole() {
 		Iterator<Entry<String, ValenceBandCharge>> it = this.valenceCharges.entrySet().iterator();
 		while (it.hasNext()) {
