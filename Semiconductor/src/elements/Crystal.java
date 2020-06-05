@@ -100,24 +100,9 @@ public class Crystal {
 				//if atom has neither o or e, it might diffuse (diffuse selection will be done after entire row is updated)
 				if((!(atoms[x][y].checkForConductingE()))&&(atoms[x][y].checkForHole().contentEquals("none"))) {
 					diffuseCandidateIndex.add(x);
-//					boolean diffuseInRow = false;
-//					if(!behavior4Atoms.isEmpty()) {
-////						System.out.println("no diffuse in row");
-////						System.out.println(y);
-////						System.out.println("currently at: "+x+", "+y);
-////						System.out.println("last 4behavior element at: "+behavior4Atoms.get(behavior4Atoms.size()-1).getIndexX()+", "+behavior4Atoms.get(behavior4Atoms.size()-1).getIndexY());
-////						System.out.println("result: "+(behavior4Atoms.get(behavior4Atoms.size()-1).getIndexY()==y));
-//						diffuseInRow= (behavior4Atoms.get(behavior4Atoms.size()-1).getIndexY()==y);
-//					}
-//					
-//					if(probability<Settings.diffuseProb.get()&&(!(diffuseInRow))) {
-//						System.out.println("added: "+x+", "+y);
-//						behavior4Atoms.add(atoms[x][y]);
-//					}
 				}
 			}
 			if(diffuseCandidateIndex.size()==Settings.crystalWidth) {
-//				System.out.println("");
 				Double diffuseChance = Math.random();
 				if(diffuseChance<Settings.diffuseProb.get()) {
 					int roulett = new Random().nextInt(diffuseCandidateIndex.size());
@@ -126,39 +111,25 @@ public class Crystal {
 			}
 			
 		}
-		System.out.println("\nlist1:");
+//		System.out.println("\nlist1:");
 		for (int i = 0; i < behavior1Atoms.size(); i++) {
 			behavior1Atoms.get(i).passOnConductingE();
-			System.out.print("("+behavior1Atoms.get(i).getIndexX()+","+behavior1Atoms.get(i).getIndexY()+")");
+//			System.out.print("("+behavior1Atoms.get(i).getIndexX()+","+behavior1Atoms.get(i).getIndexY()+")");
 		}
-		System.out.println("\nlist23:");
+//		System.out.println("\nlist23:");
 		for (int i = 0; i < behavior23Atoms.size(); i++) {
 			behavior23Atoms.get(i).exchangeHoleWithElectron();
-			System.out.print("("+behavior23Atoms.get(i).getIndexX()+","+behavior23Atoms.get(i).getIndexY()+")");
+//			System.out.print("("+behavior23Atoms.get(i).getIndexX()+","+behavior23Atoms.get(i).getIndexY()+")");
 		}
-		System.out.println("\nlist5:");
+//		System.out.println("\nlist5:");
 		for (int i = 0; i < behavior5Atoms.size(); i++) {
 			behavior5Atoms.get(i).recombination(root);
-			System.out.print("("+behavior5Atoms.get(i).getIndexX()+","+behavior5Atoms.get(i).getIndexY()+")");
+//			System.out.print("("+behavior5Atoms.get(i).getIndexX()+","+behavior5Atoms.get(i).getIndexY()+")");
 		}
-		System.out.println("\nlist4:");
+//		System.out.println("\nlist4:");
 		for (int i = 0; i < behavior4Atoms.size(); i++) {
 			behavior4Atoms.get(i).diffuse(root);
-			System.out.print("("+behavior4Atoms.get(i).getIndexX()+","+behavior4Atoms.get(i).getIndexY()+")");
+//			System.out.print("("+behavior4Atoms.get(i).getIndexX()+","+behavior4Atoms.get(i).getIndexY()+")");
 		}
-//		for (int i = 0; i < Settings.crystalHeight; i++) {
-//			for (int j = 0; j < Settings.crystalWidth; j++) {
-//				if(atoms[i][j].checkForConductingE()) {
-//					System.out.println("* move at coordinate:"+i+","+j);
-//					atoms[i][j].passOnConductingE();
-//					return;
-//				}
-//				if (!(atoms[i][j].checkForHole().contentEquals("none"))) {
-//					System.out.println("o move at coordinate:"+i+","+j);
-//					atoms[i][j].exchangeHoleWithElectron();
-//					return;
-//				}
-//			}
-//		}
 	}
 }

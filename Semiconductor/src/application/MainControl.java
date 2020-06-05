@@ -10,7 +10,6 @@ import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -181,7 +180,6 @@ public class MainControl implements Initializable {
 		}); */
 		
 		
-		sliderTemperature.setValue(5);
 		Settings.temperature.addListener(new ChangeListener<Number>() {
 
 			@Override
@@ -355,24 +353,15 @@ public class MainControl implements Initializable {
 			@Override
 			public void handle(ActionEvent arg0) {
 				newCrystal.progress(pane);
-//				System.out.println("compare:");
-//				System.out.println(sliderVoltage.getValue());
-//				System.out.println(txtfVoltage.getText());
-//				System.out.println(Settings.voltage);
-//				System.out.println(Settings.transitionLength);
-//				System.out.println();
 			}
 			
 		};
 
 		KeyFrame kf = new KeyFrame(Duration.millis(Settings.transitionLength.getValue()+40), onFinished);
-
-//		System.out.println("kf length:"+kf.getTime());
 		
 		timeline = new Timeline(kf);
 		
 		timeline.setCycleCount(Timeline.INDEFINITE);
-//		timeline.setCycleCount(4);
 	}
 	
 	private void setButtonOnPlay() {
