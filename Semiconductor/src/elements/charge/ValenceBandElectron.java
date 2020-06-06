@@ -1,7 +1,7 @@
 package elements.charge;
 
-import animation.ElementImage;
 import elements.atom.Atom;
+import elements.view.ElementImage;
 import settings.Settings;
 
 public class ValenceBandElectron extends ValenceBandCharge{
@@ -27,7 +27,7 @@ public class ValenceBandElectron extends ValenceBandCharge{
 		}
 	}
 	
-	public String toString() {
-		return "e";
-	}
+//	public String toString() {
+//		return "e";
+//	}
 }

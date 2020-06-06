@@ -1,16 +1,16 @@
 package elements.atom;
 
-import animation.ElementImage;
-import elements.Crystal;
 import elements.charge.ValenceBandElectron;
 import elements.charge.ValenceBandHole;
+import elements.crystal.Crystal;
+import elements.view.ElementImage;
 import settings.Settings;
 
 public class AluminumAtom extends Atom{
 
-	public AluminumAtom(){
-		// TODO Auto-generated constructor stub
-	}
+//	public AluminumAtom(){
+//		// TODO Auto-generated constructor stub
+//	}
 	
 	public AluminumAtom(int indexX, int indexY, Crystal container) {
 		super(indexX, indexY, container);
@@ -23,8 +23,8 @@ public class AluminumAtom extends Atom{
 		this.valenceCharges.put("left", new ValenceBandElectron(this, "left"));
 	}
 
-	public String toString() {
-		return "AL:"+super.toString();
-	}
+//	public String toString() {
+//		return "AL:"+super.toString();
+//	}
 
 }

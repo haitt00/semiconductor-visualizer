@@ -1,8 +1,8 @@
 package elements.atom;
 
-import animation.ElementImage;
-import elements.Crystal;
 import elements.charge.ValenceBandElectron;
+import elements.crystal.Crystal;
+import elements.view.ElementImage;
 import settings.Settings;
 
 public class SiliconAtom extends Atom{
@@ -18,7 +18,7 @@ public class SiliconAtom extends Atom{
 		this.valenceCharges.put("left", new ValenceBandElectron(this, "left"));
 		
 	}
-	public String toString() {
-		return "SI:"+super.toString();
-	}
+//	public String toString() {
+//		return "SI:"+super.toString();
+//	}
 }

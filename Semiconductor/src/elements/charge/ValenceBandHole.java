@@ -1,7 +1,7 @@
 package elements.charge;
 
-import animation.ElementImage;
 import elements.atom.Atom;
+import elements.view.ElementImage;
 import settings.Settings;
 
 public class ValenceBandHole extends ValenceBandCharge{
@@ -28,7 +28,7 @@ public class ValenceBandHole extends ValenceBandCharge{
 		}
 	}
 	
-	public String toString() {
-		return "o";
-	}
+//	public String toString() {
+//		return "o";
+//	}
 }

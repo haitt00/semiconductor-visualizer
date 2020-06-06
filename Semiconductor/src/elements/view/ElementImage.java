@@ -1,27 +1,19 @@
-package animation;
+package elements.view;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Random;
 
-import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
-import javafx.animation.Timeline;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.ArcTo;
-import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.transform.Rotate;
@@ -30,10 +22,10 @@ import settings.Settings;
 
 public class ElementImage extends ImageView{
 	//constructors
-	public ElementImage(Image image) {
-		super(image);
-		
-	}
+//	public ElementImage(Image elements.view) {
+//		super(elements.view); 
+//		
+//	}
 	public ElementImage(String fileName, double scaleRatio) {
 		String strName = "./src/images/"+fileName;
 		FileInputStream inputFile = null;
@@ -86,20 +78,20 @@ public class ElementImage extends ImageView{
 		});
 		return fadeIn;
 	}
-	public Transition disappear() {
-		FadeTransition fadeOut = new FadeTransition(Duration.millis(Settings.transitionLength.get()), this);
-		fadeOut.setFromValue(1);
-		fadeOut.setToValue(0);
-		fadeOut.setOnFinished(evt->{
-//			System.out.println("disappear: "+fadeOut.getStatus());
-			this.setTranslateX(0);
-			this.setTranslateY(0);
-//			System.out.println("get property:"+this.getX()+", "+this.getY());
-//			System.out.println("get translate property:"+this.getTranslateX()+", "+this.getTranslateY());
-//			System.out.println("get layout property:"+this.getLayoutX()+", "+this.getLayoutY());
-		});
-		return fadeOut;
-	}
+//	public Transition disappear() {
+//		FadeTransition fadeOut = new FadeTransition(Duration.millis(Settings.transitionLength.get()), this);
+//		fadeOut.setFromValue(1);
+//		fadeOut.setToValue(0);
+//		fadeOut.setOnFinished(evt->{
+////			System.out.println("disappear: "+fadeOut.getStatus());
+//			this.setTranslateX(0);
+//			this.setTranslateY(0);
+////			System.out.println("get property:"+this.getX()+", "+this.getY());
+////			System.out.println("get translate property:"+this.getTranslateX()+", "+this.getTranslateY());
+////			System.out.println("get layout property:"+this.getLayoutX()+", "+this.getLayoutY());
+//		});
+//		return fadeOut;
+//	}
 	public Transition moveTranslate(double x, double y) {
 		TranslateTransition move = new TranslateTransition(Duration.millis(Settings.transitionLength.get()), this);
 //		System.out.println("transition length:"+Duration.millis(Settings.transitionLength.get()));

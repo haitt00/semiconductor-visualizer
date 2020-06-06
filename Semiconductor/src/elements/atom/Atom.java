@@ -5,15 +5,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import animation.ElementImage;
-import elements.Crystal;
 import elements.charge.ConductionBandElectron;
 import elements.charge.ValenceBandCharge;
 import elements.charge.ValenceBandElectron;
 import elements.charge.ValenceBandHole;
+import elements.crystal.Crystal;
+import elements.view.ElementImage;
 import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
-import javafx.animation.Transition;
 import javafx.scene.layout.Pane;
 import settings.Settings;
 
@@ -25,9 +24,9 @@ public class Atom {
 	protected ElementImage view;
 	protected HashMap<String, ValenceBandCharge> valenceCharges = new HashMap<String, ValenceBandCharge>();
 	protected ConductionBandElectron conductingE;
-	public Atom() {
-		
-	}
+//	public Atom() {
+//		
+//	}
 	
 	public Atom(int indexX, int indexY, Crystal container) {
 		super();
@@ -51,10 +50,6 @@ public class Atom {
 	protected Crystal getContainer() {
 		return container;
 	}
-
-//	protected void setContainer(Crystal container) {
-//		this.container = container;
-//	}
 
 	public ValenceBandCharge getValenceCharge(String position) {
 		return valenceCharges.get(position);
@@ -101,13 +96,13 @@ public class Atom {
 		return (this.conductingE!=null);
 	}
 
-	public String toString() {
-		String str = this.valenceCharges.get("up").toString()+this.valenceCharges.get("down").toString()+this.valenceCharges.get("right").toString()+this.valenceCharges.get("left").toString();
-		if(this.conductingE!=null) {
-			str+="*";
-		}
-		return str;
-	}
+//	public String toString() {
+//		String str = this.valenceCharges.get("up").toString()+this.valenceCharges.get("down").toString()+this.valenceCharges.get("right").toString()+this.valenceCharges.get("left").toString();
+//		if(this.conductingE!=null) {
+//			str+="*";
+//		}
+//		return str;
+//	}
 	
 	//behavior 1 invoker
 	public void passOnConductingE() {
@@ -120,7 +115,7 @@ public class Atom {
 		this.conductingE = null;
 //		System.out.println("null e check2: "+e);
 		
-		//animation
+		//elements.view
 		if(this.indexX<Settings.crystalWidth-1) {
 		double x = newContainer.getView().getX()-this.getView().getX();
 		double y = 0;
@@ -167,7 +162,7 @@ public class Atom {
 //				System.out.println("new hole:"+newHolePosition);
 //				System.out.println("exchange atom:"+this.checkForHole());
 			 
-				//animation
+				//elements.view
 				if(this.getIndexX()>0) {
 					double x = holeHolder.getView().getX() - eHolder.getView().getX();
 					double y = holeHolder.getView().getY() - eHolder.getView().getY();
@@ -213,7 +208,7 @@ public class Atom {
 			this.valenceCharges.replace(holePosition, eHolder); 
 			ExchangingAtom.valenceCharges.replace(newHolePosition, holeHolder);
 			
-			//animation
+			//elements.view
 			double x = holeHolder.getView().getX();
 			double y = holeHolder.getView().getY();
 			double i = eHolder.getView().getX();
