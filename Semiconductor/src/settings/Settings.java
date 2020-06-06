@@ -23,7 +23,6 @@ public class Settings {
 
 	public static double maxTemperature = 50;
 	public static DoubleProperty temperature = new SimpleDoubleProperty();
-	public static double chaoticRate = 25;
 	public static SimpleDoubleProperty diffuseProb = new SimpleDoubleProperty();
 	
 	

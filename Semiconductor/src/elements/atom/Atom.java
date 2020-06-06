@@ -142,7 +142,7 @@ public class Atom {
 			sqt.play();
 //			e.getView().moveOutFrameAndBack(x, y).play();
 //			e.getView().moveChaotic().play();
-	//		t.play();
+//			t.play();
 		}
 	}
 	
