@@ -1,4 +1,4 @@
-package elements;
+package elements.crystal;
 import java.util.ArrayList;
 import java.util.Random;
 

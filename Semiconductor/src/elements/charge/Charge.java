@@ -1,6 +1,6 @@
 package elements.charge;
-import animation.ElementImage;
 import elements.atom.Atom;
+import elements.view.ElementImage;
 public abstract class Charge {
 
 	private Atom containerAtom;

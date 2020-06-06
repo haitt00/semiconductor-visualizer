@@ -1,16 +1,16 @@
 package elements.atom;
 
-import animation.ElementImage;
-import elements.Crystal;
 import elements.charge.ConductionBandElectron;
 import elements.charge.ValenceBandElectron;
+import elements.crystal.Crystal;
+import elements.view.ElementImage;
 import settings.Settings;
 
 public class PhosphorusAtom extends Atom{
 
-	public PhosphorusAtom() {
-		// TODO Auto-generated constructor stub
-	}
+//	public PhosphorusAtom() {
+//		// TODO Auto-generated constructor stub
+//	}
 	
 	public PhosphorusAtom(int indexX, int indexY, Crystal container) {
 		super(indexX, indexY, container);
@@ -25,7 +25,7 @@ public class PhosphorusAtom extends Atom{
 		
 	}
 
-	public String toString() {
-		return "P:"+super.toString();
-	}
+//	public String toString() {
+//		return "P:"+super.toString();
+//	}
 }

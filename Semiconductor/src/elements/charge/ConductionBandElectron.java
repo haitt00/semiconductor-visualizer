@@ -1,7 +1,7 @@
 package elements.charge;
 
-import animation.ElementImage;
 import elements.atom.Atom;
+import elements.view.ElementImage;
 import settings.Settings;
 
 public class ConductionBandElectron extends Charge{
@@ -14,8 +14,8 @@ public class ConductionBandElectron extends Charge{
 		//upper right corner
 	}
 	
-	public String toString() {
-		return "e";
-	}
+//	public String toString() {
+//		return "e";
+//	}
 
 }
