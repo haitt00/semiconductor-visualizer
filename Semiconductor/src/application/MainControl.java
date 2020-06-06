@@ -377,14 +377,14 @@ public class MainControl implements Initializable {
 		}
 		
 		if(choice.contains("P")) {
-			newCrystal.initCrystal("P", "heavy");
+			newCrystal.initCrystal("P", dope);
 		}
 
 		else if (choice.contains("N")) {
-			newCrystal.initCrystal("AL", "heavy");
+			newCrystal.initCrystal("AL", dope);
 		}
 		else if (choice.contains("I")) {
-			newCrystal.initCrystal("SI", "heavy");
+			newCrystal.initCrystal("SI", dope);
 		}
 		for (int x = 0; x < newCrystal.crystalWidth; x++) {
 			for (int y = 0; y < newCrystal.crystalHeight; y++) {
