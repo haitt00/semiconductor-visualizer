@@ -2,8 +2,12 @@ package elements.charge;
 
 import elements.atom.Atom;
 import elements.view.ElementImage;
+import environment.Environment;
+import javafx.animation.FadeTransition;
+import javafx.animation.Transition;
+import javafx.util.Duration;
 
-public class ValenceBandHole extends ValenceBandCharge{
+public class ValenceBandHole extends ValenceBandCharge implements Movable{
 
 	
 	public ValenceBandHole(Atom atom, String position) {
@@ -25,6 +29,50 @@ public class ValenceBandHole extends ValenceBandCharge{
 			view.setX(atom.getView().getX()-Atom.valenceViewPadding);
 			view.setY(atom.getView().getY()+Atom.atomViewRadius);
 		}
+	}
+
+	@Override
+	public Transition appear(double x, double y) {
+		this.getView().setX(x);
+		this.getView().setY(y);
+		FadeTransition fadeIn = new FadeTransition(Duration.millis(Environment.electronCycle.get()), this.getView());
+		fadeIn.setFromValue(0);
+		fadeIn.setToValue(1);
+		fadeIn.setOnFinished(evt->{
+			this.getView().setTranslateX(0);
+			this.getView().setTranslateY(0);
+		});
+		return fadeIn;
+	}
+
+	@Override
+	public Transition moveTranslate(double x, double y) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Transition moveChaotic() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Transition moveArc(double x, double y, boolean sweepFlag) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Transition moveOutFrameAndBack(double x, double y) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Transition spin() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 //	public String toString() {
