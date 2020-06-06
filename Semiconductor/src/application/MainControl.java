@@ -74,22 +74,18 @@ public class MainControl implements Initializable {
 		
 		Settings.voltage.set(1);
 		Settings.temperature.set(25);
-		// binding value of slider and textfield
 		StringConverter<Number> strVoltageConverter = new NumberStringConverter();
 		txtfVoltage.textProperty().bindBidirectional(sliderVoltage.valueProperty(), strVoltageConverter);
 		Settings.voltage.bindBidirectional(sliderVoltage.valueProperty());
 		Settings.transitionLength.bind((new SimpleIntegerProperty(1000)).divide(sliderVoltage.valueProperty()));
 		Settings.seperateProb.bind(sliderVoltage.valueProperty().divide(Settings.maxvoltage).multiply(0.5));
-//				System.out.println("binded");
-		// test
+
 		
 		StringConverter<Number> strTemperatureConverter = new NumberStringConverter();
 		txtfTemperature.textProperty().bindBidirectional(sliderTemperature.valueProperty(), strTemperatureConverter);
 		Settings.temperature.bindBidirectional(sliderTemperature.valueProperty());
 		Settings.diffuseProb.bind(sliderTemperature.valueProperty().divide(Settings.maxTemperature).multiply(0.75));
-//		Settings.transitionLength.get() = Settings.voltage.divide(1000).get();
-		
-		// initialize timeline
+
 		play(paneSemi);
 		
 		// set notes pane
@@ -113,8 +109,7 @@ public class MainControl implements Initializable {
 		
 		// test
 		
-		// initialize function of elements
-		
+		// initialize function of elements		
 
 		
 		Settings.voltage.addListener(new ChangeListener<Number>() {
