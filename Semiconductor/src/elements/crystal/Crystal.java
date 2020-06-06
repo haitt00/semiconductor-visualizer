@@ -33,6 +33,7 @@ public class Crystal {
 			for (int y = 0; y < this.crystalHeight; y++) {
 				for (int x = 0; x < this.crystalWidth; x++) {
 					if((x%2==0&&y%2==1)||(x%2==1&&y%2==0)) {
+//					if((x%2==0&&y%2==1)) {
 						atoms[x][y] = new AluminumAtom(x, y, this);
 					}
 					else {

@@ -2,8 +2,17 @@ package elements.charge;
 
 import elements.atom.Atom;
 import elements.view.ElementImage;
+import environment.Environment;
+import javafx.animation.Interpolator;
+import javafx.animation.PathTransition;
+import javafx.animation.Transition;
+import javafx.animation.TranslateTransition;
+import javafx.scene.shape.ArcTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.util.Duration;
 
-public class ValenceBandElectron extends ValenceBandCharge{
+public class ValenceBandElectron extends ValenceBandCharge implements Movable{
 
 	public ValenceBandElectron(Atom atom, String position) {
 		super(atom);
@@ -24,6 +33,74 @@ public class ValenceBandElectron extends ValenceBandCharge{
 			view.setX(atom.getView().getX()-Atom.valenceViewPadding);
 			view.setY(atom.getView().getY()+Atom.atomViewRadius);
 		}
+	}
+
+	@Override
+	public Transition appear(double x, double y) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Transition moveTranslate(double x, double y) {
+		TranslateTransition move = new TranslateTransition(Duration.millis(Environment.electronCycle.get()), this.getView());
+		move.setByX(x);
+		move.setByY(y);
+		move.setInterpolator(Interpolator.LINEAR);
+		move.setOnFinished(evt->{
+			this.getView().setTranslateX(0);
+			this.getView().setTranslateY(0);
+			this.getView().setX(this.getView().getX()+move.getByX());
+			this.getView().setY(this.getView().getY()+move.getByY());
+		});
+		return move;
+	}
+
+	@Override
+	public Transition moveChaotic() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Transition moveArc(double x, double y, boolean sweepFlag) {
+		Path path = new Path();
+		MoveTo mt = new MoveTo(this.getView().getX(), this.getView().getY());
+		ArcTo at = new ArcTo(90, 90, 0, x, y, false, sweepFlag);
+		path.getElements().add(mt);
+		path.getElements().add(at);
+		PathTransition move = new PathTransition(Duration.millis(Environment.electronCycle.get()), path, this.getView());
+		move.setOnFinished(evt->{
+			this.getView().setTranslateX(0);
+			this.getView().setTranslateY(0);
+			this.getView().setX(x);
+			this.getView().setY(y);
+
+		});
+		return move;
+	}
+
+	@Override
+	public Transition moveOutFrameAndBack(double x, double y) {
+		Path path = new Path();
+		MoveTo mt = new MoveTo(this.getView().getX(), this.getView().getY());
+		ArcTo at = new ArcTo(1000, 1000, 0, x, y, true, true);
+		path.getElements().add(mt);
+		path.getElements().add(at);
+		PathTransition move = new PathTransition(Duration.millis(Environment.electronCycle.get()), path, this.getView());
+		move.setOnFinished(evt->{
+			this.getView().setTranslateX(0);
+			this.getView().setTranslateY(0);
+			this.getView().setX(x);
+			this.getView().setY(y);
+		});
+		return move;
+	}
+
+	@Override
+	public Transition spin() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 //	public String toString() {
