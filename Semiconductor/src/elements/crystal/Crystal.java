@@ -6,12 +6,14 @@ import elements.atom.AluminumAtom;
 import elements.atom.Atom;
 import elements.atom.PhosphorusAtom;
 import elements.atom.SiliconAtom;
+import environment.Environment;
 import javafx.scene.layout.Pane;
-import settings.Settings;
 
 public class Crystal {
 
-	private Atom atoms[][] = new Atom[Settings.crystalWidth][Settings.crystalHeight];
+	public final int crystalHeight = 5;
+	public final int crystalWidth = 6;
+	private Atom atoms[][] = new Atom[this.crystalWidth][this.crystalHeight];
 	
 	public Crystal() {
 		
@@ -21,15 +23,15 @@ public class Crystal {
 	}
 	public void initCrystal(String type) {
 		if(type.contentEquals("SI")) {
-			for (int y = 0; y < Settings.crystalHeight; y++) {
-				for (int x = 0; x < Settings.crystalWidth; x++) {
+			for (int y = 0; y < this.crystalHeight; y++) {
+				for (int x = 0; x < this.crystalWidth; x++) {
 					atoms[x][y] = new SiliconAtom(x, y, this);
 				}
 			}
 		}
 		if(type.contentEquals("AL")) {
-			for (int y = 0; y < Settings.crystalHeight; y++) {
-				for (int x = 0; x < Settings.crystalWidth; x++) {
+			for (int y = 0; y < this.crystalHeight; y++) {
+				for (int x = 0; x < this.crystalWidth; x++) {
 					if((x%2==0&&y%2==1)||(x%2==1&&y%2==0)) {
 						atoms[x][y] = new AluminumAtom(x, y, this);
 					}
@@ -40,8 +42,8 @@ public class Crystal {
 			}
 		}
 		if(type.contentEquals("P")) {
-			for (int y = 0; y < Settings.crystalHeight; y++) {
-				for (int x = 0; x < Settings.crystalWidth; x++) {
+			for (int y = 0; y < this.crystalHeight; y++) {
+				for (int x = 0; x < this.crystalWidth; x++) {
 					if((x%2==0&&y%2==1)||(x%2==1&&y%2==0)) {
 						atoms[x][y] = new PhosphorusAtom(x, y, this);
 					}
@@ -54,16 +56,16 @@ public class Crystal {
 	}
 	
 	public void displayCrystal() {
-		for (int j = 0; j < Settings.crystalHeight; j++) {
-			for (int i = 0; i < Settings.crystalWidth; i++) {
+		for (int j = 0; j < this.crystalHeight; j++) {
+			for (int i = 0; i < this.crystalWidth; i++) {
 				System.out.print(atoms[i][j].toString()+" ");
 			}
 			System.out.println();
 		}
 	}
 	public void displayHolePosition() {
-		for (int j = 0; j < Settings.crystalHeight; j++) {
-			for (int i = 0; i < Settings.crystalWidth; i++) {
+		for (int j = 0; j < this.crystalHeight; j++) {
+			for (int i = 0; i < this.crystalWidth; i++) {
 				System.out.print(atoms[i][j].checkForHole()+" ");
 			}
 			System.out.println();
@@ -74,13 +76,13 @@ public class Crystal {
 		ArrayList<Atom> behavior1Atoms = new ArrayList<>();
 		ArrayList<Atom> behavior4Atoms = new ArrayList<>();
 		ArrayList<Atom> behavior5Atoms = new ArrayList<>();
-		for (int y = 0; y < Settings.crystalHeight; y++) {
+		for (int y = 0; y < this.crystalHeight; y++) {
 			ArrayList<Integer> diffuseCandidateIndex = new ArrayList<>();
-			for (int x = 0; x < Settings.crystalWidth; x++) {
+			for (int x = 0; x < this.crystalWidth; x++) {
 				//if atom has both e and o, either seperate (1-2-3) or recombination (5)
 				if(atoms[x][y].checkForConductingE()&&!(atoms[x][y].checkForHole().contentEquals("none"))) {
 					Double separateChance = Math.random();
-					if(separateChance<Settings.seperateProb.get()) {
+					if(separateChance<Environment.seperateProb.get()) {
 						behavior1Atoms.add(atoms[x][y]);
 						behavior23Atoms.add(atoms[x][y]);
 					}
@@ -102,9 +104,9 @@ public class Crystal {
 					diffuseCandidateIndex.add(x);
 				}
 			}
-			if(diffuseCandidateIndex.size()==Settings.crystalWidth) {
+			if(diffuseCandidateIndex.size()==this.crystalWidth) {
 				Double diffuseChance = Math.random();
-				if(diffuseChance<Settings.diffuseProb.get()) {
+				if(diffuseChance<Environment.diffuseProb.get()) {
 					int roulett = new Random().nextInt(diffuseCandidateIndex.size());
 					behavior4Atoms.add(atoms[roulett][y]);
 				}

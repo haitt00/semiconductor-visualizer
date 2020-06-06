@@ -4,7 +4,7 @@ import elements.charge.ConductionBandElectron;
 import elements.charge.ValenceBandElectron;
 import elements.crystal.Crystal;
 import elements.view.ElementImage;
-import settings.Settings;
+import environment.Environment;
 
 public class PhosphorusAtom extends Atom{
 
@@ -15,8 +15,8 @@ public class PhosphorusAtom extends Atom{
 	public PhosphorusAtom(int indexX, int indexY, Crystal container) {
 		super(indexX, indexY, container);
 		this.view = ElementImage.getPhosphorusImage();
-		this.view.setX(this.getIndexX()*Settings.PanelWidth/Settings.crystalWidth+Settings.PanelWidth/Settings.crystalWidth/2);
-		this.view.setY(this.getIndexY()*Settings.PanelHeight/Settings.crystalHeight+Settings.PanelHeight/Settings.crystalHeight/2);
+		this.view.setX(this.getIndexX()*Atom.atomViewCell+Atom.atomViewCell/2);
+		this.view.setY(this.getIndexY()*Atom.atomViewCell+Atom.atomViewCell/2);
 		this.valenceCharges.put("up", new ValenceBandElectron(this, "up")); // maybe initilze using indexX & Y of atom here
 		this.valenceCharges.put("down", new ValenceBandElectron(this, "down"));
 		this.valenceCharges.put("right", new ValenceBandElectron(this, "right"));
