@@ -14,10 +14,12 @@ import elements.view.ElementImage;
 import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
 import javafx.scene.layout.Pane;
-import settings.Settings;
 
 public class Atom {
-
+	
+	public static final int atomViewRadius = 26;
+	public static final int atomViewCell = 100;
+	public static final int valenceViewPadding = 16;
 	private int indexX;
 	private int indexY;
 	private Crystal container;
@@ -67,16 +69,16 @@ public class Atom {
 			else return null;
 		}
 		if(position.contentEquals("down")) {
-			if(this.indexY<Settings.crystalHeight-1) {
+			if(this.indexY<this.container.crystalHeight-1) {
 				return this.getContainer().getAtomAt(this.indexX, this.indexY+1);
 			}
 			else return null;
 		}
 		if(position.contentEquals("right")) {
-			return this.getContainer().getAtomAt((this.indexX+1)%Settings.crystalWidth, this.indexY);
+			return this.getContainer().getAtomAt((this.indexX+1)%this.container.crystalWidth, this.indexY);
 		}
 		if(this.getIndexX()<1) {
-			return this.getContainer().getAtomAt((this.indexX+Settings.crystalWidth-1), this.indexY);
+			return this.getContainer().getAtomAt((this.indexX+this.container.crystalWidth-1), this.indexY);
 		}
 		return this.getContainer().getAtomAt((this.indexX-1), this.indexY);
 	}
@@ -116,7 +118,7 @@ public class Atom {
 //		System.out.println("null e check2: "+e);
 		
 		//elements.view
-		if(this.indexX<Settings.crystalWidth-1) {
+		if(this.indexX<this.container.crystalWidth-1) {
 		double x = newContainer.getView().getX()-this.getView().getX();
 		double y = 0;
 //		double x = newContainer.getConductingE().getView().getX();
@@ -129,8 +131,8 @@ public class Atom {
 	//	t.play();
 		}
 		else {//move out of frame
-			double x = newContainer.getView().getX()+2*Settings.frameBias+Settings.padding/2;
-			double y = newContainer.getView().getY()-Settings.padding/2;
+			double x = newContainer.getView().getX()+2*Atom.atomViewRadius+Atom.valenceViewPadding/2;
+			double y = newContainer.getView().getY()-Atom.valenceViewPadding/2;
 	//		Transition t = e.getView().moveOutFrameAndBack(x, y);
 			SequentialTransition sqt = new SequentialTransition();
 			sqt.getChildren().addAll(e.getView().moveOutFrameAndBack(x, y), e.getView().moveChaotic());

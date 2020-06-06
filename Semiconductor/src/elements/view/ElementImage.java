@@ -3,6 +3,7 @@ package elements.view;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import environment.Environment;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
@@ -18,7 +19,6 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
-import settings.Settings;
 
 public class ElementImage extends ImageView{
 
@@ -66,7 +66,7 @@ public class ElementImage extends ImageView{
 	public Transition appear(double x, double y) {
 		this.setX(x);
 		this.setY(y);
-		FadeTransition fadeIn = new FadeTransition(Duration.millis(Settings.transitionLength.get()), this);
+		FadeTransition fadeIn = new FadeTransition(Duration.millis(Environment.electronCycle.get()), this);
 		fadeIn.setFromValue(0);
 		fadeIn.setToValue(1);
 		fadeIn.setOnFinished(evt->{
@@ -77,7 +77,7 @@ public class ElementImage extends ImageView{
 	}
 
 //	public Transition disappear() {
-//		FadeTransition fadeOut = new FadeTransition(Duration.millis(Settings.transitionLength.get()), this);
+//		FadeTransition fadeOut = new FadeTransition(Duration.millis(Environment.transitionLength.get()), this);
 //		fadeOut.setFromValue(1);
 //		fadeOut.setToValue(0);
 //		fadeOut.setOnFinished(evt->{
@@ -92,7 +92,7 @@ public class ElementImage extends ImageView{
 //	}
 
 	public Transition moveTranslate(double x, double y) {
-		TranslateTransition move = new TranslateTransition(Duration.millis(Settings.transitionLength.get()), this);
+		TranslateTransition move = new TranslateTransition(Duration.millis(Environment.electronCycle.get()), this);
 		move.setByX(x);
 		move.setByY(y);
 		move.setInterpolator(Interpolator.LINEAR);
@@ -106,8 +106,8 @@ public class ElementImage extends ImageView{
 	} 
 	public Transition moveChaotic() {
 		TranslateTransition move = new TranslateTransition();
-		move.setByX(Math.random()*Settings.temperature.get()*0.3);
-		move.setByY(Math.random()*Settings.temperature.get()*0.3);
+		move.setByX(Math.random()*Environment.temperature.get()*0.3);
+		move.setByY(Math.random()*Environment.temperature.get()*0.3);
 		move.setDuration(Duration.millis(100));
 		move.setCycleCount(12);
 		move.setAutoReverse(true);
@@ -121,7 +121,7 @@ public class ElementImage extends ImageView{
 		ArcTo at = new ArcTo(90, 90, 0, x, y, false, sweepFlag);
 		path.getElements().add(mt);
 		path.getElements().add(at);
-		PathTransition move = new PathTransition(Duration.millis(Settings.transitionLength.get()), path, this);
+		PathTransition move = new PathTransition(Duration.millis(Environment.electronCycle.get()), path, this);
 		move.setOnFinished(evt->{
 			this.setTranslateX(0);
 			this.setTranslateY(0);
@@ -137,7 +137,7 @@ public class ElementImage extends ImageView{
 		ArcTo at = new ArcTo(1000, 1000, 0, x, y, true, true);
 		path.getElements().add(mt);
 		path.getElements().add(at);
-		PathTransition move = new PathTransition(Duration.millis(Settings.transitionLength.get()), path, this);
+		PathTransition move = new PathTransition(Duration.millis(Environment.electronCycle.get()), path, this);
 		move.setOnFinished(evt->{
 			this.setTranslateX(0);
 			this.setTranslateY(0);
@@ -147,12 +147,12 @@ public class ElementImage extends ImageView{
 		return move;
 	}
 	public Transition spin() {
-		RotateTransition rotate = new RotateTransition(Duration.millis(Settings.transitionLength.get()));
+		RotateTransition rotate = new RotateTransition(Duration.millis(Environment.electronCycle.get()));
 		rotate.setNode(this);
 		rotate.setAxis(Rotate.Z_AXIS);
 		rotate.setByAngle(360);
 		
-		ScaleTransition scale = new ScaleTransition(Duration.millis(Settings.transitionLength.get()));
+		ScaleTransition scale = new ScaleTransition(Duration.millis(Environment.electronCycle.get()));
 		scale.setNode(this);
 		scale.setByX(0.2);
 		scale.setByY(0.2);

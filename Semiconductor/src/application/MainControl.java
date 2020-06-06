@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import elements.crystal.Crystal;
+import environment.Environment;
 import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -38,7 +39,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
-import settings.Settings;
 
 @SuppressWarnings({"rawtypes","unchecked"})
 
@@ -54,7 +54,7 @@ public class MainControl implements Initializable {
 	Button btnStartSimulation, btnStopSimulation;
 
 	@FXML
-	Pane paneSemi, paneCrystalBackground, paneCrystalFrame, paneNotes;
+	Pane paneElements, paneCrystalBackground, paneCrystalFrame, paneNotes;
 	
 	@FXML
 	AnchorPane anchorPaneBG;
@@ -72,21 +72,21 @@ public class MainControl implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {		
 		// initialize parameters
 		
-		Settings.voltage.set(1);
-		Settings.temperature.set(25);
+		Environment.externalVoltage.set(1);
+		Environment.temperature.set(25);
 		StringConverter<Number> strVoltageConverter = new NumberStringConverter();
 		txtfVoltage.textProperty().bindBidirectional(sliderVoltage.valueProperty(), strVoltageConverter);
-		Settings.voltage.bindBidirectional(sliderVoltage.valueProperty());
-		Settings.transitionLength.bind((new SimpleIntegerProperty(1000)).divide(sliderVoltage.valueProperty()));
-		Settings.seperateProb.bind(sliderVoltage.valueProperty().divide(Settings.maxvoltage).multiply(0.5));
+		Environment.externalVoltage.bindBidirectional(sliderVoltage.valueProperty());
+		Environment.electronCycle.bind((new SimpleIntegerProperty(1000)).divide(sliderVoltage.valueProperty()));
+		Environment.seperateProb.bind(sliderVoltage.valueProperty().divide(Environment.maxvoltage).multiply(0.5));
 
 		
 		StringConverter<Number> strTemperatureConverter = new NumberStringConverter();
 		txtfTemperature.textProperty().bindBidirectional(sliderTemperature.valueProperty(), strTemperatureConverter);
-		Settings.temperature.bindBidirectional(sliderTemperature.valueProperty());
-		Settings.diffuseProb.bind(sliderTemperature.valueProperty().divide(Settings.maxTemperature).multiply(0.75));
+		Environment.temperature.bindBidirectional(sliderTemperature.valueProperty());
+		Environment.diffuseProb.bind(sliderTemperature.valueProperty().divide(Environment.maxTemperature).multiply(0.75));
 
-		play(paneSemi);
+		setTimeline(paneElements);
 		
 		// set notes pane
 		String strNote = "./src/images/Notes.png";
@@ -112,7 +112,7 @@ public class MainControl implements Initializable {
 		// initialize function of elements		
 
 		
-		Settings.voltage.addListener(new ChangeListener<Number>() {
+		Environment.externalVoltage.addListener(new ChangeListener<Number>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
@@ -120,21 +120,21 @@ public class MainControl implements Initializable {
 //				double externalVoltage = sliderVoltage.getValue();
 //				int timeDuration = (int)(1000/externalVoltage);
 //				IntegerProperty timeDurationProperty = new SimpleIntegerProperty(timeDuration);
-//				Settings.transitionLength.bindBidirectional(timeDurationProperty);
-//				Settings.transitionLength = new SimpleIntegerProperty((int) (1000/sliderVoltage.getValue()));
-//					System.out.println(Settings.voltage.get());
+//				Environment.transitionLength.bindBidirectional(timeDurationProperty);
+//				Environment.transitionLength = new SimpleIntegerProperty((int) (1000/sliderVoltage.getValue()));
+//					System.out.println(Environment.voltage.get());
 					//		Double externalVoltage = sliderVoltage.getValue();
 							//fucntion to pass value to backend code of crystal
-					//		Settings.transitionLength.get() = (int) (1000/externalVoltage);
+					//		Environment.transitionLength.get() = (int) (1000/externalVoltage);
 							
 				if(MainControl.timeline.getStatus().equals(Status.RUNNING)) {
 					timeline.stop();
 					timeline.getKeyFrames().clear();
-					play(paneSemi);
+					setTimeline(paneElements);
 					timeline.play();
 				}
 				else {
-					play(paneSemi);
+					setTimeline(paneElements);
 				}
 			}
 			
@@ -147,56 +147,56 @@ public class MainControl implements Initializable {
 			double externalVoltage = sliderVoltage.getValue();
 			int timeDuration = (int)(1000/externalVoltage);
 			IntegerProperty timeDurationProperty = new SimpleIntegerProperty(timeDuration);
-			Settings.transitionLength.bindBidirectional(timeDurationProperty);	
+			Environment.transitionLength.bindBidirectional(timeDurationProperty);	
 			
-			System.out.println(Settings.voltage.get());
+			System.out.println(Environment.voltage.get());
 	//		Double externalVoltage = sliderVoltage.getValue();
 			//fucntion to pass value to backend code of crystal
 <<<<<<< HEAD
 			if(this.timeline.getStatus().equals(Status.RUNNING)) {
 				timeline.stop();
 				timeline.getKeyFrames().clear();
-				play(paneSemi);
+				play(paneElements);
 				timeline.play();
 
 =======
-	//		Settings.transitionLength.get() = (int) (1000/externalVoltage);
+	//		Environment.transitionLength.get() = (int) (1000/externalVoltage);
 			try {
 				if(this.timeline.getStatus().equals(Status.RUNNING)) {
 					timeline.stop();
 					timeline.getKeyFrames().clear();
-					play(paneSemi);
+					play(paneElements);
 					timeline.play();
 				}
 >>>>>>> 33eb4d12faf774baee1842ae3fcdc0a2e47a4a4b
 			}
 			else {
-				play(paneSemi);
+				play(paneElements);
 			}
 		}); */
 		
 		
-		Settings.temperature.addListener(new ChangeListener<Number>() {
+		Environment.temperature.addListener(new ChangeListener<Number>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				// test
-//				System.out.println(Settings.temperature.get());
-//				System.out.println(Settings.transitionLength.get());
+//				System.out.println(Environment.temperature.get());
+//				System.out.println(Environment.transitionLength.get());
 				//fucntion to pass value to backend code of crystal
 		//		Double temperature = sliderTemperature.getValue();
-//				Settings.chaoticRate = Settings.temperature.get();
+//				Environment.chaoticRate = Environment.temperature.get();
 				//test
-			//	System.out.println("chaotic rate: " + Settings.chaoticRate);
-//				Settings.transitionLength = new SimpleIntegerProperty((int) (1000/sliderVoltage.getValue()));
+			//	System.out.println("chaotic rate: " + Environment.chaoticRate);
+//				Environment.transitionLength = new SimpleIntegerProperty((int) (1000/sliderVoltage.getValue()));
 				if(MainControl.timeline.getStatus().equals(Status.RUNNING)) {
 					timeline.stop();
 					timeline.getKeyFrames().clear();
-					play(paneSemi);
+					setTimeline(paneElements);
 					timeline.play();
 				}
 				else {
-					play(paneSemi);
+					setTimeline(paneElements);
 				}
 			}
 			
@@ -287,13 +287,18 @@ public class MainControl implements Initializable {
 		} else if (choice.contains("I")) {
 			radiomnitemIType.setSelected(true);
 		}
-		paneSemi.setVisible(true);
+		paneElements.setVisible(true);
 	}
 	
 	public void setCrystalView(String choice) {
 		newCrystal = new Crystal();
 		
+		
 		// set crystal frame and background
+//		public final int PanelHeight = 100*Crystal.crystalHeight;
+//		public final int PanelWidth = 100*Crystal.crystalHeight;
+//		public final int atomViewRadius = 26;
+//		public final int valenceViewPadding = 16;
 		String strCFrame = "./src/images/crystal-frame.png";
 		String strCBackground = "./src/images/crystal-background.png";
 		
@@ -316,8 +321,8 @@ public class MainControl implements Initializable {
 		paneCrystalFrame.getChildren().add(CFrame);
 		paneCrystalBackground.getChildren().add(CBackground);
 		
-		if(paneSemi.getChildren().isEmpty()==false) {
-			paneSemi.getChildren().clear();
+		if(paneElements.getChildren().isEmpty()==false) {
+			paneElements.getChildren().clear();
 		}
 		
 		if(choice.contains("P")) {
@@ -330,21 +335,21 @@ public class MainControl implements Initializable {
 		else if (choice.contains("I")) {
 			newCrystal.initCrystal("SI");
 		}
-		for (int x = 0; x < Settings.crystalWidth; x++) {
-			for (int y = 0; y < Settings.crystalHeight; y++) {
-				paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getView());
-				paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("up").getView());
-				paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("down").getView());
-				paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("right").getView());
-				paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("left").getView());
+		for (int x = 0; x < newCrystal.crystalWidth; x++) {
+			for (int y = 0; y < newCrystal.crystalHeight; y++) {
+				paneElements.getChildren().add(newCrystal.getAtomAt(x, y).getView());
+				paneElements.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("up").getView());
+				paneElements.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("down").getView());
+				paneElements.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("right").getView());
+				paneElements.getChildren().add(newCrystal.getAtomAt(x, y).getValenceCharge("left").getView());
 				if(newCrystal.getAtomAt(x, y).checkForConductingE()) {
-					paneSemi.getChildren().add(newCrystal.getAtomAt(x, y).getConductingE().getView());
+					paneElements.getChildren().add(newCrystal.getAtomAt(x, y).getConductingE().getView());
 				}
 			}
 		}
 	}
 
-	private void play(Pane pane) {
+	private void setTimeline(Pane pane) {
 		EventHandler onFinished = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -353,7 +358,7 @@ public class MainControl implements Initializable {
 			
 		};
 
-		KeyFrame kf = new KeyFrame(Duration.millis(Settings.transitionLength.getValue()+40), onFinished);
+		KeyFrame kf = new KeyFrame(Duration.millis(Environment.electronCycle.getValue()+40), onFinished);
 		
 		timeline = new Timeline(kf);
 		
