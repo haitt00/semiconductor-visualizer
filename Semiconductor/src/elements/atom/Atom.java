@@ -120,25 +120,24 @@ public class Atom {
 		this.conductingE = null;
 //		System.out.println("null e check2: "+e);
 		
-		//elements.view
-		if(this.indexX<this.container.crystalWidth-1) {
-		double x = newContainer.getView().getX()-this.getView().getX();
-		double y = 0;
-//		double x = newContainer.getConductingE().getView().getX();
-//		double y = newContainer.getConductingE().getView().getY();
-//		System.out.println("null e check: "+e);
-//		Transition t = e.getView().moveTranslate(x, y);
-		SequentialTransition sqt = new SequentialTransition();
-		sqt.getChildren().addAll(e.moveTranslate(x, y), e.moveChaotic());
-		sqt.play();
-	//	t.play();
+		if(this.indexX<this.container.crystalWidth-1) {//if not leftmost
+			double distanceX = newContainer.getView().getX()-this.getView().getX();
+			double distanceY = 0;
+	//		double x = newContainer.getConductingE().getView().getX();
+	//		double y = newContainer.getConductingE().getView().getY();
+	//		System.out.println("null e check: "+e);
+	//		Transition t = e.getView().moveTranslate(x, y);
+			SequentialTransition sqt = new SequentialTransition();
+			sqt.getChildren().addAll(e.moveTranslate(distanceX, distanceY), e.moveChaotic());
+			sqt.play();
+		//	t.play();
 		}
-		else {//move out of frame
-			double x = newContainer.getView().getX()+2*Atom.atomViewRadius+Atom.valenceViewPadding/2;
-			double y = newContainer.getView().getY()-Atom.valenceViewPadding/2;
+		else {////if leftmost, move out of frame
+			double targetX = newContainer.getView().getX()+2*Atom.atomViewRadius+Atom.valenceViewPadding/2;
+			double targetY = newContainer.getView().getY()-Atom.valenceViewPadding/2;
 	//		Transition t = e.getView().moveOutFrameAndBack(x, y);
 			SequentialTransition sqt = new SequentialTransition();
-			sqt.getChildren().addAll(e.moveOutFrameAndBack(x, y), e.moveChaotic());
+			sqt.getChildren().addAll(e.moveOutFrameAndBack(targetX, targetY), e.moveChaotic());
 			sqt.play();
 //			e.getView().moveOutFrameAndBack(x, y).play();
 //			e.getView().moveChaotic().play();
@@ -155,6 +154,7 @@ public class Atom {
 		Atom ExchangingAtom;
 		boolean sweepFlag = false;
 		
+			//if hole in left position, exchange with another atom
 			if(holePosition.contentEquals("left")) {
 				newHolePosition = "right";
 				ExchangingAtom = this.getAdjacentAtom("left");
@@ -167,8 +167,7 @@ public class Atom {
 //				System.out.println("new hole:"+newHolePosition);
 //				System.out.println("exchange atom:"+this.checkForHole());
 			 
-				//elements.view
-				if(this.getIndexX()>0) {
+				if(this.getIndexX()>0) {//if hole is not rightmost, exchange with e to the right 
 					double x = holeHolder.getView().getX() - eHolder.getView().getX();
 					double y = holeHolder.getView().getY() - eHolder.getView().getY();
 					double i = eHolder.getView().getX();
@@ -176,7 +175,7 @@ public class Atom {
 					eHolder.moveTranslate(x, y).play();
 					holeHolder.appear(i, j).play();
 				}
-				else {
+				else {//if hole is rightmost, exchange with e to the leftmost by moving out frame 
 					double x = holeHolder.getView().getX();
 					double y = holeHolder.getView().getY();
 					double i = eHolder.getView().getX();
@@ -187,7 +186,7 @@ public class Atom {
 				return;
 				
 			}
-			else {
+			else {//if hole not in left position, exchange with self
 				ExchangingAtom = this;
 				if(holePosition.contentEquals("right")) {
 					if(new Random().nextInt(2)==0) {
@@ -214,12 +213,12 @@ public class Atom {
 			ExchangingAtom.valenceCharges.replace(newHolePosition, holeHolder);
 			
 			//elements.view
-			double x = holeHolder.getView().getX();
-			double y = holeHolder.getView().getY();
-			double i = eHolder.getView().getX();
-			double j = eHolder.getView().getY();
-			eHolder.moveArc(x, y, sweepFlag).play();
-			holeHolder.appear(i, j).play();
+			double eTargetX = holeHolder.getView().getX();
+			double eTargetY = holeHolder.getView().getY();
+			double holeTargetX = eHolder.getView().getX();
+			double holeTargetY = eHolder.getView().getY();
+			eHolder.moveArc(eTargetX, eTargetY, sweepFlag).play();
+			holeHolder.appear(holeTargetX, holeTargetY).play();
 	}
 	
 	//behavior 4 invoker
@@ -247,14 +246,14 @@ public class Atom {
 		ConductionBandElectron newConductingE = new ConductionBandElectron(this);
 		ValenceBandHole newHole = new ValenceBandHole(this, diffusePosition);
 		
-		double x = valenceE.getView().getX();
-		double y = valenceE.getView().getY();
-		double i = newConductingE.getView().getX();
-		double j = newConductingE.getView().getY();
+		double valenceECoordinateX = valenceE.getView().getX();
+		double valenceECoordinateY = valenceE.getView().getY();
+		double conductingECoordinateX = newConductingE.getView().getX();
+		double conductingECoordinateY = newConductingE.getView().getY();
 		
 //		System.out.println("moveby: "+(i-x)+", "+(j-y));
-		explosion.setX(x);
-		explosion.setY(y);
+		explosion.setX(valenceECoordinateX);
+		explosion.setY(valenceECoordinateY);
 		FadeTransition explosionFadeIn = new FadeTransition(Duration.millis(Environment.electronCycle.get()), explosion);
 		explosionFadeIn.setFromValue(0);
 		explosionFadeIn.setToValue(1);
@@ -262,7 +261,7 @@ public class Atom {
 			explosion.setTranslateX(0);
 			explosion.setTranslateY(0);
 		});
-		ParallelTransition pt = new ParallelTransition(explosionFadeIn, valenceE.moveTranslate((i-x),(j-y)));
+		ParallelTransition pt = new ParallelTransition(explosionFadeIn, valenceE.moveTranslate((conductingECoordinateX-valenceECoordinateX),(conductingECoordinateY-valenceECoordinateY)));
 		pt.setOnFinished(evt->{
 			root.getChildren().removeAll(explosion, valenceE.getView());
 			root.getChildren().addAll(newConductingE.getView(), newHole.getView());
@@ -277,11 +276,11 @@ public class Atom {
 		ValenceBandHole hole = (ValenceBandHole) this.valenceCharges.get(holePosition);
 		ConductionBandElectron conductingE = this.conductingE;
 		ValenceBandElectron newValenceE = new ValenceBandElectron(this, this.checkForHole());
-		double x = conductingE.getView().getX();
-		double y = conductingE.getView().getY();
-		double i = hole.getView().getX();
-		double j = hole.getView().getY();
-		ParallelTransition pt = new ParallelTransition(conductingE.moveTranslate(i-x, j-y), conductingE.spin());
+		double conductingECoordinateX = conductingE.getView().getX();
+		double conductingECoordinateY = conductingE.getView().getY();
+		double holeCoordinateX = hole.getView().getX();
+		double holeCoordinateY = hole.getView().getY();
+		ParallelTransition pt = new ParallelTransition(conductingE.moveTranslate(holeCoordinateX-conductingECoordinateX, holeCoordinateY-conductingECoordinateY), conductingE.spin());
 		pt.setOnFinished(evt->{
 			this.conductingE = null;
 			this.valenceCharges.replace(holePosition, newValenceE);
