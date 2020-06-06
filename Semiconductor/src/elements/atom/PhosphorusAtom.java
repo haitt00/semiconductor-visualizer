@@ -4,7 +4,6 @@ import elements.charge.ConductionBandElectron;
 import elements.charge.ValenceBandElectron;
 import elements.crystal.Crystal;
 import elements.view.ElementImage;
-import environment.Environment;
 
 public class PhosphorusAtom extends Atom{
 
