@@ -432,10 +432,10 @@ public class MainControl implements Initializable {
 			stringType = "light";
 		
 		if(selectedDopeType.toString().contains("Medium")==true) 
-			stringType = "light";
+			stringType = "medium";
 		
 		if(selectedDopeType.toString().contains("Heavy")==true) 
-			stringType = "light";
+			stringType = "heavy";
 		
 		return stringType;
 
