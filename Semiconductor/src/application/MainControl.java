@@ -287,7 +287,7 @@ public class MainControl implements Initializable {
 		} else if (choice.contains("I")) {
 			radiomnitemIType.setSelected(true);
 		}
-		paneElements.setVisible(true);
+		paneElements.setVisible(true); 
 	}
 	
 	public void setCrystalView(String choice) {
@@ -326,14 +326,14 @@ public class MainControl implements Initializable {
 		}
 		
 		if(choice.contains("P")) {
-			newCrystal.initCrystal("P");
+			newCrystal.initCrystal("P", "heavy");
 		}
 
 		else if (choice.contains("N")) {
-			newCrystal.initCrystal("AL");
+			newCrystal.initCrystal("AL", "heavy");
 		}
 		else if (choice.contains("I")) {
-			newCrystal.initCrystal("SI");
+			newCrystal.initCrystal("SI", "heavy");
 		}
 		for (int x = 0; x < newCrystal.crystalWidth; x++) {
 			for (int y = 0; y < newCrystal.crystalHeight; y++) {
