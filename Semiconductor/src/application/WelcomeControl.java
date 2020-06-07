@@ -60,11 +60,11 @@ public class WelcomeControl implements Initializable {
 			mainControl.setStartMode(mnbtnChooseType.getText());
 			//and to call set crystal view
 			if(mnbtnChooseType.getText().contains("P"))
-				mainControl.setCrystalView("P", "medium");
+				mainControl.setCrystalView("P", "light");
 			else if(mnbtnChooseType.getText().contains("N"))
-				mainControl.setCrystalView("N", "medium");
+				mainControl.setCrystalView("N", "light");
 			else if(mnbtnChooseType.getText().contains("I"))
-				mainControl.setCrystalView("I", "medium");
+				mainControl.setCrystalView("I", "light");
 			
 			//create new stage with the new pane as root
 			Stage stage = new Stage();
