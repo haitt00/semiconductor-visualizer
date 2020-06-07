@@ -35,9 +35,6 @@ public class Crystal {
 			if(dopeRatio.contentEquals("light")) {
 				numberOfDopedOnRow = 1;
 			}
-			if(dopeRatio.contentEquals("medium")) {
-				numberOfDopedOnRow = 2;
-			}
 			if(dopeRatio.contentEquals("heavy")) {
 				numberOfDopedOnRow = 3;
 			}

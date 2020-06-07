@@ -61,7 +61,7 @@ public class MainControl implements Initializable {
 	AnchorPane anchorPaneBG;
 
 	@FXML
-	RadioMenuItem radiomnitemPType, radiomnitemNType, radiomnitemIType, radiomnitemLightDoped, radiomnitemMediumDoped, radiomnitemHeavyDoped;
+	RadioMenuItem radiomnitemPType, radiomnitemNType, radiomnitemIType, radiomnitemLightDoped, radiomnitemHeavyDoped;
 
 	@FXML
 	MenuItem mnitemExit, mnitemHowToUse, mnitemAbout;
@@ -108,7 +108,6 @@ public class MainControl implements Initializable {
 		
 		ToggleGroup toogleGroupDope = new ToggleGroup();
 		radiomnitemLightDoped.setToggleGroup(toogleGroupDope);
-		radiomnitemMediumDoped.setToggleGroup(toogleGroupDope);
 		radiomnitemHeavyDoped.setToggleGroup(toogleGroupDope);
 		
 		btnStopSimulation.setDisable(true);
@@ -233,6 +232,7 @@ public class MainControl implements Initializable {
 			timeline.stop();
 			setButtonOnStop();
 			setCrystalView("P", strDope);
+			setDisableChooseDopeType(false);
 		});
 
 		radiomnitemNType.setOnAction(e -> {
@@ -240,6 +240,7 @@ public class MainControl implements Initializable {
 			timeline.stop();
 			setButtonOnStop();
 			setCrystalView("N", strDope);
+			setDisableChooseDopeType(false);
 		});
 
 		radiomnitemIType.setOnAction(e -> {
@@ -247,20 +248,14 @@ public class MainControl implements Initializable {
 			timeline.stop();
 			setButtonOnStop();
 			setCrystalView("I", strDope);
+			setDisableChooseDopeType(true);
 		});
 		
 		radiomnitemLightDoped.setOnAction(e->{
 			String strType = getSemiconductorType(toogleGroupType.getSelectedToggle());
 			timeline.stop();
 			setButtonOnStop();
-			setCrystalView(strType, "light");
-		});
-		
-		radiomnitemMediumDoped.setOnAction(e->{
-			String strType = getSemiconductorType(toogleGroupType.getSelectedToggle());
-			timeline.stop();
-			setButtonOnStop();
-			setCrystalView(strType, "medium");
+			setCrystalView(strType, "light");			
 		});
 		
 		radiomnitemHeavyDoped.setOnAction(e->{
@@ -330,7 +325,7 @@ public class MainControl implements Initializable {
 
 
 	public void setStartMode(String choice) {
-		radiomnitemMediumDoped.setSelected(true);
+		radiomnitemLightDoped.setSelected(true);
 		if (choice.contains("P")) {
 			radiomnitemPType.setSelected(true);
 		} else if (choice.contains("N")) {
@@ -431,9 +426,6 @@ public class MainControl implements Initializable {
 		if(selectedDopeType.toString().contains("Light")==true) 
 			stringType = "light";
 		
-		if(selectedDopeType.toString().contains("Medium")==true) 
-			stringType = "medium";
-		
 		if(selectedDopeType.toString().contains("Heavy")==true) 
 			stringType = "heavy";
 		
@@ -454,6 +446,10 @@ public class MainControl implements Initializable {
 			stringType = "I";
 		
 		return stringType;
-		
+	}
+	
+	private void setDisableChooseDopeType(boolean isDisable) {
+		radiomnitemHeavyDoped.setDisable(isDisable);
+		radiomnitemLightDoped.setDisable(isDisable);
 	}
 }

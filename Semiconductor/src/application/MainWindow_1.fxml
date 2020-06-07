@@ -40,7 +40,6 @@
                   <RadioMenuItem fx:id="radiomnitemIType" mnemonicParsing="false" text="I-type" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <RadioMenuItem fx:id="radiomnitemLightDoped" mnemonicParsing="false" text="Light-doped" />
-                  <RadioMenuItem fx:id="radiomnitemMediumDoped" mnemonicParsing="false" text="Medium-doped" />
                   <RadioMenuItem fx:id="radiomnitemHeavyDoped" mnemonicParsing="false" text="Heavy-doped" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="mnitemExit" mnemonicParsing="false" text="Exit" />
