@@ -232,6 +232,7 @@ public class MainControl implements Initializable {
 			timeline.stop();
 			setButtonOnStop();
 			setCrystalView("P", strDope);
+			setDisableChooseDopeType(false);
 		});
 
 		radiomnitemNType.setOnAction(e -> {
@@ -239,6 +240,7 @@ public class MainControl implements Initializable {
 			timeline.stop();
 			setButtonOnStop();
 			setCrystalView("N", strDope);
+			setDisableChooseDopeType(false);
 		});
 
 		radiomnitemIType.setOnAction(e -> {
@@ -246,13 +248,14 @@ public class MainControl implements Initializable {
 			timeline.stop();
 			setButtonOnStop();
 			setCrystalView("I", strDope);
+			setDisableChooseDopeType(true);
 		});
 		
 		radiomnitemLightDoped.setOnAction(e->{
 			String strType = getSemiconductorType(toogleGroupType.getSelectedToggle());
 			timeline.stop();
 			setButtonOnStop();
-			setCrystalView(strType, "light");
+			setCrystalView(strType, "light");			
 		});
 		
 		radiomnitemHeavyDoped.setOnAction(e->{
@@ -443,6 +446,10 @@ public class MainControl implements Initializable {
 			stringType = "I";
 		
 		return stringType;
-		
+	}
+	
+	private void setDisableChooseDopeType(boolean isDisable) {
+		radiomnitemHeavyDoped.setDisable(isDisable);
+		radiomnitemLightDoped.setDisable(isDisable);
 	}
 }
