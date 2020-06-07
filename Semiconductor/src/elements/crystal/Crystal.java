@@ -8,6 +8,7 @@ import elements.atom.PhosphorusAtom;
 import elements.atom.SiliconAtom;
 import environment.Environment;
 import javafx.scene.layout.Pane;
+import utils.Randomness;
 
 public class Crystal {
 
@@ -21,7 +22,8 @@ public class Crystal {
 	public Atom getAtomAt(int x, int y) {
 		return atoms[x][y];
 	}
-	public void initCrystal(String type) {
+	public void initCrystal(String type, String dopeRatio) {
+		int numberOfDopedOnRow = 0;
 		if(type.contentEquals("SI")) {
 			for (int y = 0; y < this.crystalHeight; y++) {
 				for (int x = 0; x < this.crystalWidth; x++) {
@@ -29,26 +31,32 @@ public class Crystal {
 				}
 			}
 		}
-		if(type.contentEquals("AL")) {
+		else {
+			if(dopeRatio.contentEquals("light")) {
+				numberOfDopedOnRow = 1;
+			}
+			if(dopeRatio.contentEquals("medium")) {
+				numberOfDopedOnRow = 2;
+			}
+			if(dopeRatio.contentEquals("heavy")) {
+				numberOfDopedOnRow = 3;
+			}
+			int dopedRowsType = new Random().nextInt(2); 
 			for (int y = 0; y < this.crystalHeight; y++) {
+				ArrayList<Integer> dopedXIndex = new ArrayList<Integer>();
+				if (y%2==dopedRowsType) {
+					dopedXIndex = Randomness.getNonConsecutiveCombination(this.crystalWidth, numberOfDopedOnRow);
+				}
 				for (int x = 0; x < this.crystalWidth; x++) {
-					if((x%2==0&&y%2==1)||(x%2==1&&y%2==0)) {
-//					if((x%2==0&&y%2==1)) {
-						atoms[x][y] = new AluminumAtom(x, y, this);
+					if(dopedXIndex.contains(x)) {
+						if(type.contentEquals("AL")) {
+							atoms[x][y] = new AluminumAtom(x, y, this);
+						}
+						else {
+							atoms[x][y] = new PhosphorusAtom(x, y, this);
+						}
 					}
 					else {
-						atoms[x][y] = new SiliconAtom(x, y, this);
-					}
-				}
-			}
-		}
-		if(type.contentEquals("P")) {
-			for (int y = 0; y < this.crystalHeight; y++) {
-				for (int x = 0; x < this.crystalWidth; x++) {
-					if((x%2==0&&y%2==1)||(x%2==1&&y%2==0)) {
-						atoms[x][y] = new PhosphorusAtom(x, y, this);
-					}
-					else{
 						atoms[x][y] = new SiliconAtom(x, y, this);
 					}
 				}

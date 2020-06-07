@@ -30,6 +30,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -60,7 +61,7 @@ public class MainControl implements Initializable {
 	AnchorPane anchorPaneBG;
 
 	@FXML
-	RadioMenuItem radiomnitemPType, radiomnitemNType, radiomnitemIType;
+	RadioMenuItem radiomnitemPType, radiomnitemNType, radiomnitemIType, radiomnitemLightDoped, radiomnitemMediumDoped, radiomnitemHeavyDoped;
 
 	@FXML
 	MenuItem mnitemExit, mnitemHowToUse, mnitemAbout;
@@ -100,12 +101,18 @@ public class MainControl implements Initializable {
 		ImageView notes = new ImageView(new Image(ipNote));
 		paneNotes.getChildren().add(notes);
 				
-		ToggleGroup toogleGroup = new ToggleGroup();
-		radiomnitemNType.setToggleGroup(toogleGroup);
-		radiomnitemPType.setToggleGroup(toogleGroup);
-		radiomnitemIType.setToggleGroup(toogleGroup);
-		btnStopSimulation.setDisable(true);
+		ToggleGroup toogleGroupType = new ToggleGroup();
+		radiomnitemNType.setToggleGroup(toogleGroupType);
+		radiomnitemPType.setToggleGroup(toogleGroupType);
+		radiomnitemIType.setToggleGroup(toogleGroupType);
 		
+		ToggleGroup toogleGroupDope = new ToggleGroup();
+		radiomnitemLightDoped.setToggleGroup(toogleGroupDope);
+		radiomnitemMediumDoped.setToggleGroup(toogleGroupDope);
+		radiomnitemHeavyDoped.setToggleGroup(toogleGroupDope);
+		
+		btnStopSimulation.setDisable(true);
+			
 		
 		// test
 		
@@ -201,23 +208,66 @@ public class MainControl implements Initializable {
 			}
 			
 		});
+		
+
+				
+//		toogleGroupType.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+//			
+//			String strType;
+//			String strDope;
+//			
+//			@Override
+//			public void changed(ObservableValue<? extends Toggle> value, Toggle oldValue, Toggle newValue) {
+//				// TODO Auto-generated method stub
+//				strType = getSemiconductorType(toogleGroupType.getSelectedToggle());
+//				strDope = getDopedType(toogleGroupDope.getSelectedToggle());
+//				timeline.stop();
+//				setButtonOnStop();
+//				setCrystalView(strType, strDope);
+//				
+//			}		
+//		});
 
 		radiomnitemPType.setOnAction(e -> {
+			String strDope = getDopedType(toogleGroupDope.getSelectedToggle());
 			timeline.stop();
 			setButtonOnStop();
-			setCrystalView("P");
+			setCrystalView("P", strDope);
 		});
 
 		radiomnitemNType.setOnAction(e -> {
+			String strDope = getDopedType(toogleGroupDope.getSelectedToggle());
 			timeline.stop();
 			setButtonOnStop();
-			setCrystalView("N");
+			setCrystalView("N", strDope);
 		});
 
 		radiomnitemIType.setOnAction(e -> {
+			String strDope = getDopedType(toogleGroupDope.getSelectedToggle());
 			timeline.stop();
 			setButtonOnStop();
-			setCrystalView("I");
+			setCrystalView("I", strDope);
+		});
+		
+		radiomnitemLightDoped.setOnAction(e->{
+			String strType = getSemiconductorType(toogleGroupType.getSelectedToggle());
+			timeline.stop();
+			setButtonOnStop();
+			setCrystalView(strType, "light");
+		});
+		
+		radiomnitemMediumDoped.setOnAction(e->{
+			String strType = getSemiconductorType(toogleGroupType.getSelectedToggle());
+			timeline.stop();
+			setButtonOnStop();
+			setCrystalView(strType, "medium");
+		});
+		
+		radiomnitemHeavyDoped.setOnAction(e->{
+			String strType = getSemiconductorType(toogleGroupType.getSelectedToggle());
+			timeline.stop();
+			setButtonOnStop();
+			setCrystalView(strType, "heavy");
 		});
 
 		mnitemAbout.setOnAction(e -> {
@@ -280,6 +330,7 @@ public class MainControl implements Initializable {
 
 
 	public void setStartMode(String choice) {
+		radiomnitemMediumDoped.setSelected(true);
 		if (choice.contains("P")) {
 			radiomnitemPType.setSelected(true);
 		} else if (choice.contains("N")) {
@@ -287,10 +338,10 @@ public class MainControl implements Initializable {
 		} else if (choice.contains("I")) {
 			radiomnitemIType.setSelected(true);
 		}
-		paneElements.setVisible(true);
+		paneElements.setVisible(true); 
 	}
 	
-	public void setCrystalView(String choice) {
+	public void setCrystalView(String choice, String dope) {
 		newCrystal = new Crystal();
 		
 		
@@ -326,14 +377,14 @@ public class MainControl implements Initializable {
 		}
 		
 		if(choice.contains("P")) {
-			newCrystal.initCrystal("P");
+			newCrystal.initCrystal("P", dope);
 		}
 
 		else if (choice.contains("N")) {
-			newCrystal.initCrystal("AL");
+			newCrystal.initCrystal("AL", dope);
 		}
 		else if (choice.contains("I")) {
-			newCrystal.initCrystal("SI");
+			newCrystal.initCrystal("SI", dope);
 		}
 		for (int x = 0; x < newCrystal.crystalWidth; x++) {
 			for (int y = 0; y < newCrystal.crystalHeight; y++) {
@@ -373,5 +424,36 @@ public class MainControl implements Initializable {
 	private void setButtonOnStop() {
 		btnStartSimulation.setDisable(false);
 		btnStopSimulation.setDisable(true);
+	}
+	
+	private String getDopedType(Toggle selectedDopeType) {
+		String stringType = "";
+		if(selectedDopeType.toString().contains("Light")==true) 
+			stringType = "light";
+		
+		if(selectedDopeType.toString().contains("Medium")==true) 
+			stringType = "medium";
+		
+		if(selectedDopeType.toString().contains("Heavy")==true) 
+			stringType = "heavy";
+		
+		return stringType;
+
+	}
+	
+	private String getSemiconductorType(Toggle selectedSemiconductorType) {
+		
+		String stringType = selectedSemiconductorType.toString();
+		if(stringType.contains("P")==true) 
+			stringType = "P";
+		
+		if(stringType.contains("N")==true) 
+			stringType = "N";
+		
+		if(stringType.contains("I")==true) 
+			stringType = "I";
+		
+		return stringType;
+		
 	}
 }
