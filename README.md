@@ -24,5 +24,6 @@
 || 3. Suggest modifications to frontend
 || 4. Integrate frontend and backend code
 
+*** Detailed assignment in report
 
 ## 3. Demo video
