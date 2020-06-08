@@ -13,7 +13,10 @@ public class ElementImage extends ImageView{
 //		super(elements.view); 
 //		
 //	}
-
+	public static final int atomViewRadius = 26;
+	public static final int atomViewCell = 100;
+	public static final int valenceViewPadding = 16;
+	
 	public ElementImage(String fileName, double scaleRatio) {
 		String strName = "./src/images/"+fileName;
 		FileInputStream inputFile = null;

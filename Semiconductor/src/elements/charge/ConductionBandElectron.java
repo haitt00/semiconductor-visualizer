@@ -21,8 +21,8 @@ public class ConductionBandElectron extends Charge implements  Movable{
 	public ConductionBandElectron(Atom atom) {
 		super(atom);
 		this.view = ElementImage.getConductingEImage();
-		view.setX(atom.getView().getX()+2*Atom.atomViewRadius+Atom.valenceViewPadding/2);
-		view.setY(atom.getView().getY()-Atom.valenceViewPadding/2);
+		view.setX(atom.getView().getX()+2*ElementImage.atomViewRadius+ElementImage.valenceViewPadding/2);
+		view.setY(atom.getView().getY()-ElementImage.valenceViewPadding/2);
 		//upper right corner
 	}
 

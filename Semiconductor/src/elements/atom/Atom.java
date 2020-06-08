@@ -19,9 +19,6 @@ import javafx.util.Duration;
 
 public class Atom {
 	
-	public static final int atomViewRadius = 26;
-	public static final int atomViewCell = 100;
-	public static final int valenceViewPadding = 16;
 	private int indexX;
 	private int indexY;
 	private Crystal container;
@@ -132,8 +129,8 @@ public class Atom {
 		//	t.play();
 		}
 		else {////if leftmost, move out of frame
-			double targetX = newContainer.getView().getX()+2*Atom.atomViewRadius+Atom.valenceViewPadding/2;
-			double targetY = newContainer.getView().getY()-Atom.valenceViewPadding/2;
+			double targetX = newContainer.getView().getX()+2*ElementImage.atomViewRadius+ElementImage.valenceViewPadding/2;
+			double targetY = newContainer.getView().getY()-ElementImage.valenceViewPadding/2;
 	//		Transition t = e.getView().moveOutFrameAndBack(x, y);
 			SequentialTransition sqt = new SequentialTransition();
 			sqt.getChildren().addAll(e.moveOutFrameAndBack(targetX, targetY), e.moveChaotic());

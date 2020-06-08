@@ -18,20 +18,20 @@ public class ValenceBandElectron extends ValenceBandCharge implements Movable{
 		super(atom);
 		this.view = ElementImage.getValenceEImage();
 		if(position.contentEquals("up")) {
-			view.setX(atom.getView().getX()+Atom.atomViewRadius);
-			view.setY(atom.getView().getY()-Atom.valenceViewPadding);
+			view.setX(atom.getView().getX()+ElementImage.atomViewRadius);
+			view.setY(atom.getView().getY()-ElementImage.valenceViewPadding);
 		}
 		if(position.contentEquals("down")) {
-			view.setX(atom.getView().getX()+Atom.atomViewRadius);
-			view.setY(atom.getView().getY()+2*Atom.atomViewRadius+Atom.valenceViewPadding);
+			view.setX(atom.getView().getX()+ElementImage.atomViewRadius);
+			view.setY(atom.getView().getY()+2*ElementImage.atomViewRadius+ElementImage.valenceViewPadding);
 		}
 		if(position.contentEquals("right")) {
-			view.setX(atom.getView().getX()+2*Atom.atomViewRadius+Atom.valenceViewPadding);
-			view.setY(atom.getView().getY()+Atom.atomViewRadius);
+			view.setX(atom.getView().getX()+2*ElementImage.atomViewRadius+ElementImage.valenceViewPadding);
+			view.setY(atom.getView().getY()+ElementImage.atomViewRadius);
 		}
 		if(position.contentEquals("left")) {
-			view.setX(atom.getView().getX()-Atom.valenceViewPadding);
-			view.setY(atom.getView().getY()+Atom.atomViewRadius);
+			view.setX(atom.getView().getX()-ElementImage.valenceViewPadding);
+			view.setY(atom.getView().getY()+ElementImage.atomViewRadius);
 		}
 	}
 
