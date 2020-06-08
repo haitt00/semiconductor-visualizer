@@ -6,18 +6,56 @@ import elements.atom.AluminumAtom;
 import elements.atom.Atom;
 import elements.atom.PhosphorusAtom;
 import elements.atom.SiliconAtom;
-import environment.Environment;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.layout.Pane;
 import utils.Randomness;
 
 public class Crystal {
+	//environment attribute (static)
+	public static final double maxvoltage = 5;
+	private static DoubleProperty externalVoltage = new SimpleDoubleProperty();
+	private static IntegerProperty electronCycle = new SimpleIntegerProperty();
+	private static SimpleDoubleProperty seperateProb = new SimpleDoubleProperty();
 
+	public static final double maxTemperature = 50;
+	private static DoubleProperty temperature = new SimpleDoubleProperty();
+	private static SimpleDoubleProperty diffuseProb = new SimpleDoubleProperty();
+	private static SimpleDoubleProperty vibrationRange = new SimpleDoubleProperty();
+	
 	public final int crystalHeight = 5;
 	public final int crystalWidth = 6;
 	private Atom atoms[][] = new Atom[this.crystalWidth][this.crystalHeight];
 	
 	public Crystal() {
+		Crystal.externalVoltage.set(1);
+		Crystal.temperature.set(25);
+	}
+	public static void bindWithController(DoubleProperty voltage, DoubleProperty temperature) {
+		Crystal.externalVoltage.bindBidirectional(voltage);
+		Crystal.electronCycle.bind((new SimpleIntegerProperty(1000)).divide(voltage));
+		Crystal.seperateProb.bind(voltage.divide(Crystal.maxvoltage).multiply(0.5));
 		
+		Crystal.temperature.bindBidirectional(temperature);
+		Crystal.diffuseProb.bind(temperature.divide(Crystal.maxTemperature).multiply(0.75));
+		Crystal.vibrationRange.bind(temperature.multiply(0.3));
+	}
+
+	public static ReadOnlyIntegerProperty getElectronCycle() {
+		return ReadOnlyIntegerProperty.readOnlyIntegerProperty(Crystal.electronCycle);
+	}
+	public static ReadOnlyDoubleProperty getSeperateProb() {
+		return ReadOnlyDoubleProperty.readOnlyDoubleProperty(Crystal.seperateProb);
+	}
+	public static ReadOnlyDoubleProperty getDiffuseProb() {
+		return ReadOnlyDoubleProperty.readOnlyDoubleProperty(Crystal.diffuseProb);
+	}
+	public static ReadOnlyDoubleProperty getVibrationRange() {
+		return ReadOnlyDoubleProperty.readOnlyDoubleProperty(Crystal.vibrationRange);
 	}
 	public Atom getAtomAt(int x, int y) {
 		return atoms[x][y];
@@ -88,7 +126,7 @@ public class Crystal {
 				//if atom has both e and o, either seperate (1-2-3) or recombination (5)
 				if(atoms[x][y].checkForConductingE()&&!(atoms[x][y].checkForHole().contentEquals("none"))) {
 					Double separateChance = Math.random();
-					if(separateChance<Environment.seperateProb.get()) {
+					if(separateChance<Crystal.getSeperateProb().get()) {
 						behavior1Atoms.add(atoms[x][y]);
 						behavior23Atoms.add(atoms[x][y]);
 					}
@@ -112,7 +150,7 @@ public class Crystal {
 			}
 			if(diffuseCandidateIndex.size()==this.crystalWidth) {
 				Double diffuseChance = Math.random();
-				if(diffuseChance<Environment.diffuseProb.get()) {
+				if(diffuseChance<Crystal.getDiffuseProb().get()) {
 					int roulett = new Random().nextInt(diffuseCandidateIndex.size());
 					behavior4Atoms.add(atoms[roulett][y]);
 				}

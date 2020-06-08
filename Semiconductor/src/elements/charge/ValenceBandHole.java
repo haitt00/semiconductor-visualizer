@@ -1,8 +1,8 @@
 package elements.charge;
 
 import elements.atom.Atom;
+import elements.crystal.Crystal;
 import elements.view.ElementImage;
-import environment.Environment;
 import javafx.animation.FadeTransition;
 import javafx.animation.Transition;
 import javafx.util.Duration;
@@ -35,7 +35,7 @@ public class ValenceBandHole extends ValenceBandCharge implements Movable{
 	public Transition appear(double x, double y) {
 		this.getView().setX(x);
 		this.getView().setY(y);
-		FadeTransition fadeIn = new FadeTransition(Duration.millis(Environment.electronCycle.get()), this.getView());
+		FadeTransition fadeIn = new FadeTransition(Duration.millis(Crystal.getElectronCycle().get()), this.getView());
 		fadeIn.setFromValue(0);
 		fadeIn.setToValue(1);
 		fadeIn.setOnFinished(evt->{

@@ -7,12 +7,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import elements.crystal.Crystal;
-import environment.Environment;
 import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -73,20 +71,20 @@ public class MainControl implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {		
 		// initialize parameters
 		
-		Environment.externalVoltage.set(1);
-		Environment.temperature.set(25);
+//		Environment.externalVoltage.set(1);
+//		Environment.temperature.set(25);
 		StringConverter<Number> strVoltageConverter = new NumberStringConverter();
 		txtfVoltage.textProperty().bindBidirectional(sliderVoltage.valueProperty(), strVoltageConverter);
-		Environment.externalVoltage.bindBidirectional(sliderVoltage.valueProperty());
-		Environment.electronCycle.bind((new SimpleIntegerProperty(1000)).divide(sliderVoltage.valueProperty()));
-		Environment.seperateProb.bind(sliderVoltage.valueProperty().divide(Environment.maxvoltage).multiply(0.5));
+//		Environment.externalVoltage.bindBidirectional(sliderVoltage.valueProperty());
+//		Environment.electronCycle.bind((new SimpleIntegerProperty(1000)).divide(sliderVoltage.valueProperty()));
+//		Environment.seperateProb.bind(sliderVoltage.valueProperty().divide(Environment.maxvoltage).multiply(0.5));
 
 		
 		StringConverter<Number> strTemperatureConverter = new NumberStringConverter();
 		txtfTemperature.textProperty().bindBidirectional(sliderTemperature.valueProperty(), strTemperatureConverter);
-		Environment.temperature.bindBidirectional(sliderTemperature.valueProperty());
-		Environment.diffuseProb.bind(sliderTemperature.valueProperty().divide(Environment.maxTemperature).multiply(0.75));
-
+//		Environment.temperature.bindBidirectional(sliderTemperature.valueProperty());
+//		Environment.diffuseProb.bind(sliderTemperature.valueProperty().divide(Environment.maxTemperature).multiply(0.75));
+		Crystal.bindWithController(sliderVoltage.valueProperty(), sliderTemperature.valueProperty());
 		setTimeline(paneElements);
 		
 		// set notes pane
@@ -117,21 +115,10 @@ public class MainControl implements Initializable {
 		
 		// initialize function of elements		
 
-		
-		Environment.externalVoltage.addListener(new ChangeListener<Number>() {
+		ChangeListener<Number> listener = new ChangeListener<Number>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
-					// TODO Auto-generated method stub
-//				double externalVoltage = sliderVoltage.getValue();
-//				int timeDuration = (int)(1000/externalVoltage);
-//				IntegerProperty timeDurationProperty = new SimpleIntegerProperty(timeDuration);
-//				Environment.transitionLength.bindBidirectional(timeDurationProperty);
-//				Environment.transitionLength = new SimpleIntegerProperty((int) (1000/sliderVoltage.getValue()));
-//					System.out.println(Environment.voltage.get());
-					//		Double externalVoltage = sliderVoltage.getValue();
-							//fucntion to pass value to backend code of crystal
-					//		Environment.transitionLength.get() = (int) (1000/externalVoltage);
 							
 				if(MainControl.timeline.getStatus().equals(Status.RUNNING)) {
 					timeline.stop();
@@ -143,9 +130,9 @@ public class MainControl implements Initializable {
 					setTimeline(paneElements);
 				}
 			}
-			
-		}); 
-		
+		};
+		sliderVoltage.valueProperty().addListener(listener); 
+		sliderTemperature.valueProperty().addListener(listener);
 /*		sliderVoltage.setOnMouseDragged(e -> {
 			// test		
 			// tao mot integer property o GUI de bind voi integer property o backcode
@@ -182,31 +169,31 @@ public class MainControl implements Initializable {
 		}); */
 		
 		
-		Environment.temperature.addListener(new ChangeListener<Number>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				// test
-//				System.out.println(Environment.temperature.get());
-//				System.out.println(Environment.transitionLength.get());
-				//fucntion to pass value to backend code of crystal
-		//		Double temperature = sliderTemperature.getValue();
-//				Environment.chaoticRate = Environment.temperature.get();
-				//test
-			//	System.out.println("chaotic rate: " + Environment.chaoticRate);
-//				Environment.transitionLength = new SimpleIntegerProperty((int) (1000/sliderVoltage.getValue()));
-				if(MainControl.timeline.getStatus().equals(Status.RUNNING)) {
-					timeline.stop();
-					timeline.getKeyFrames().clear();
-					setTimeline(paneElements);
-					timeline.play();
-				}
-				else {
-					setTimeline(paneElements);
-				}
-			}
-			
-		});
+//		Environment.temperature.addListener(new ChangeListener<Number>() {
+//
+//			@Override
+//			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+//				// test
+////				System.out.println(Environment.temperature.get());
+////				System.out.println(Environment.transitionLength.get());
+//				//fucntion to pass value to backend code of crystal
+//		//		Double temperature = sliderTemperature.getValue();
+////				Environment.chaoticRate = Environment.temperature.get();
+//				//test
+//			//	System.out.println("chaotic rate: " + Environment.chaoticRate);
+////				Environment.transitionLength = new SimpleIntegerProperty((int) (1000/sliderVoltage.getValue()));
+//				if(MainControl.timeline.getStatus().equals(Status.RUNNING)) {
+//					timeline.stop();
+//					timeline.getKeyFrames().clear();
+//					setTimeline(paneElements);
+//					timeline.play();
+//				}
+//				else {
+//					setTimeline(paneElements);
+//				}
+//			}
+//			
+//		});
 		
 
 				
@@ -404,7 +391,7 @@ public class MainControl implements Initializable {
 			
 		};
 
-		KeyFrame kf = new KeyFrame(Duration.millis(Environment.electronCycle.getValue()+40), onFinished);
+		KeyFrame kf = new KeyFrame(Duration.millis(Crystal.getElectronCycle().getValue()+40), onFinished);
 		
 		timeline = new Timeline(kf);
 		

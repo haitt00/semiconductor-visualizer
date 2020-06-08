@@ -11,7 +11,6 @@ import elements.charge.ValenceBandElectron;
 import elements.charge.ValenceBandHole;
 import elements.crystal.Crystal;
 import elements.view.ElementImage;
-import environment.Environment;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
@@ -254,7 +253,7 @@ public class Atom {
 //		System.out.println("moveby: "+(i-x)+", "+(j-y));
 		explosion.setX(valenceECoordinateX);
 		explosion.setY(valenceECoordinateY);
-		FadeTransition explosionFadeIn = new FadeTransition(Duration.millis(Environment.electronCycle.get()), explosion);
+		FadeTransition explosionFadeIn = new FadeTransition(Duration.millis(Crystal.getElectronCycle().doubleValue()), explosion);
 		explosionFadeIn.setFromValue(0);
 		explosionFadeIn.setToValue(1);
 		explosionFadeIn.setOnFinished(evt->{
