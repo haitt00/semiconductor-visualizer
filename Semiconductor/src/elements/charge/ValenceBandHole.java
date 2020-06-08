@@ -1,8 +1,8 @@
 package elements.charge;
 
 import elements.atom.Atom;
+import elements.crystal.Crystal;
 import elements.view.ElementImage;
-import environment.Environment;
 import javafx.animation.FadeTransition;
 import javafx.animation.Transition;
 import javafx.util.Duration;
@@ -14,20 +14,20 @@ public class ValenceBandHole extends ValenceBandCharge implements Movable{
 		super(atom);
 		this.view = ElementImage.getValenceHoleImage();
 		if(position.contentEquals("up")) {
-			view.setX(atom.getView().getX()+Atom.atomViewRadius);
-			view.setY(atom.getView().getY()-Atom.valenceViewPadding);
+			view.setX(atom.getView().getX()+ElementImage.atomViewRadius);
+			view.setY(atom.getView().getY()-ElementImage.valenceViewPadding);
 		}
 		if(position.contentEquals("down")) {
-			view.setX(atom.getView().getX()+Atom.atomViewRadius);
-			view.setY(atom.getView().getY()+2*Atom.atomViewRadius+Atom.valenceViewPadding);
+			view.setX(atom.getView().getX()+ElementImage.atomViewRadius);
+			view.setY(atom.getView().getY()+2*ElementImage.atomViewRadius+ElementImage.valenceViewPadding);
 		}
 		if(position.contentEquals("right")) {
-			view.setX(atom.getView().getX()+2*Atom.atomViewRadius+Atom.valenceViewPadding);
-			view.setY(atom.getView().getY()+Atom.atomViewRadius);
+			view.setX(atom.getView().getX()+2*ElementImage.atomViewRadius+ElementImage.valenceViewPadding);
+			view.setY(atom.getView().getY()+ElementImage.atomViewRadius);
 		}
 		if(position.contentEquals("left")) {
-			view.setX(atom.getView().getX()-Atom.valenceViewPadding);
-			view.setY(atom.getView().getY()+Atom.atomViewRadius);
+			view.setX(atom.getView().getX()-ElementImage.valenceViewPadding);
+			view.setY(atom.getView().getY()+ElementImage.atomViewRadius);
 		}
 	}
 
@@ -35,7 +35,7 @@ public class ValenceBandHole extends ValenceBandCharge implements Movable{
 	public Transition appear(double x, double y) {
 		this.getView().setX(x);
 		this.getView().setY(y);
-		FadeTransition fadeIn = new FadeTransition(Duration.millis(Environment.electronCycle.get()), this.getView());
+		FadeTransition fadeIn = new FadeTransition(Duration.millis(Crystal.getElectronCycle().get()), this.getView());
 		fadeIn.setFromValue(0);
 		fadeIn.setToValue(1);
 		fadeIn.setOnFinished(evt->{

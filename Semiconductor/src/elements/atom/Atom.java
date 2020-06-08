@@ -11,7 +11,6 @@ import elements.charge.ValenceBandElectron;
 import elements.charge.ValenceBandHole;
 import elements.crystal.Crystal;
 import elements.view.ElementImage;
-import environment.Environment;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
@@ -20,9 +19,6 @@ import javafx.util.Duration;
 
 public class Atom {
 	
-	public static final int atomViewRadius = 26;
-	public static final int atomViewCell = 100;
-	public static final int valenceViewPadding = 16;
 	private int indexX;
 	private int indexY;
 	private Crystal container;
@@ -133,8 +129,8 @@ public class Atom {
 		//	t.play();
 		}
 		else {////if leftmost, move out of frame
-			double targetX = newContainer.getView().getX()+2*Atom.atomViewRadius+Atom.valenceViewPadding/2;
-			double targetY = newContainer.getView().getY()-Atom.valenceViewPadding/2;
+			double targetX = newContainer.getView().getX()+2*ElementImage.atomViewRadius+ElementImage.valenceViewPadding/2;
+			double targetY = newContainer.getView().getY()-ElementImage.valenceViewPadding/2;
 	//		Transition t = e.getView().moveOutFrameAndBack(x, y);
 			SequentialTransition sqt = new SequentialTransition();
 			sqt.getChildren().addAll(e.moveOutFrameAndBack(targetX, targetY), e.moveChaotic());
@@ -254,7 +250,7 @@ public class Atom {
 //		System.out.println("moveby: "+(i-x)+", "+(j-y));
 		explosion.setX(valenceECoordinateX);
 		explosion.setY(valenceECoordinateY);
-		FadeTransition explosionFadeIn = new FadeTransition(Duration.millis(Environment.electronCycle.get()), explosion);
+		FadeTransition explosionFadeIn = new FadeTransition(Duration.millis(Crystal.getElectronCycle().doubleValue()), explosion);
 		explosionFadeIn.setFromValue(0);
 		explosionFadeIn.setToValue(1);
 		explosionFadeIn.setOnFinished(evt->{
