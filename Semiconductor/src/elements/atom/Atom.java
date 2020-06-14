@@ -1,4 +1,5 @@
 package elements.atom;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class Atom {
 	private Crystal container;
 	protected ElementImage view;
 	protected HashMap<String, ValenceBandCharge> valenceCharges = new HashMap<String, ValenceBandCharge>();
-	protected ConductionBandElectron conductingE;
+	protected ArrayList<ConductionBandElectron> conductingE = new ArrayList<ConductionBandElectron>();
 //	public Atom() {
 //		
 //	}
@@ -34,6 +35,9 @@ public class Atom {
 		this.indexX = indexX;
 		this.indexY = indexY;
 		this.container = container;
+		 this.valenceCharges= new HashMap<String, ValenceBandCharge>();
+		 this.conductingE = new ArrayList<ConductionBandElectron>();
+		this.addCharges();
 	}
 	
 	public ElementImage getView() {
@@ -57,9 +61,15 @@ public class Atom {
 	}
 	
 	public ConductionBandElectron getConductingE() {
-		return conductingE;
+		if(this.conductingE.isEmpty()) {
+			return null;
+		}
+		return conductingE.get(0);
 	}
-
+	protected void addCharges() {
+//		 this.valenceCharges= new HashMap<String, ValenceBandCharge>();
+//		 this.conductingE = new ArrayList<ConductionBandElectron>();
+	}
 	protected Atom getAdjacentAtom(String position) {
 		if(position.contentEquals("up")) {
 			if(this.indexY>0) {
@@ -94,7 +104,12 @@ public class Atom {
 		return "none";
 	}
 	public boolean checkForConductingE() {
-		return (this.conductingE!=null);
+//		if(this.conductingE==null) {
+//			System.out.println(this.getIndexX()+","+this.getIndexY());
+////		}
+//		System.out.println(this.conductingE);
+		
+		return (!this.conductingE.isEmpty());
 	}
 
 //	public String toString() {
@@ -109,11 +124,11 @@ public class Atom {
 	public void passOnConductingE() {
 		
 		Atom newContainer = this.getAdjacentAtom("right");
-		ConductionBandElectron e = this.conductingE;
+		ConductionBandElectron e = this.getConductingE();
 //		System.out.println("null e check0: "+e);
-		newContainer.conductingE = e;
+		newContainer.conductingE.add(e);
 //		System.out.println("null e check1: "+e);
-		this.conductingE = null;
+		this.conductingE.remove(e);
 //		System.out.println("null e check2: "+e);
 		
 		if(this.indexX<this.container.crystalWidth-1) {//if not leftmost
@@ -262,7 +277,7 @@ public class Atom {
 			root.getChildren().removeAll(explosion, valenceE.getView());
 			root.getChildren().addAll(newConductingE.getView(), newHole.getView());
 			this.valenceCharges.replace(diffusePosition, newHole);
-			this.conductingE = newConductingE;
+			this.conductingE.add(newConductingE);
 		});
 		pt.play();
 	}
@@ -270,7 +285,7 @@ public class Atom {
 	public void recombination(Pane root) {
 		String holePosition = this.checkForHole();
 		ValenceBandHole hole = (ValenceBandHole) this.valenceCharges.get(holePosition);
-		ConductionBandElectron conductingE = this.conductingE;
+		ConductionBandElectron conductingE = this.getConductingE();
 		ValenceBandElectron newValenceE = new ValenceBandElectron(this, this.checkForHole());
 		double conductingECoordinateX = conductingE.getView().getX();
 		double conductingECoordinateY = conductingE.getView().getY();
@@ -278,7 +293,7 @@ public class Atom {
 		double holeCoordinateY = hole.getView().getY();
 		ParallelTransition pt = new ParallelTransition(conductingE.moveTranslate(holeCoordinateX-conductingECoordinateX, holeCoordinateY-conductingECoordinateY), conductingE.spin());
 		pt.setOnFinished(evt->{
-			this.conductingE = null;
+			this.conductingE.remove(conductingE);
 			this.valenceCharges.replace(holePosition, newValenceE);
 			root.getChildren().add(newValenceE.getView());
 			root.getChildren().removeAll(hole.getView(), conductingE.getView());

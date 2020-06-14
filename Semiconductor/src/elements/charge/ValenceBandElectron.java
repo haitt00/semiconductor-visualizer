@@ -17,22 +17,7 @@ public class ValenceBandElectron extends ValenceBandCharge implements Movable{
 	public ValenceBandElectron(Atom atom, String position) {
 		super(atom);
 		this.view = ElementImage.getValenceEImage();
-		if(position.contentEquals("up")) {
-			view.setX(atom.getView().getX()+ElementImage.atomViewRadius);
-			view.setY(atom.getView().getY()-ElementImage.valenceViewPadding);
-		}
-		if(position.contentEquals("down")) {
-			view.setX(atom.getView().getX()+ElementImage.atomViewRadius);
-			view.setY(atom.getView().getY()+2*ElementImage.atomViewRadius+ElementImage.valenceViewPadding);
-		}
-		if(position.contentEquals("right")) {
-			view.setX(atom.getView().getX()+2*ElementImage.atomViewRadius+ElementImage.valenceViewPadding);
-			view.setY(atom.getView().getY()+ElementImage.atomViewRadius);
-		}
-		if(position.contentEquals("left")) {
-			view.setX(atom.getView().getX()-ElementImage.valenceViewPadding);
-			view.setY(atom.getView().getY()+ElementImage.atomViewRadius);
-		}
+		super.setXY(position);
 	}
 
 	@Override

@@ -99,22 +99,22 @@ public class Crystal {
 		}
 	}
 	
-	public void displayCrystal() {
-		for (int j = 0; j < this.crystalHeight; j++) {
-			for (int i = 0; i < this.crystalWidth; i++) {
-				System.out.print(atoms[i][j].toString()+" ");
-			}
-			System.out.println();
-		}
-	}
-	public void displayHolePosition() {
-		for (int j = 0; j < this.crystalHeight; j++) {
-			for (int i = 0; i < this.crystalWidth; i++) {
-				System.out.print(atoms[i][j].checkForHole()+" ");
-			}
-			System.out.println();
-		}
-	}
+//	public void displayCrystal() {
+//		for (int j = 0; j < this.crystalHeight; j++) {
+//			for (int i = 0; i < this.crystalWidth; i++) {
+//				System.out.print(atoms[i][j].toString()+" ");
+//			}
+//			System.out.println();
+//		}
+//	}
+//	public void displayHolePosition() {
+//		for (int j = 0; j < this.crystalHeight; j++) {
+//			for (int i = 0; i < this.crystalWidth; i++) {
+//				System.out.print(atoms[i][j].checkForHole()+" ");
+//			}
+//			System.out.println();
+//		}
+//	}
 	public void progress(Pane root) {
 		ArrayList<Atom> behavior23Atoms = new ArrayList<>();
 		ArrayList<Atom> behavior1Atoms = new ArrayList<>();
