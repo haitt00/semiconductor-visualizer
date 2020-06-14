@@ -69,7 +69,7 @@ public class WelcomeControl implements Initializable {
 			//create new stage with the new pane as root
 			Stage stage = new Stage();
 			
-			stage.setTitle("Semiconductor Visualizer 1.0");
+			stage.setTitle("Semiconductor Visualizer 1.1");
 			stage.setScene(new Scene(rootMainMenu)); 
 			stage.setResizable(false);
 			
