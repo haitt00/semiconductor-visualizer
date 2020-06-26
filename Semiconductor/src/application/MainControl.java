@@ -7,6 +7,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import elements.crystal.Crystal;
+import elements.crystal.NDopedCrystal;
+import elements.crystal.PDopedCrystal;
 import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -324,7 +326,17 @@ public class MainControl implements Initializable {
 	}
 	
 	public void setCrystalView(String choice, String dope) {
-		newCrystal = new Crystal();
+		if(choice.contains("P")) {
+			newCrystal = new PDopedCrystal(dope);
+		}
+
+		else if (choice.contains("N")) {
+			newCrystal = new NDopedCrystal(dope);
+		}
+		else if (choice.contains("I")) {
+			newCrystal = new Crystal();
+		}
+//		newCrystal = new Crystal();
 		
 		
 		// set crystal frame and background
@@ -358,16 +370,6 @@ public class MainControl implements Initializable {
 			paneElements.getChildren().clear();
 		}
 		
-		if(choice.contains("P")) {
-			newCrystal.initCrystal("P", dope);
-		}
-
-		else if (choice.contains("N")) {
-			newCrystal.initCrystal("AL", dope);
-		}
-		else if (choice.contains("I")) {
-			newCrystal.initCrystal("SI", dope);
-		}
 		for (int x = 0; x < newCrystal.crystalWidth; x++) {
 			for (int y = 0; y < newCrystal.crystalHeight; y++) {
 				paneElements.getChildren().add(newCrystal.getAtomAt(x, y).getView());

@@ -29,11 +29,16 @@ public class Crystal {
 	
 	public final int crystalHeight = 5;
 	public final int crystalWidth = 6;
-	private Atom atoms[][] = new Atom[this.crystalWidth][this.crystalHeight];
+	protected Atom atoms[][] = new Atom[this.crystalWidth][this.crystalHeight];
 	
 	public Crystal() {
 		Crystal.externalVoltage.set(1);
 		Crystal.temperature.set(25);
+		for (int y = 0; y < this.crystalHeight; y++) {
+			for (int x = 0; x < this.crystalWidth; x++) {
+				atoms[x][y] = new SiliconAtom(x, y, this);
+			}
+		}
 	}
 	public static void bindWithController(DoubleProperty voltage, DoubleProperty temperature) {
 		Crystal.externalVoltage.bindBidirectional(voltage);
@@ -61,7 +66,7 @@ public class Crystal {
 		return atoms[x][y];
 	}
 	public void initCrystal(String type, String dopeRatio) {
-		int numberOfDopedOnRow = 0;
+//		int numberOfDopedOnRow = 0;
 		if(type.contentEquals("SI")) {
 			for (int y = 0; y < this.crystalHeight; y++) {
 				for (int x = 0; x < this.crystalWidth; x++) {
@@ -70,32 +75,32 @@ public class Crystal {
 			}
 		}
 		else {
-			if(dopeRatio.contentEquals("light")) {
-				numberOfDopedOnRow = 1;
-			}
-			if(dopeRatio.contentEquals("heavy")) {
-				numberOfDopedOnRow = 3;
-			}
-			int dopedRowsType = new Random().nextInt(2); 
-			for (int y = 0; y < this.crystalHeight; y++) {
-				ArrayList<Integer> dopedXIndex = new ArrayList<Integer>();
-				if (y%2==dopedRowsType) {
-					dopedXIndex = Randomness.getNonConsecutiveCombination(this.crystalWidth, numberOfDopedOnRow);
-				}
-				for (int x = 0; x < this.crystalWidth; x++) {
-					if(dopedXIndex.contains(x)) {
-						if(type.contentEquals("AL")) {
-							atoms[x][y] = new AluminumAtom(x, y, this);
-						}
-						else {
-							atoms[x][y] = new PhosphorusAtom(x, y, this);
-						}
-					}
-					else {
-						atoms[x][y] = new SiliconAtom(x, y, this);
-					}
-				}
-			}
+//			if(dopeRatio.contentEquals("light")) {
+//				numberOfDopedOnRow = 1;
+//			}
+//			if(dopeRatio.contentEquals("heavy")) {
+//				numberOfDopedOnRow = 3;
+//			}
+//			int dopedRowsType = new Random().nextInt(2); 
+//			for (int y = 0; y < this.crystalHeight; y++) {
+//				ArrayList<Integer> dopedXIndex = new ArrayList<Integer>();
+//				if (y%2==dopedRowsType) {
+//					dopedXIndex = Randomness.getNonConsecutiveCombination(this.crystalWidth, numberOfDopedOnRow);
+//				}
+//				for (int x = 0; x < this.crystalWidth; x++) {
+//					if(dopedXIndex.contains(x)) {
+//						if(type.contentEquals("AL")) {
+//							atoms[x][y] = new AluminumAtom(x, y, this);
+//						}
+//						else {
+//							atoms[x][y] = new PhosphorusAtom(x, y, this);
+//						}
+//					}
+//					else {
+//						atoms[x][y] = new SiliconAtom(x, y, this);
+//					}
+//				}
+//			}
 		}
 	}
 	
