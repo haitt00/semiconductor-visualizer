@@ -3,6 +3,7 @@ package application;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -321,12 +322,13 @@ public class MainControl implements Initializable {
 			radiomnitemNType.setSelected(true);
 		} else if (choice.contains("I")) {
 			radiomnitemIType.setSelected(true);
+			setDisableChooseDopeType(true);
 		}
 		paneElements.setVisible(true); 
 	}
 	
 	public void setCrystalView(String choice, String dope) {
-		if(choice.contains("P")) {
+/*		if(choice.contains("P")) {
 			newCrystal = new PDopedCrystal(dope);
 		}
 
@@ -336,7 +338,18 @@ public class MainControl implements Initializable {
 		else if (choice.contains("I")) {
 			newCrystal = new Crystal();
 		}
-//		newCrystal = new Crystal();
+*/		newCrystal = new Crystal(); 
+		
+		ArrayList<Crystal> crystalTypeList = new ArrayList<Crystal>();
+		crystalTypeList.add(new PDopedCrystal(dope));
+		crystalTypeList.add(new NDopedCrystal(dope));
+		
+		for(int i = 0; i<crystalTypeList.size(); i++) {
+			Crystal obj = crystalTypeList.get(i);
+			System.out.println(obj.getClass().toString());
+			if(obj.getClass().toString().contains(choice))
+				newCrystal = obj;
+		}
 		
 		
 		// set crystal frame and background
