@@ -18,7 +18,7 @@ public class Main extends Application {
 			String strWelcome = "/application/WelcomeWindow.fxml";
 			Parent root = FXMLLoader.load(getClass().getResource(strWelcome));
 			primaryStage.setResizable(false);
-			primaryStage.setTitle("Semiconductor Visualizer 1.1");
+			primaryStage.setTitle("Semiconductor Visualizer 1.2");
 			primaryStage.setScene(new Scene(root));
 			primaryStage.show();
 		} catch(Exception e) {

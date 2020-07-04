@@ -65,7 +65,7 @@ public class Crystal {
 	public Atom getAtomAt(int x, int y) {
 		return atoms[x][y];
 	}
-	public void initCrystal(String type, String dopeRatio) {
+/*	public void initCrystal(String type, String dopeRatio) {
 //		int numberOfDopedOnRow = 0;
 		if(type.contentEquals("SI")) {
 			for (int y = 0; y < this.crystalHeight; y++) {
@@ -119,7 +119,7 @@ public class Crystal {
 //			}
 //			System.out.println();
 //		}
-//	}
+//	} */
 	public void progress(Pane root) {
 		ArrayList<Atom> behavior23Atoms = new ArrayList<>();
 		ArrayList<Atom> behavior1Atoms = new ArrayList<>();

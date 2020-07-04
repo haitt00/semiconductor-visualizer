@@ -57,19 +57,21 @@ public class WelcomeControl implements Initializable {
 			MainControl mainControl = loader.getController();
 			//pass the start mode into the controller
 			// to call set start mode
-			mainControl.setStartMode(mnbtnChooseType.getText());
+			String type = mnbtnChooseType.getText();
+			mainControl.setStartMode(type);
 			//and to call set crystal view
-			if(mnbtnChooseType.getText().contains("P"))
+			mainControl.setCrystalView(type, "light");
+/*			if(type.contains("P"))
 				mainControl.setCrystalView("P", "light");
-			else if(mnbtnChooseType.getText().contains("N"))
+			else if(type.contains("N"))
 				mainControl.setCrystalView("N", "light");
-			else if(mnbtnChooseType.getText().contains("I"))
+			else if(type.contains("I"))
 				mainControl.setCrystalView("I", "light");
-			
+			*/
 			//create new stage with the new pane as root
 			Stage stage = new Stage();
 			
-			stage.setTitle("Semiconductor Visualizer 1.1");
+			stage.setTitle("Semiconductor Visualizer 1.2");
 			stage.setScene(new Scene(rootMainMenu)); 
 			stage.setResizable(false);
 			

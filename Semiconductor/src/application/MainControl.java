@@ -2,6 +2,7 @@ package application;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -41,7 +42,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
-import utils.CheckCrystal;
 
 @SuppressWarnings({"rawtypes","unchecked"})
 
@@ -238,7 +238,7 @@ public class MainControl implements Initializable {
 			String strDope = getDopedType(toogleGroupDope.getSelectedToggle());
 			timeline.stop();
 			setButtonOnStop();
-			setCrystalView("I", strDope);
+			setCrystalView("Intrinsic", strDope);
 			setDisableChooseDopeType(true);
 		});
 		
@@ -339,7 +339,34 @@ public class MainControl implements Initializable {
 		else if (choice.contains("I")) {
 			newCrystal = new Crystal();
 		}
-*/		newCrystal = CheckCrystal.get(choice, dope);
+*/	//	newCrystal = CheckCrystal.get(choice, dope);
+
+		// get class name
+		newCrystal = new Crystal();
+		String[] splited = choice.split("-");
+		String classPath = "elements.crystal." + splited[0] + "DopedCrystal";
+		Object temp = null;
+		Class<?> clazz = null;
+		try {
+			clazz = Class.forName(classPath); // throw ClassNotFoundException
+			Constructor<?> ctor = clazz.getConstructor(String.class); //throw NoSuchMethodException, SecurityException
+			newCrystal = (Crystal) ctor.newInstance(dope);
+			clazz.cast(temp);
+		} catch (ClassNotFoundException e1) {
+			//e1.printStackTrace();
+			// class not found handling
+			if(splited[0].equalsIgnoreCase("Intrinsic")==false) {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setHeaderText("Invalid type");
+				alert.setContentText("Sorry, we haven't investigated on that type yet.\nLet's see the intrinstic type instead!");
+				alert.showAndWait();
+			}
+		} catch (Exception e2) {
+			// e2.printStackTrace();
+			// handling such exception
+		}
+
+	//	clazz.cast(newCrystal);
 		/* new Crystal(); 
 		
 		ArrayList<Crystal> crystalTypeList = new ArrayList<Crystal>();
