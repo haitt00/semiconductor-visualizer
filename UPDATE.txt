@@ -1,0 +1,9 @@
+Hotfix #1
+- Update Crystal class
+- Create child classes of Crystal class for better inheritence in future
+- Each child class represents a type of doped crystal (based on the impurities)
+- Update GUI code to meet the above extensions.
+
+Contribution evaluation:
+- Trinh Thu Hai: 60%
+- Nguyen Thi Minh Chau: 40%
