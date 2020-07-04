@@ -1,5 +1,6 @@
 package elements.crystal;
 
+import elements.atom.AluminumAtom;
 import elements.atom.Atom;
 import elements.atom.PhosphorusAtom;
 
@@ -10,6 +11,6 @@ public class NDopedCrystal extends DopedCrystal{
 	}
 
 	protected Atom getDopedTypeAtom(int x, int y) {
-		return new PhosphorusAtom(x, y, this);
+		return new AluminumAtom(x, y, this);
 	}
 }

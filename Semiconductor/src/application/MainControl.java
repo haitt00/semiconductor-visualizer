@@ -41,6 +41,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
+import utils.CheckCrystal;
 
 @SuppressWarnings({"rawtypes","unchecked"})
 
@@ -338,7 +339,8 @@ public class MainControl implements Initializable {
 		else if (choice.contains("I")) {
 			newCrystal = new Crystal();
 		}
-*/		newCrystal = new Crystal(); 
+*/		newCrystal = CheckCrystal.get(choice, dope);
+		/* new Crystal(); 
 		
 		ArrayList<Crystal> crystalTypeList = new ArrayList<Crystal>();
 		crystalTypeList.add(new PDopedCrystal(dope));
@@ -349,7 +351,7 @@ public class MainControl implements Initializable {
 			System.out.println(obj.getClass().toString());
 			if(obj.getClass().toString().contains(choice))
 				newCrystal = obj;
-		}
+		} */
 		
 		
 		// set crystal frame and background
