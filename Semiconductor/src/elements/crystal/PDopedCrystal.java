@@ -1,6 +1,5 @@
 package elements.crystal;
 
-import elements.atom.AluminumAtom;
 import elements.atom.Atom;
 import elements.atom.PhosphorusAtom;
 

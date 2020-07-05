@@ -4,13 +4,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Constructor;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import elements.crystal.Crystal;
-import elements.crystal.NDopedCrystal;
-import elements.crystal.PDopedCrystal;
 import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
