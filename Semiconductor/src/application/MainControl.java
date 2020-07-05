@@ -2,6 +2,7 @@ package application;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -234,7 +235,7 @@ public class MainControl implements Initializable {
 			String strDope = getDopedType(toogleGroupDope.getSelectedToggle());
 			timeline.stop();
 			setButtonOnStop();
-			setCrystalView("I", strDope);
+			setCrystalView("Intrinsic", strDope);
 			setDisableChooseDopeType(true);
 		});
 		
@@ -319,12 +320,62 @@ public class MainControl implements Initializable {
 			radiomnitemNType.setSelected(true);
 		} else if (choice.contains("I")) {
 			radiomnitemIType.setSelected(true);
+			setDisableChooseDopeType(true);
 		}
 		paneElements.setVisible(true); 
 	}
 	
 	public void setCrystalView(String choice, String dope) {
+/*		if(choice.contains("P")) {
+			newCrystal = new PDopedCrystal(dope);
+		}
+
+		else if (choice.contains("N")) {
+			newCrystal = new NDopedCrystal(dope);
+		}
+		else if (choice.contains("I")) {
+			newCrystal = new Crystal();
+		}
+*/	//	newCrystal = CheckCrystal.get(choice, dope);
+
+		// get class name
 		newCrystal = new Crystal();
+		String[] splited = choice.split("-");
+		String classPath = "elements.crystal." + splited[0] + "DopedCrystal";
+		Object temp = null;
+		Class<?> clazz = null;
+		try {
+			clazz = Class.forName(classPath); // throw ClassNotFoundException
+			Constructor<?> ctor = clazz.getConstructor(String.class); //throw NoSuchMethodException, SecurityException
+			newCrystal = (Crystal) ctor.newInstance(dope);
+			clazz.cast(temp);
+		} catch (ClassNotFoundException e1) {
+			//e1.printStackTrace();
+			// class not found handling
+			if(splited[0].equalsIgnoreCase("Intrinsic")==false) {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setHeaderText("Invalid type");
+				alert.setContentText("Sorry, we haven't investigated on that type yet.\nLet's see the intrinstic type instead!");
+				alert.showAndWait();
+			}
+		} catch (Exception e2) {
+			// e2.printStackTrace();
+			// handling such exception
+		}
+
+	//	clazz.cast(newCrystal);
+		/* new Crystal(); 
+		
+		ArrayList<Crystal> crystalTypeList = new ArrayList<Crystal>();
+		crystalTypeList.add(new PDopedCrystal(dope));
+		crystalTypeList.add(new NDopedCrystal(dope));
+		
+		for(int i = 0; i<crystalTypeList.size(); i++) {
+			Crystal obj = crystalTypeList.get(i);
+			System.out.println(obj.getClass().toString());
+			if(obj.getClass().toString().contains(choice))
+				newCrystal = obj;
+		} */
 		
 		
 		// set crystal frame and background
@@ -358,16 +409,6 @@ public class MainControl implements Initializable {
 			paneElements.getChildren().clear();
 		}
 		
-		if(choice.contains("P")) {
-			newCrystal.initCrystal("P", dope);
-		}
-
-		else if (choice.contains("N")) {
-			newCrystal.initCrystal("AL", dope);
-		}
-		else if (choice.contains("I")) {
-			newCrystal.initCrystal("SI", dope);
-		}
 		for (int x = 0; x < newCrystal.crystalWidth; x++) {
 			for (int y = 0; y < newCrystal.crystalHeight; y++) {
 				paneElements.getChildren().add(newCrystal.getAtomAt(x, y).getView());
