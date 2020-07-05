@@ -3,6 +3,7 @@ package elements.atom;
 import java.util.Random;
 
 import elements.charge.ConductionBandElectron;
+import elements.charge.ValenceBandCharge;
 import elements.charge.ValenceBandElectron;
 import elements.charge.ValenceBandHole;
 import elements.crystal.Crystal;
@@ -57,7 +58,16 @@ public abstract class State {
 				newHolePosition = "right";
 				ExchangingAtom = this.owner.getAdjacentAtom("left");
 				
-				ValenceBandElectron eHolder = (ValenceBandElectron) ExchangingAtom.getValenceCharge(newHolePosition);
+				// fixbug at line 60
+				ValenceBandCharge eHolder_prev = ExchangingAtom.getValenceCharge(newHolePosition);
+				ValenceBandElectron eHolder = null;
+				if(eHolder_prev instanceof ValenceBandElectron) {
+					eHolder = (ValenceBandElectron)eHolder_prev;
+				} else if (eHolder_prev instanceof ValenceBandHole) {
+					return;
+				}
+				
+				// ValenceBandElectron eHolder = (ValenceBandElectron) ExchangingAtom.getValenceCharge(newHolePosition);
 				this.owner.valenceCharges.replace(holePosition, eHolder);
 				ExchangingAtom.valenceCharges.replace(newHolePosition, holeHolder);
 			 
@@ -102,7 +112,18 @@ public abstract class State {
 					}
 				}
 			}
-			ValenceBandElectron eHolder = (ValenceBandElectron) ExchangingAtom.getValenceCharge(newHolePosition);
+			
+			// fix bug at line 105
+			
+			ValenceBandCharge eHolder_prev = ExchangingAtom.getValenceCharge(newHolePosition);
+			ValenceBandElectron eHolder = null;
+			if(eHolder_prev instanceof ValenceBandElectron) {
+				eHolder = (ValenceBandElectron)eHolder_prev;
+			} else if (eHolder_prev instanceof ValenceBandHole) {
+				return;
+			}
+
+			// ValenceBandElectron eHolder = (ValenceBandElectron) ExchangingAtom.getValenceCharge(newHolePosition);
 			this.owner.valenceCharges.replace(holePosition, eHolder); 
 			ExchangingAtom.valenceCharges.replace(newHolePosition, holeHolder);
 			
@@ -133,6 +154,17 @@ public abstract class State {
 			diffusePosition = "left";
 			break;
 		}
+		
+		// fix bug at line 145
+		
+/*		ValenceBandCharge valenceE_prev = this.owner.valenceCharges.get(diffusePosition);
+		ValenceBandElectron valenceE = null;
+		if(valenceE_prev instanceof ValenceBandElectron) {
+			valenceE = (ValenceBandElectron)valenceE_prev;
+		} else {
+			return;
+		} */
+		
 		ValenceBandElectron valenceE = (ValenceBandElectron) this.owner.valenceCharges.get(diffusePosition);
 		ElementImage explosion = ElementImage.getExplosionImage();
 		root.getChildren().add(explosion);
